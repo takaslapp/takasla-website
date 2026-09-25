@@ -40,51 +40,39 @@ export default function Footer() {
           </svg>
         </div>
 
-        {/* Floating Takasla Simge Emblem centered on top border */}
-        <div className="relative flex justify-center -mt-16 sm:-mt-24 md:-mt-28 mb-4 z-30">
-          <img
-            src="/images/takasla-simge.webp"
-            alt="Takasla Simge"
-            className="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56 object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
-          />
-        </div>
-
-        {/* Center Brand Title & Subtitle */}
-        <div className="text-center relative z-10 mb-8 pt-2">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-2 leading-none font-sans">
-            Takasla
-          </h2>
+        {/* Center Brand Logo & Subtitle */}
+        <div className="text-center relative z-10 mb-8 pt-12 sm:pt-16 flex flex-col items-center">
+          <Link href="/" className="inline-block group mb-3">
+            <img
+              src="/images/takasla-yesil-logo.png"
+              alt="Takasla"
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_4px_24px_rgba(190,243,73,0.3)]"
+            />
+          </Link>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 font-sans font-normal not-italic tracking-normal">
             Parayla değil, Takasla.
           </p>
         </div>
 
-        {/* Center 2 Buttons with Uploaded Image Logos */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 relative z-10 mb-8 w-full max-w-[220px] sm:max-w-none mx-auto">
-          {/* Button 1: App Store */}
+        {/* Apple App Store Corporate Button Centered */}
+        <div className="flex items-center justify-center relative z-10 mb-10">
           <Link
             href="#"
-            className="w-full sm:w-auto justify-center bg-[#00E676] text-black font-medium px-5 py-2.5 rounded-full text-xs sm:text-sm flex items-center gap-2 hover:bg-[#00d069] hover:scale-105 transition-all shadow-lg active:scale-95"
+            className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"
           >
             <img
               src="/images/apple-logo.png"
-              alt="App Store"
-              className="w-4 h-4 sm:w-5 sm:h-5 object-contain"
+              alt="Apple"
+              className="w-6 h-6 object-contain brightness-0 invert"
             />
-            <span>App Store&apos;dan İndir</span>
-          </Link>
-
-          {/* Button 2: Google Play */}
-          <Link
-            href="#"
-            className="w-full sm:w-auto justify-center bg-[#093829] border border-[#0e4835] text-white font-medium px-5 py-2.5 rounded-full text-xs sm:text-sm flex items-center gap-2 hover:bg-[#0e4835] hover:scale-105 transition-all shadow-lg active:scale-95"
-          >
-            <img
-              src="/images/google-play-logo.webp"
-              alt="Google Play"
-              className="w-4 h-4 sm:w-5 sm:h-5 object-contain"
-            />
-            <span>Google Play&apos;den İndir</span>
+            <div className="flex flex-col text-left leading-none">
+              <span className="text-[10px] text-gray-300 font-normal tracking-wide">
+                App Store&apos;dan
+              </span>
+              <span className="text-base font-semibold text-white tracking-tight mt-0.5">
+                İndirin
+              </span>
+            </div>
           </Link>
         </div>
 
@@ -113,18 +101,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Row: Social Icons on Left | Centered Copyright | Legal Links Pill on Right */}
-        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
+        <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 items-center gap-4 relative z-10">
           {/* Social Media Links - ICON ONLY */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="#"
-              aria-label="Facebook"
-              className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00E676] text-[#00E676] hover:text-black flex items-center justify-center transition-all"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </Link>
+          <div className="flex items-center justify-center md:justify-start gap-3 order-2 md:order-1">
             <Link
               href="#"
               aria-label="Instagram"
@@ -146,19 +125,21 @@ export default function Footer() {
           </div>
 
           {/* Copyright Notice Centered */}
-          <p className="text-xs sm:text-sm text-gray-400 font-normal text-center">
+          <p className="text-xs sm:text-sm text-gray-400 font-normal text-center order-3 md:order-2">
             © 2026 Takasla. Tüm hakları saklıdır.
           </p>
 
           {/* Right Column: Cream Pill Badge */}
-          <div className="bg-[#FAF7EE] text-gray-900 px-6 py-2.5 rounded-full text-xs font-semibold flex items-center gap-5 shadow-md">
-            <Link href="/cerez-politikasi" className="hover:text-[#00A859] transition-colors">
-              Çerez Politikası
-            </Link>
-            <span className="text-gray-300">•</span>
-            <Link href="/gizlilik-politikasi" className="hover:text-[#00A859] transition-colors">
-              Gizlilik Politikası
-            </Link>
+          <div className="flex justify-center md:justify-end order-1 md:order-3">
+            <div className="bg-[#FAF7EE] text-gray-900 px-6 py-2.5 rounded-full text-xs font-semibold flex items-center gap-5 shadow-md">
+              <Link href="/cerez-politikasi" className="hover:text-[#00A859] transition-colors">
+                Çerez Politikası
+              </Link>
+              <span className="text-gray-300">•</span>
+              <Link href="/gizlilik-politikasi" className="hover:text-[#00A859] transition-colors">
+                Gizlilik Politikası
+              </Link>
+            </div>
           </div>
         </div>
       </div>

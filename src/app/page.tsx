@@ -13,8 +13,8 @@ export default function Home() {
         style={{ backgroundImage: "url('/images/hero.webp')" }}
         data-purpose="hero-section"
       >
-        {/* Very light subtle overlay to preserve image brightness while keeping text readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/5 to-black/25 pointer-events-none z-0"></div>
+        {/* Balanced overlay preserving image vibrance and text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/20 to-black/40 pointer-events-none z-0"></div>
         <div className="hero-glow"></div>
 
         {/* BEGIN: Navigation (With Hamburger Menu for Mobile) */}
@@ -27,8 +27,13 @@ export default function Home() {
           data-purpose="hero-content"
         >
           {/* Main Slogan */}
-          <h1 className="text-3xl md:text-5xl lg:text-[58px] font-bold leading-tight mb-3 max-w-4xl tracking-tight text-white drop-shadow-md">
-            Parayla değil, <span className="text-brand-green">takasla.</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[58px] font-bold leading-tight mb-4 max-w-4xl tracking-tight text-white drop-shadow-md flex flex-wrap items-center justify-center gap-x-2.5 sm:gap-x-3.5 md:gap-x-4 gap-y-2">
+            <span>Parayla değil,</span>
+            <img
+              src="/images/takasla-yesil-logo.png"
+              alt="takasla"
+              className="h-8 sm:h-10 md:h-12 lg:h-[52px] w-auto object-contain inline-block drop-shadow-[0_4px_20px_rgba(190,243,73,0.35)]"
+            />
           </h1>
 
           {/* Subtitle */}
@@ -37,32 +42,25 @@ export default function Home() {
             satın almadan takas yap.
           </p>
 
-          {/* App Store & Google Play Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 w-full max-w-[220px] sm:max-w-none">
-            {/* App Store Button */}
+          {/* Apple App Store Corporate Button Centered */}
+          <div className="flex items-center justify-center mb-6">
             <Link
-              className="w-full sm:w-auto justify-center bg-white text-brand-dark px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm hover:bg-gray-100 transition-all flex items-center gap-2 shadow-lg hover:scale-105 active:scale-95"
               href="#"
+              className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"
             >
               <img
                 src="/images/apple-logo.png"
-                alt="App Store"
-                className="w-4 h-4 sm:w-5 sm:h-5 object-contain"
+                alt="Apple"
+                className="w-6 h-6 object-contain brightness-0 invert"
               />
-              <span>App Store&apos;dan İndir</span>
-            </Link>
-
-            {/* Google Play Button */}
-            <Link
-              className="w-full sm:w-auto justify-center bg-white/15 border border-white/40 backdrop-blur-md text-white px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm hover:bg-white/25 transition-all flex items-center gap-2 shadow-lg hover:scale-105 active:scale-95"
-              href="#"
-            >
-              <img
-                src="/images/google-play-logo.webp"
-                alt="Google Play"
-                className="w-4 h-4 sm:w-5 sm:h-5 object-contain"
-              />
-              <span>Google Play&apos;den İndir</span>
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[10px] text-gray-300 font-normal tracking-wide">
+                  App Store&apos;dan
+                </span>
+                <span className="text-base font-semibold text-white tracking-tight mt-0.5">
+                  İndirin
+                </span>
+              </div>
             </Link>
           </div>
 

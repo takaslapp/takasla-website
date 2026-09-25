@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: "Takasla - Parayla değil takasla",
   description:
     "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
+  icons: {
+    icon: "/images/takasla-icon.jpg",
+    apple: "/images/takasla-icon.jpg",
+  },
 };
 
 export default function RootLayout({

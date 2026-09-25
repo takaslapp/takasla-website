@@ -58,29 +58,17 @@ export default function Navbar() {
 
       {/* Center: Takasla Logo */}
       <div className="flex items-center justify-center">
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center group">
           <img
-            src="/images/takasla-simge.webp"
-            alt="Takasla Logo"
-            className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_4px_16px_rgba(0,230,118,0.5)]"
+            src="/images/takasla-yesil-logo.png"
+            alt="Takasla"
+            className="h-7 sm:h-8 md:h-9 w-auto object-contain group-hover:scale-105 transition-transform"
           />
-          <span className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white font-sans">
-            Takasla
-          </span>
         </Link>
       </div>
 
       {/* Right: Social Media Icons */}
       <div className="flex items-center gap-2 sm:gap-3 justify-end">
-        <Link
-          href="#"
-          aria-label="Facebook"
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-[#00E676] text-white hover:text-black flex items-center justify-center transition-all shadow-sm"
-        >
-          <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-          </svg>
-        </Link>
         <Link
           href="#"
           aria-label="Instagram"

@@ -12,15 +12,12 @@ export default function GizlilikPolitikasiPage() {
     <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
       {/* Header */}
       <header className="w-full bg-[#151716] text-white py-5 px-6 sm:px-12 flex items-center justify-between border-b border-white/10 shadow-md">
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center group">
           <img
-            src="/images/takasla-simge.webp"
+            src="/images/takasla-yesil-logo.png"
             alt="Takasla"
-            className="w-9 h-9 object-contain group-hover:scale-105 transition-transform"
+            className="h-7 sm:h-8 w-auto object-contain group-hover:scale-105 transition-transform"
           />
-          <span className="text-2xl font-bold tracking-tight text-white font-sans">
-            Takasla
-          </span>
         </Link>
         <div className="flex items-center gap-6">
           <Link
