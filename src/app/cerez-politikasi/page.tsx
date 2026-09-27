@@ -58,9 +58,9 @@ export default function CerezPolitikasiPage() {
               </p>
             </div>
             <img
-              src="/images/takasla-simge.webp"
-              alt="Takasla Simge"
-              className="w-20 h-20 sm:w-24 sm:h-24 object-contain opacity-90 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] self-end md:self-center"
+              src="/images/takasla-3d.png"
+              alt="Takasla 3D"
+              className="w-20 h-20 sm:w-24 sm:h-24 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] self-end md:self-center"
             />
           </div>
         </div>
