@@ -1,9 +1,17 @@
 import Link from "next/link";
 
-export default function Footer() {
+interface FooterProps {
+  className?: string;
+  outerBg?: string;
+}
+
+export default function Footer({
+  className = "",
+  outerBg = "bg-[#0B0D0C]",
+}: FooterProps = {}) {
   return (
     <footer
-      className="relative bg-white pt-20 pb-0"
+      className={`relative ${outerBg} pt-0 pb-0 ${className}`}
       data-purpose="main-footer"
     >
       {/* Dark Container stretching with large rounded top corners */}

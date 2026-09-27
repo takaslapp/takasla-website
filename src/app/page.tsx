@@ -75,7 +75,7 @@ export default function Home() {
       {/* END: Statement Section */}
 
       {/* BEGIN: About Us Section */}
-      <section className="py-24 bg-white" data-purpose="about-section">
+      <section id="guvenli-takas" className="py-24 bg-white" data-purpose="about-section">
         <div className="container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-20">

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function StatementSection() {
   return (
-    <section className="py-20 sm:py-28 md:py-32 bg-[#FAFAFA] border-b border-gray-100 relative overflow-hidden">
+    <section id="nasil-calisir" className="py-20 sm:py-28 md:py-32 bg-[#FAFAFA] border-b border-gray-100 relative overflow-hidden">
       {/* Background subtle glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#00E676]/5 rounded-full blur-3xl pointer-events-none"></div>
 

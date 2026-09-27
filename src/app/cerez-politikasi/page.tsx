@@ -143,7 +143,7 @@ export default function CerezPolitikasiPage() {
       </main>
 
       {/* Main Footer */}
-      <Footer />
+      <Footer outerBg="bg-[#FAF9F5]" className="pt-12" />
     </div>
   );
 }
