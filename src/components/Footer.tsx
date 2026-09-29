@@ -139,6 +139,18 @@ export default function Footer({
             <Link href="/mesafeli-hizmet-sozlesmesi" className="hover:text-[#00E676] transition-colors">
               Mesafeli Hizmet Sözleşmesi
             </Link>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <Link href="/on-bilgilendirme-formu" className="hover:text-[#00E676] transition-colors">
+              Ön Bilgilendirme Formu
+            </Link>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <Link href="/iptal-ve-iade-kosullari" className="hover:text-[#00E676] transition-colors">
+              İptal ve İade Koşulları
+            </Link>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <Link href="/iletisim-ve-ticari-bilgiler" className="hover:text-[#00E676] transition-colors">
+              İletişim ve Ticari Bilgiler
+            </Link>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1">
