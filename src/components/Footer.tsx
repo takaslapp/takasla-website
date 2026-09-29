@@ -84,84 +84,43 @@ export default function Footer({
           </Link>
         </div>
 
-        {/* Bottom Contact Details */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end justify-between relative z-10">
-          <div className="md:col-span-12 space-y-2">
-            <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight">
-              İletişim
+        {/* Corporate 3-Column Footer Grid: Contact, Legal & Privacy, Contracts & Rights */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pt-8 pb-10 border-t border-white/10 relative z-10">
+          {/* Column 1: Contact Details & Social */}
+          <div className="sm:col-span-2 lg:col-span-4 space-y-4">
+            <h4 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span className="w-1.5 h-4 bg-[#00E676] rounded-full inline-block" />
+              İletişim & Şirket
             </h4>
-            <div className="text-xs sm:text-sm text-gray-300 space-y-1 font-light leading-relaxed">
-              <p className="font-normal text-white">
-                Esenler Mh. Horasan Sk. Görgülü Center 4/4
+            <div className="text-xs sm:text-sm text-gray-300 space-y-1.5 font-light leading-relaxed">
+              <p className="font-normal text-white">Recep Aydoğan</p>
+              <p>Esenler Mh. Horasan Sk. Görgülü Center 4/4</p>
+              <p>Selçuklu / Konya</p>
+              <p className="pt-1">
+                <span className="text-gray-400">Tel:</span>{" "}
+                <a href="tel:05050638543" className="text-white hover:text-[#00E676] transition-colors">
+                  0505 063 85 43
+                </a>
               </p>
-              <p className="font-normal text-white">Selçuklu / Konya</p>
-              <p className="pt-1 text-gray-300">0505 063 85 43</p>
               <p>
+                <span className="text-gray-400">E-posta:</span>{" "}
                 <a
                   href="mailto:destek@takasla.com"
-                  className="text-gray-300 hover:text-[#00E676] underline transition-colors"
+                  className="text-gray-200 hover:text-[#00E676] underline transition-colors"
                 >
                   destek@takasla.com
                 </a>
               </p>
             </div>
-          </div>
-        </div>
 
-        {/* Bottom Row: Legal Links & Copyright */}
-        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col gap-6 relative z-10">
-          {/* Legal Links Bar */}
-          <div className="flex justify-center items-center flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-gray-300">
-            <Link href="/gizlilik-politikasi" className="hover:text-[#00E676] transition-colors">
-              Gizlilik Politikası
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/kvkk-aydinlatma-metni" className="hover:text-[#00E676] transition-colors">
-              KVKK Aydınlatma Metni
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/kullanim-kosullari" className="hover:text-[#00E676] transition-colors">
-              Kullanım Koşulları
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/topluluk-kurallari" className="hover:text-[#00E676] transition-colors">
-              Topluluk Kuralları
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/hesap-ve-veri-silme" className="hover:text-[#00E676] transition-colors">
-              Hesap ve Veri Silme
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/cerez-politikasi" className="hover:text-[#00E676] transition-colors">
-              Çerez Politikası
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/mesafeli-hizmet-sozlesmesi" className="hover:text-[#00E676] transition-colors">
-              Mesafeli Hizmet Sözleşmesi
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/on-bilgilendirme-formu" className="hover:text-[#00E676] transition-colors">
-              Ön Bilgilendirme Formu
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/iptal-ve-iade-kosullari" className="hover:text-[#00E676] transition-colors">
-              İptal ve İade Koşulları
-            </Link>
-            <span className="text-gray-600 hidden sm:inline">•</span>
-            <Link href="/iletisim-ve-ticari-bilgiler" className="hover:text-[#00E676] transition-colors">
-              İletişim ve Ticari Bilgiler
-            </Link>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1">
-            {/* Social Media Links - ICON ONLY */}
-            <div className="flex items-center gap-3">
+            {/* Social Media Links */}
+            <div className="pt-2 flex items-center gap-3">
               <a
                 href="https://instagram.com/takaslapp"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00E676] text-[#00E676] hover:text-black flex items-center justify-center transition-all shadow-sm"
+                className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00E676] text-[#00E676] hover:text-black flex items-center justify-center transition-all shadow-sm border border-white/10 hover:border-transparent"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -172,19 +131,94 @@ export default function Footer({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X (Twitter)"
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00E676] text-[#00E676] hover:text-black flex items-center justify-center transition-all shadow-sm"
+                className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00E676] text-[#00E676] hover:text-black flex items-center justify-center transition-all shadow-sm border border-white/10 hover:border-transparent"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
             </div>
-
-            {/* Copyright Notice */}
-            <p className="text-xs sm:text-sm text-gray-400 font-normal text-center sm:text-right">
-              © 2026 Takasla. Tüm hakları saklıdır.
-            </p>
           </div>
+
+          {/* Column 2: Legal & Privacy */}
+          <div className="lg:col-span-4 space-y-3">
+            <h4 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span className="w-1.5 h-4 bg-[#00E676] rounded-full inline-block" />
+              Yasal & Gizlilik
+            </h4>
+            <ul className="text-xs sm:text-sm text-gray-300 space-y-2.5">
+              <li>
+                <Link href="/kullanim-kosullari" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Kullanım Koşulları
+                </Link>
+              </li>
+              <li>
+                <Link href="/gizlilik-politikasi" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Gizlilik Politikası
+                </Link>
+              </li>
+              <li>
+                <Link href="/kvkk-aydinlatma-metni" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  KVKK Aydınlatma Metni
+                </Link>
+              </li>
+              <li>
+                <Link href="/cerez-politikasi" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Çerez Politikası
+                </Link>
+              </li>
+              <li>
+                <Link href="/topluluk-kurallari" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Topluluk Kuralları
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contracts & Consumer Rights */}
+          <div className="lg:col-span-4 space-y-3">
+            <h4 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span className="w-1.5 h-4 bg-[#00E676] rounded-full inline-block" />
+              Sözleşmeler & Haklar
+            </h4>
+            <ul className="text-xs sm:text-sm text-gray-300 space-y-2.5">
+              <li>
+                <Link href="/mesafeli-hizmet-sozlesmesi" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Mesafeli Hizmet Sözleşmesi
+                </Link>
+              </li>
+              <li>
+                <Link href="/on-bilgilendirme-formu" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Ön Bilgilendirme Formu
+                </Link>
+              </li>
+              <li>
+                <Link href="/iptal-ve-iade-kosullari" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  İptal, Cayma ve İade Koşulları
+                </Link>
+              </li>
+              <li>
+                <Link href="/hesap-ve-veri-silme" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  Hesap ve Veri Silme
+                </Link>
+              </li>
+              <li>
+                <Link href="/iletisim-ve-ticari-bilgiler" className="hover:text-[#00E676] transition-colors inline-block py-0.5">
+                  İletişim ve Ticari Bilgiler
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Row: Copyright & Assurance */}
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 relative z-10 text-xs text-gray-400">
+          <p className="text-center sm:text-left">
+            © 2026 Takasla. Tüm hakları saklıdır.
+          </p>
+          <p className="text-gray-400 font-light text-center sm:text-right">
+            Parayla Değil, <span className="text-[#00E676] font-medium">Takasla</span>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
+import LegalNav from "@/components/LegalNav";
 
 export const metadata: Metadata = {
   title: "Kullanım Koşulları - Takasla",
@@ -44,7 +45,7 @@ export default function KullanimKosullariPage() {
       {/* Main Content Area */}
       <main className="max-w-4xl mx-auto px-6 py-12 sm:py-16 w-full flex-grow">
         {/* Banner Card */}
-        <div className="bg-[#151716] text-white rounded-3xl p-8 sm:p-12 mb-10 relative overflow-hidden shadow-xl border border-white/10">
+        <div className="bg-[#151716] text-white rounded-3xl p-8 sm:p-12 mb-6 sm:mb-8 relative overflow-hidden shadow-xl border border-white/10">
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <span className="inline-block bg-[#00E676]/15 text-[#00E676] text-xs font-semibold px-3 py-1 rounded-full mb-3">
@@ -60,10 +61,13 @@ export default function KullanimKosullariPage() {
             <img
               src="/images/takasla-3d.png"
               alt="Takasla 3D"
-              className="w-20 h-20 sm:w-24 sm:h-24 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] self-end md:self-center"
+              className="hidden md:block w-24 h-24 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] flex-shrink-0"
             />
           </div>
         </div>
+
+        {/* Legal Navigation Bar */}
+        <LegalNav currentPage="kullanim-kosullari" />
 
         {/* Content Details */}
         <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-gray-100 space-y-4 text-gray-700 leading-relaxed mb-12">
