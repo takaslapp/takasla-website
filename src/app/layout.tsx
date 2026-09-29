@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 
@@ -15,21 +15,6 @@ export const metadata: Metadata = {
     icon: "/images/takasla-icon.jpg",
     apple: "/images/takasla-icon.jpg",
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Takasla",
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#2f7599" },
-    { media: "(prefers-color-scheme: dark)", color: "#2f7599" },
-  ],
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -39,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={outfit.variable}>
-      <body className="bg-[#2f7599] text-gray-800 antialiased overflow-x-clip font-sans">
+      <body className="bg-white text-gray-800 antialiased overflow-x-hidden font-sans">
         {children}
       </body>
     </html>
