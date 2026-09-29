@@ -50,46 +50,26 @@ export default function HakkimizdaPage() {
               </h1>
             </div>
 
-            {/* Intro Paragraph */}
+            {/* Main Narrative Text */}
             <div className="text-gray-700 text-sm sm:text-base leading-relaxed space-y-4">
               <p>
-                <strong className="text-gray-900 font-semibold">Takasla</strong>, Türkiye&apos;nin dört bir yanındaki kullanıcıların kullanmadıkları eşyalarını ekonomiye ve günlük hayata geri kazandırmak amacıyla kurulmuş yenilikçi bir dijital takas platformudur. Amacımız; kullanıcılarımıza güvenilir, pratik ve şeffaf bir platform sunarak, yeni bir harcama yapmadan aradıkları ürünlere kolayca ulaşmalarını sağlamaktır. Her takas fırsatını titizlikle destekliyor, sürdürülebilir bir geleceği güvence altına alacak döngüsel tüketim bilincini yaygınlaştırıyoruz.
+                <strong className="text-gray-900 font-semibold">Takasla</strong>, kullanılmayan eşyaların yeniden değerlendirilebildiği, kullanıcıların ihtiyaç duydukları ürünlere takas yoluyla güvenle ulaşabildiği yeni nesil bir dijital platformdur.
               </p>
-            </div>
-
-            {/* Section: Takas Neden Önemli? */}
-            <div className="space-y-3">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
-                Takas Neden Önemli?
-              </h2>
-              <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                Takas, insanlık tarihinin en köklü ve en güvenilir dayanışma modellerinden biridir. Günümüz dünyasında ise kaynakların verimli kullanımı, israfın önlenmesi ve bireysel bütçelerin korunması açısından vazgeçilmez bir çözüm haline gelmiştir. Takasla olarak, bu kadim paylaşım kültürünü modern dijital teknolojiler ve akıllı eşleşme algoritmalarıyla buluşturuyor; birikimlerinizi ve eşyalarınızı en doğru şekilde değerlendirmenizi sağlıyoruz.
+              <p>
+                Amacımız, insanların sahip oldukları ancak artık kullanmadıkları ürünleri kolayca değerlendirebilmelerini sağlarken, geleneksel tüketime ve yeni harcamalara alternatif, daha sürdürülebilir, ekonomik ve erişilebilir bir paylaşım modeli sunmaktır.
               </p>
-            </div>
-
-            {/* Section: Neler Yapıyoruz? */}
-            <div className="space-y-4">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
-                Neler Yapıyoruz?
-              </h2>
-              <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                Takasla olarak, takas süreçlerinizi en verimli ve güvenli şekilde yönetebilmeniz için sizlere çeşitli hizmetler sunuyoruz:
+              <p>
+                Takasla&apos;da kullanıcılar kendi ürünlerini saniyeler içinde ilan olarak paylaşabilir, binlerce farklı kategorideki ürünleri keşfedebilir ve kendi ürünleriyle doğrudan takas teklifinde bulunabilir. Şeffaf teklif mekanizmaları, güvenli uygulama içi mesajlaşma ve takas yönetimi sayesinde süreç tek bir platform üzerinden kolayca takip edilebilir.
               </p>
-
-              <div className="space-y-3 text-sm sm:text-base leading-relaxed text-gray-700">
-                <p>
-                  <strong className="text-gray-900 font-semibold">Akıllı Eşleşme ve İlan Keşfi:</strong> Algoritmamız, listelediğiniz ürünün kategorisine, değerine ve aradığınız eşyalara göre en uygun takas tekliflerini tespit eder ve sizinle buluşturur.
-                </p>
-                <p>
-                  <strong className="text-gray-900 font-semibold">Güvenli Takas Altyapısı:</strong> Her kullanıcının güvenliği önceliğimizdir. Şeffaf teklif akışı, onay mekanizmaları ve kullanıcı puanlama sistemiyle takas sürecinizi güvenceye alıyoruz.
-                </p>
-                <p>
-                  <strong className="text-gray-900 font-semibold">Hızlı ve Doğrudan İletişim:</strong> Sizi bekletmeden, anlık uygulama içi mesajlaşma ile takas tekliflerinizi saniyeler içinde iletebilir ve taraflarla doğrudan anlaşabilirsiniz.
-                </p>
-                <p>
-                  <strong className="text-gray-900 font-semibold">Sıfır İsraf ve Çevre Dostu Yaklaşım:</strong> Atıl duran eşyaları yeniden değerlendirerek karbon ayak izinizi azaltmanıza ve döngüsel ekonomiye katkıda bulunmanıza aracılık ediyoruz.
-                </p>
-              </div>
+              <p>
+                Bizim için Takasla yalnızca ürünlerin el değiştirdiği bir uygulama değil; kullanılmayan eşyaların yeniden değer kazandığı, gereksiz tüketimin yerini bilinçli dayanışmaya bıraktığı ve kullanıcılar arasında karşılıklı faydaya dayalı yeni bir alışveriş alışkanlığının geliştiği yaşayan bir ekosistemdir.
+              </p>
+              <p>
+                Teknolojiyi, sade ve akıcı kullanıcı deneyimini ve güven odaklı platform yapısını bir araya getirerek takası dönemsel bir tercih değil, günlük hayatın doğal, tasarruflu ve pratik bir parçası hâline getirmeyi hedefliyoruz.
+              </p>
+              <p className="pt-2 text-base sm:text-lg font-bold text-gray-900">
+                Parayla Değil, <span className="text-[#00A859]">Takasla</span>.
+              </p>
             </div>
 
             {/* Mission & Vision Cards Grid */}

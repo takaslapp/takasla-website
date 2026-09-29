@@ -72,9 +72,6 @@ export default function IletisimPage() {
                   <p className="text-gray-800 leading-relaxed">
                     Esenler Mh. Horasan Sk. Görgülü Center No:4/4 Selçuklu Konya
                   </p>
-                  <p className="text-xs text-[#00A859] font-medium mt-1">
-                    Konum: Bromak Agency
-                  </p>
                 </div>
 
                 {/* E-Posta */}
@@ -108,16 +105,16 @@ export default function IletisimPage() {
                   <h3 className="text-sm font-bold text-gray-900 mb-3">
                     Takipte Kalın
                   </h3>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     {/* Instagram */}
                     <a
                       href="https://instagram.com/takaslapp"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Instagram"
-                      className="w-10 h-10 rounded-full bg-[#00A859] hover:bg-[#008f4c] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-sm"
+                      className="w-9 h-9 rounded-full border border-gray-300/80 hover:border-gray-900 text-gray-600 hover:text-black hover:bg-black/5 flex items-center justify-center transition-all"
                     >
-                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                       </svg>
                     </a>
@@ -128,9 +125,9 @@ export default function IletisimPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="X (Twitter)"
-                      className="w-10 h-10 rounded-full bg-[#00A859] hover:bg-[#008f4c] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-sm"
+                      className="w-9 h-9 rounded-full border border-gray-300/80 hover:border-gray-900 text-gray-600 hover:text-black hover:bg-black/5 flex items-center justify-center transition-all"
                     >
-                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                       </svg>
                     </a>
@@ -139,9 +136,9 @@ export default function IletisimPage() {
                     <a
                       href="mailto:takaslappcom@gmail.com"
                       aria-label="E-Posta Gönder"
-                      className="w-10 h-10 rounded-full bg-[#00A859] hover:bg-[#008f4c] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-sm"
+                      className="w-9 h-9 rounded-full border border-gray-300/80 hover:border-gray-900 text-gray-600 hover:text-black hover:bg-black/5 flex items-center justify-center transition-all"
                     >
-                      <svg className="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
+                      <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </a>
@@ -150,7 +147,7 @@ export default function IletisimPage() {
               </div>
 
               {/* Right Column: Google Maps Embed */}
-              <div className="lg:col-span-7 flex flex-col gap-3">
+              <div className="lg:col-span-7">
                 <div className="w-full h-[320px] sm:h-[380px] rounded-2xl overflow-hidden shadow-sm border border-gray-200 bg-gray-100">
                   <iframe
                     title="Bromak Agency Konum Haritası"
@@ -163,22 +160,6 @@ export default function IletisimPage() {
                     referrerPolicy="no-referrer-when-downgrade"
                     className="w-full h-full"
                   />
-                </div>
-
-                {/* Map Action Link */}
-                <div className="flex items-center justify-between text-xs text-gray-500 px-1">
-                  <span>📍 Bromak Agency - Görgülü Center No:4/4 Selçuklu / Konya</span>
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Bromak+Agency+G%C3%B6rg%C3%Bcl%C3%BC+Center+Sel%C3%A7uklu+Konya"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#00A859] hover:text-[#008f4c] font-semibold underline inline-flex items-center gap-1"
-                  >
-                    Google Haritalar&apos;da Aç
-                    <svg className="w-3.5 h-3.5 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
                 </div>
               </div>
             </div>
