@@ -40,18 +40,21 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Menu Links */}
-        <div className="hidden md:flex items-center gap-7 text-sm font-medium text-gray-200">
-          <Link className="hover:text-white transition-colors" href="#">
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-200">
+          <Link className="hover:text-white transition-colors" href="/">
             Ana Sayfa
           </Link>
-          <Link className="hover:text-white transition-colors" href="#nasil-calisir">
+          <Link className="hover:text-white transition-colors" href="/hakkimizda">
+            Hakkımızda
+          </Link>
+          <Link className="hover:text-white transition-colors" href="/#nasil-calisir">
             Nasıl Çalışır?
           </Link>
-          <Link className="hover:text-white transition-colors" href="#guvenli-takas">
+          <Link className="hover:text-white transition-colors" href="/#guvenli-takas">
             Güvenli Takas
           </Link>
-          <Link className="hover:text-white transition-colors" href="#sss">
-            SSS
+          <Link className="hover:text-white transition-colors" href="/iletisim">
+            İletişim
           </Link>
         </div>
       </div>
@@ -101,30 +104,37 @@ export default function Navbar() {
         <Link
           onClick={() => setMobileMenuOpen(false)}
           className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
-          href="#"
+          href="/"
         >
           Ana Sayfa
         </Link>
         <Link
           onClick={() => setMobileMenuOpen(false)}
           className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
-          href="#nasil-calisir"
+          href="/hakkimizda"
+        >
+          Hakkımızda
+        </Link>
+        <Link
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
+          href="/#nasil-calisir"
         >
           Nasıl Çalışır?
         </Link>
         <Link
           onClick={() => setMobileMenuOpen(false)}
           className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
-          href="#guvenli-takas"
+          href="/#guvenli-takas"
         >
           Güvenli Takas
         </Link>
         <Link
           onClick={() => setMobileMenuOpen(false)}
           className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
-          href="#sss"
+          href="/iletisim"
         >
-          SSS
+          İletişim
         </Link>
 
         {/* Social Links inside Mobile Drawer */}

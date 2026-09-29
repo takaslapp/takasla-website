@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import LegalNav from "@/components/LegalNav";
+import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "Topluluk Kuralları - Takasla",
@@ -11,36 +12,7 @@ export const metadata: Metadata = {
 export default function ToplulukKurallariPage() {
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
-      {/* Header */}
-      <header className="w-full bg-[#151716] text-white py-5 px-6 sm:px-12 flex items-center justify-between border-b border-white/10 shadow-md">
-        <Link href="/" className="flex items-center group">
-          <img
-            src="/images/takasla-yesil-logo.png"
-            alt="Takasla"
-            className="h-7 sm:h-8 w-auto object-contain group-hover:scale-105 transition-transform"
-          />
-        </Link>
-        <div className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00E676] transition-colors"
-          >
-            Ana Sayfa
-          </Link>
-          <Link
-            href="/#nasil-calisir"
-            className="text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00E676] transition-colors"
-          >
-            Nasıl Çalışır?
-          </Link>
-          <Link
-            href="/#sss"
-            className="text-xs sm:text-sm font-medium text-gray-300 hover:text-[#00E676] transition-colors"
-          >
-            SSS
-          </Link>
-        </div>
-      </header>
+      <LegalHeader />
 
       {/* Main Content Area */}
       <main className="max-w-4xl mx-auto px-6 py-12 sm:py-16 w-full flex-grow">

@@ -97,20 +97,29 @@ export default function Footer({
               <p>Esenler Mh. Horasan Sk. Görgülü Center 4/4</p>
               <p>Selçuklu / Konya</p>
               <p className="pt-1">
-                <span className="text-gray-400">Tel:</span>{" "}
-                <a href="tel:05050638543" className="text-white hover:text-[#00E676] transition-colors">
-                  0505 063 85 43
-                </a>
-              </p>
-              <p>
                 <span className="text-gray-400">E-posta:</span>{" "}
                 <a
-                  href="mailto:destek@takasla.com"
+                  href="mailto:takaslappcom@gmail.com"
                   className="text-gray-200 hover:text-[#00E676] underline transition-colors"
                 >
-                  destek@takasla.com
+                  takaslappcom@gmail.com
                 </a>
               </p>
+            </div>
+
+            {/* Quick Corporate Links */}
+            <div className="pt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-300">
+              <Link href="/hakkimizda" className="hover:text-[#00E676] transition-colors">
+                Hakkımızda
+              </Link>
+              <span className="text-gray-600">•</span>
+              <Link href="/iletisim" className="hover:text-[#00E676] transition-colors">
+                İletişim
+              </Link>
+              <span className="text-gray-600">•</span>
+              <Link href="/kariyer" className="hover:text-[#00E676] transition-colors">
+                Kariyer
+              </Link>
             </div>
 
             {/* Social Media Links */}

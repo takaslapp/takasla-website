@@ -9,7 +9,7 @@ export default function Home() {
     <>
       {/* BEGIN: Hero Section (Full Viewport Height on PC) */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat text-white min-h-screen lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between pt-5"
+        className="relative bg-cover bg-center bg-no-repeat text-white min-h-screen lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between pt-[max(1.25rem,env(safe-area-inset-top))]"
         style={{ backgroundImage: "url('/images/hero.webp')" }}
         data-purpose="hero-section"
       >
