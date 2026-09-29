@@ -6,7 +6,11 @@ import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "Çerez Politikası - Takasla",
-  description: "Takasla platformunda kullanılan çerezler ve çerez yönetimi politikası.",
+  description: "Takasla internet sitesi ve mobil platformunda kullanılan çerezler, takip teknolojileri ve çerez yönetimi politikası.",
+  alternates: {
+    canonical: "/cerez-politikasi",
+  },
+  keywords: ["takasla çerez politikası", "cookie policy", "çerez yönetimi"],
 };
 
 export default function CerezPolitikasiPage() {

@@ -5,9 +5,24 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "Kariyer - Takasla",
+  title: "Kariyer - Ekibimize Katılın",
   description:
-    "Takasla ekibine katılın! Türkiye'nin yeni nesil takas platformunu birlikte inşa edelim.",
+    "Takasla ekibine katılın! Türkiye'nin yeni nesil takas ekosistemini ve döngüsel tüketim altyapısını birlikte inşa edelim.",
+  keywords: [
+    "takasla kariyer",
+    "takasla iş ilanları",
+    "takasla staj",
+    "takasla ekibi",
+  ],
+  alternates: {
+    canonical: "/kariyer",
+  },
+  openGraph: {
+    title: "Kariyer - Takasla",
+    description:
+      "Takasla ekibine katılın! Türkiye'nin yeni nesil takas platformunu birlikte inşa edelim.",
+    url: "https://takaslapp.com/kariyer",
+  },
 };
 
 export default function KariyerPage() {

@@ -3,17 +3,78 @@ import Link from "next/link";
 interface FooterProps {
   className?: string;
   outerBg?: string;
+  showAboutTeaser?: boolean;
 }
 
 export default function Footer({
   className = "",
   outerBg = "bg-[#0B0D0C]",
+  showAboutTeaser = true,
 }: FooterProps = {}) {
   return (
     <footer
       className={`relative ${outerBg} pt-0 pb-0 ${className}`}
       data-purpose="main-footer"
     >
+      {/* Top About Teaser Section (Hakkımızda & Görsel Alanı) */}
+      {showAboutTeaser && (
+        <section
+          aria-labelledby="footer-about-heading"
+          className="bg-white text-gray-900 border-t border-gray-100 py-12 sm:py-16 md:py-20 px-6 sm:px-12 md:px-16 lg:px-24"
+        >
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Content (Text) */}
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+              <h2
+                id="footer-about-heading"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900"
+              >
+                Takasla
+              </h2>
+              <div className="text-gray-600 text-sm sm:text-base leading-relaxed space-y-3 font-normal">
+                <p>
+                  <strong className="text-gray-900 font-semibold">Takasla nedir?</strong> Takasla; bireylerin kullanmadıkları, atıl duran ya da ihtiyaç fazlası ürünlerini yeni bir nakit bütçe harcamadan, güvenli ve şeffaf bir ortamda diğer kullanıcıların eşyalarıyla takas edebilmelerini sağlayan yeni nesil bir dijital takas platformudur. Amacımız; geleneksel tüketime ve sürekli satın almaya karşı sürdürülebilir, ekonomik ve herkes için erişilebilir bir paylaşım modeli oluşturmaktır.
+                </p>
+                <p>
+                  Takasla ekosisteminde kullanıcılar kendi ürünleri için saniyeler içinde ilan oluşturabilir, binlerce farklı kategorideki takas fırsatlarını keşfedebilir ve doğrudan teklif gönderebilir. Uygulama içi mesajlaşma, şeffaf onay mekanizmaları ve güven odaklı yapısıyla Takasla; hem bireysel bütçeleri korur hem de eşyaları yeniden ekonomiye kazandırarak döngüsel tüketim bilincini güçlendirir.
+                </p>
+              </div>
+              <div className="pt-2">
+                <Link
+                  href="/hakkimizda"
+                  className="inline-flex items-center gap-2 text-[#00A859] hover:text-[#008f4c] font-semibold text-sm sm:text-base group transition-colors"
+                >
+                  <span>Devamını Oku</span>
+                  <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center text-xs group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Content (Image Area - Currently empty placeholder as requested) */}
+            <div className="lg:col-span-5 w-full">
+              <div
+                className="w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-2xl border-2 border-dashed border-gray-200/90 bg-gray-50/70 overflow-hidden flex items-center justify-center relative transition-all group"
+                aria-label="Görsel Alanı"
+              >
+                {/* Clean, subtle visual space ready for image */}
+                <div className="flex flex-col items-center justify-center text-gray-400 p-6 text-center select-none">
+                  <div className="w-12 h-12 rounded-xl bg-white shadow-xs border border-gray-100 flex items-center justify-center text-gray-400 mb-2">
+                    <svg className="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="1.5">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                  </div>
+                  <span className="text-xs font-medium text-gray-400">Görsel Alanı</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Dark Container stretching with large rounded top corners */}
       <div className="relative bg-[#151716] text-white rounded-t-[44px] sm:rounded-t-[64px] md:rounded-t-[80px] border-t border-white/10 px-6 sm:px-12 md:px-16 lg:px-24 pt-0 pb-12">
         {/* Subtle topographic background contour lines */}

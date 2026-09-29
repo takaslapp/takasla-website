@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "Ön Bilgilendirme Formu - Takasla",
   description:
     "Takasla mobil uygulaması ve platformu üzerinden sunulan ücretli dijital hizmetlerin satın alınmasına ilişkin Ön Bilgilendirme Formu.",
+  alternates: {
+    canonical: "/on-bilgilendirme-formu",
+  },
+  keywords: ["ön bilgilendirme formu", "takasla tüketici hakları", "mesafeli sözleşme bilgilendirme"],
 };
 
 export default function OnBilgilendirmeFormuPage() {

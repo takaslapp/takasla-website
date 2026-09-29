@@ -5,9 +5,25 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "İletişim - Takasla",
+  title: "İletişim - Adres ve Ulaşım Bilgileri",
   description:
-    "Takasla iletişim bilgileri, genel merkez adresi ve harita konumu. Bizimle iletişime geçin.",
+    "Takasla iletişim bilgileri, genel merkez adresi ve harita konumu. Bize takaslappcom@gmail.com üzerinden kolayca ulaşabilirsiniz.",
+  keywords: [
+    "takasla iletişim",
+    "takasla adres",
+    "takasla konya",
+    "takasla e-posta",
+    "takasla destek",
+  ],
+  alternates: {
+    canonical: "/iletisim",
+  },
+  openGraph: {
+    title: "İletişim - Takasla",
+    description:
+      "Takasla iletişim bilgileri, merkez adresi ve harita konumu. Bizimle iletişime geçin.",
+    url: "https://takaslapp.com/iletisim",
+  },
 };
 
 export default function IletisimPage() {

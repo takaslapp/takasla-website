@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "Mesafeli Hizmet Sözleşmesi - Takasla",
   description:
     "Takasla mobil uygulaması ve platformu üzerinden sunulan ücretli dijital hizmetler ve TakasPara kullanımına ilişkin Mesafeli Hizmet Sözleşmesi.",
+  alternates: {
+    canonical: "/mesafeli-hizmet-sozlesmesi",
+  },
+  keywords: ["mesafeli hizmet sözleşmesi", "takasla sözleşme", "dijital hizmet satın alma"],
 };
 
 export default function MesafeliHizmetSozlesmesiPage() {

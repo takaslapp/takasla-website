@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "İptal, Cayma ve İade Koşulları - Takasla",
   description:
     "Takasla mobil uygulaması ve platformu üzerinden sunulan ücretli dijital hizmetler, TakasPara kullanımı ve satın alma işlemlerine ilişkin iptal, cayma ve iade esasları.",
+  alternates: {
+    canonical: "/iptal-ve-iade-kosullari",
+  },
+  keywords: ["takasla iade", "takasla cayma hakkı", "iptal koşulları", "takaspara iade"],
 };
 
 export default function IptalVeIadeKosullariPage() {

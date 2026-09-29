@@ -6,7 +6,11 @@ import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "Hesap Silme ve Veri Silme Bilgilendirmesi - Takasla",
-  description: "Takasla kullanıcı hesabı ve kişisel verilerin silinmesi süreç bilgilendirmesi.",
+  description: "Takasla kullanıcı hesabı ve kişisel verilerin silinmesi, anonimleştirilmesi ve KVKK süreç bilgilendirmesi.",
+  alternates: {
+    canonical: "/hesap-ve-veri-silme",
+  },
+  keywords: ["takasla hesap silme", "veri silme talebi", "hesap kapatma"],
 };
 
 export default function HesapVeVeriSilmePage() {

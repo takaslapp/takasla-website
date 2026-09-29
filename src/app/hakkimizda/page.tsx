@@ -5,9 +5,26 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda - Takasla",
+  title: "Hakkımızda - Takasla Nedir?",
   description:
-    "Takasla, ihtiyaç fazlası ürünlerin döngüsel ekonomiye kazandırılması ve güvenle takas edilmesi için geliştirilmiş yeni nesil dijital takas platformudur.",
+    "Takasla nedir? Takasla; kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı, para harcamadan güvenle takas yapılabildiği yeni nesil dijital takas ekosistemidir.",
+  keywords: [
+    "takasla nedir",
+    "takasla hakkında",
+    "takas platformu",
+    "döngüsel tüketim",
+    "eşya takası",
+    "parayla değil takasla",
+  ],
+  alternates: {
+    canonical: "/hakkimizda",
+  },
+  openGraph: {
+    title: "Hakkımızda - Takasla Nedir?",
+    description:
+      "Takasla, kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı yeni nesil dijital takas platformudur.",
+    url: "https://takaslapp.com/hakkimizda",
+  },
 };
 
 export default function HakkimizdaPage() {
@@ -111,7 +128,7 @@ export default function HakkimizdaPage() {
       </main>
 
       {/* Footer */}
-      <Footer outerBg="bg-[#FAF9F5]" />
+      <Footer outerBg="bg-[#FAF9F5]" showAboutTeaser={false} />
     </div>
   );
 }

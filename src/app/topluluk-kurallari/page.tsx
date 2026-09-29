@@ -6,7 +6,11 @@ import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "Topluluk Kuralları - Takasla",
-  description: "Takasla topluluk kuralları, yasaklı içerikler ve ilan politikası.",
+  description: "Takasla topluluk kuralları, saygılı iletişim standartları, yasaklı ürünler ve güvenli ilan politikası.",
+  alternates: {
+    canonical: "/topluluk-kurallari",
+  },
+  keywords: ["takasla topluluk kuralları", "yasaklı ürünler", "güvenli takas rehberi"],
 };
 
 export default function ToplulukKurallariPage() {

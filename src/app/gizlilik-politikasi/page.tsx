@@ -6,7 +6,11 @@ import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "Gizlilik Politikası - Takasla",
-  description: "Takasla kullanıcılarının kişisel verilerinin korunması ve gizlilik politikası.",
+  description: "Takasla kullanıcılarının kişisel verilerinin korunması, işlenmesi ve gizlilik esasları.",
+  alternates: {
+    canonical: "/gizlilik-politikasi",
+  },
+  keywords: ["takasla gizlilik politikası", "veri güvenliği", "kullanıcı gizliliği"],
 };
 
 export default function GizlilikPolitikasiPage() {

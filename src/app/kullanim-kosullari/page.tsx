@@ -6,7 +6,11 @@ import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "Kullanım Koşulları - Takasla",
-  description: "Takasla platformu kullanım koşulları, üyelik ve hizmet sözleşmesi.",
+  description: "Takasla platformu kullanım koşulları, üyelik hakları, ilan kuralları ve hizmet şartları.",
+  alternates: {
+    canonical: "/kullanim-kosullari",
+  },
+  keywords: ["takasla kullanım koşulları", "takasla üyelik sözleşmesi", "takasla kuralları"],
 };
 
 export default function KullanimKosullariPage() {

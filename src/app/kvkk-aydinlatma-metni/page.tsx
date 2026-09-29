@@ -6,7 +6,11 @@ import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
   title: "KVKK Aydınlatma Metni - Takasla",
-  description: "6698 sayılı KVKK kapsamında Takasla kişisel veri işleme aydınlatma metni.",
+  description: "6698 sayılı KVKK kapsamında Takasla kişisel veri işleme, saklama ve haklarınıza ilişkin aydınlatma metni.",
+  alternates: {
+    canonical: "/kvkk-aydinlatma-metni",
+  },
+  keywords: ["takasla kvkk", "kişisel verilerin korunması", "kvkk aydınlatma"],
 };
 
 export default function KvkkAydinlatmaMetniPage() {
