@@ -9,7 +9,7 @@ interface FooterProps {
 export default function Footer({
   className = "",
   outerBg = "bg-[#0B0D0C]",
-  showAboutTeaser = true,
+  showAboutTeaser = false,
 }: FooterProps = {}) {
   return (
     <footer

@@ -79,7 +79,7 @@ export default function Home() {
       {/* END: FAQ Section */}
 
       {/* BEGIN: Footer Section */}
-      <Footer />
+      <Footer showAboutTeaser={true} />
       {/* END: Footer Section */}
     </>
   );
