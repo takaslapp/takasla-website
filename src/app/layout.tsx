@@ -23,7 +23,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#30779b",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#2f7599" },
+    { media: "(prefers-color-scheme: dark)", color: "#2f7599" },
+  ],
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -36,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={outfit.variable}>
-      <body className="bg-[#FAF9F5] text-gray-800 antialiased overflow-x-hidden font-sans">
+      <body className="bg-[#2f7599] text-gray-800 antialiased overflow-x-clip font-sans">
         {children}
       </body>
     </html>
