@@ -181,6 +181,10 @@ export default function Footer({
               <Link href="/kariyer" className="hover:text-[#00E676] transition-colors">
                 Kariyer
               </Link>
+              <span className="text-gray-600">•</span>
+              <Link href="/sss" className="hover:text-[#00E676] transition-colors">
+                SSS
+              </Link>
             </div>
 
             {/* Social Media Links */}

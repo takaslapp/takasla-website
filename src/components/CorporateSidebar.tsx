@@ -3,13 +3,14 @@
 import Link from "next/link";
 
 interface CorporateSidebarProps {
-  activeTab: "hakkimizda" | "iletisim" | "kariyer";
+  activeTab: "hakkimizda" | "iletisim" | "kariyer" | "sss";
 }
 
 const CORPORATE_NAV = [
   { id: "hakkimizda", label: "Hakkımızda", href: "/hakkimizda" },
   { id: "iletisim", label: "İletişim", href: "/iletisim" },
   { id: "kariyer", label: "Kariyer", href: "/kariyer" },
+  { id: "sss", label: "Sıkça Sorulan Sorular", href: "/sss" },
 ];
 
 export default function CorporateSidebar({ activeTab }: CorporateSidebarProps) {
