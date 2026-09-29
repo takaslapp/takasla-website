@@ -50,8 +50,8 @@ export default function Navbar() {
           <Link className="hover:text-white transition-colors" href="/#nasil-calisir">
             Nasıl Çalışır?
           </Link>
-          <Link className="hover:text-white transition-colors" href="/#guvenli-takas">
-            Güvenli Takas
+          <Link className="hover:text-white transition-colors" href="/#sss">
+            SSS
           </Link>
           <Link className="hover:text-white transition-colors" href="/iletisim">
             İletişim
@@ -125,9 +125,9 @@ export default function Navbar() {
         <Link
           onClick={() => setMobileMenuOpen(false)}
           className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
-          href="/#guvenli-takas"
+          href="/#sss"
         >
-          Güvenli Takas
+          SSS
         </Link>
         <Link
           onClick={() => setMobileMenuOpen(false)}
