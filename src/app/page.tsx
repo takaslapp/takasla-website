@@ -10,7 +10,7 @@ export default function Home() {
       {/* BEGIN: Hero Section (Full Viewport Height on PC) */}
       <section
         className="relative bg-cover bg-center bg-no-repeat text-white min-h-screen lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between pt-5"
-        style={{ backgroundImage: "url('/images/hero.webp')" }}
+        style={{ backgroundImage: "url('/images/takasla-hero.png')" }}
         data-purpose="hero-section"
       >
         {/* Balanced overlay preserving image vibrance and text contrast */}
