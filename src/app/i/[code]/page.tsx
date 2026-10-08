@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getPublicListingByNo } from "@/lib/listing-share";
+import ListingSlider from "@/components/listing/ListingSlider";
+import ListingShareActions from "@/components/listing/ListingShareActions";
+import ListingStickyBar from "@/components/listing/ListingStickyBar";
+import Footer from "@/components/Footer";
 
 interface PageProps {
   params: Promise<{
@@ -15,7 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!isValidFormat) {
     return {
-      title: "Geçersiz İlan Bağlantısı - Takasla",
+      title: { absolute: "Geçersiz İlan Bağlantısı - Takasla" },
       description: "Bağlantı adresi eksik veya hatalı görünüyor.",
       robots: { index: false, follow: false },
     };
@@ -26,32 +30,36 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!listing) {
     return {
-      title: "İlan Bulunamadı - Takasla",
-      description: "Bu ilan artık görüntülenemiyor.",
+      title: { absolute: "İlan Bulunamadı - Takasla" },
+      description: "Bu ilan artık yayında değil veya kaldırılmış olabilir.",
       robots: { index: false, follow: false },
     };
   }
 
-  const title = `${listing.title} | Takasla`;
+  const rawTitle = listing.title?.trim() || "Ürün İlanı";
+  const title = `${rawTitle} - Takasla`;
+  
+  const conditionText = listing.conditionName ? `Durum: ${listing.conditionName}.` : "";
+  const locationText = listing.location ? `Konum: ${listing.location}.` : "";
   const description =
     listing.description && listing.description.length > 0
-      ? listing.description.length > 160
-        ? `${listing.description.slice(0, 157)}...`
-        : listing.description
-      : "Bu ilana Takasla'da göz at.";
+      ? `${listing.description.slice(0, 150)}... ${locationText} Takasla mobil uygulamasında inceleyin.`
+      : `${rawTitle} ilanı Takasla'da. ${conditionText} ${locationText} Detayları görmek ve takas teklifi vermek için Takasla uygulamasını indirin.`;
 
   const pageUrl = `https://takaslapp.com/i/${listing.listingNo}`;
   const images = listing.imageUrl
     ? [
         {
           url: listing.imageUrl,
-          alt: listing.title,
+          width: 800,
+          height: 800,
+          alt: `${rawTitle} - Takasla`,
         },
       ]
     : [];
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: {
       canonical: pageUrl,
@@ -63,6 +71,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "Takasla",
       images,
       type: "website",
+      locale: "tr_TR",
     },
     twitter: {
       card: "summary_large_image",
@@ -73,61 +82,70 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+function formatDate(dateStr?: string | null): string | null {
+  if (!dateStr) return null;
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return null;
+  }
+}
+
 export default async function ListingPreviewPage({ params }: PageProps) {
   const { code } = await params;
   const cleanCode = typeof code === "string" ? code.trim() : "";
   const isValidFormat = /^[0-9]{8}$/.test(cleanCode);
 
-  // 1. Format Doğrulama Hatası
+  // 1. Format Hatası Durumu
   if (!isValidFormat) {
     return (
-      <div className="min-h-screen bg-[#0E1110] text-zinc-100 flex flex-col justify-between font-sans selection:bg-[#22C55E]/30 selection:text-white">
-        {/* Top Header */}
-        <header className="w-full border-b border-white/[0.08] bg-[#121514]/80 backdrop-blur-md sticky top-0 z-30">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center transition-opacity hover:opacity-85">
+      <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
+        <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-30">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center">
               <img
                 src="/images/takasla-yesil-logo.png"
                 alt="Takasla"
-                className="h-7 sm:h-8 w-auto object-contain"
+                className="h-7 w-auto object-contain"
               />
             </Link>
             <Link
               href="/"
-              className="text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+              className="text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
             >
               Ana Sayfa
             </Link>
           </div>
         </header>
 
-        {/* Content */}
-        <main className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="w-full max-w-md bg-[#161917] border border-white/[0.08] rounded-2xl p-6 sm:p-8 text-center shadow-xl">
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4">
+        <main className="flex-1 flex items-center justify-center px-4 py-16">
+          <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl p-8 text-center shadow-xs">
+            <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4 border border-amber-100">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-white mb-2 tracking-tight">
+            <h1 className="text-lg font-bold text-gray-900 mb-2">
               Geçersiz İlan Bağlantısı
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 mb-6 leading-relaxed">
-              Görüntülemek istediğiniz bağlantı formatı hatalı veya eksik.
+            <p className="text-xs sm:text-sm text-gray-500 mb-6 leading-relaxed">
+              Görüntülemek istediğiniz bağlantı formatı eksik veya geçersiz.
             </p>
             <Link
               href="/"
-              className="w-full inline-flex items-center justify-center bg-zinc-800 hover:bg-zinc-700 text-white font-medium px-4 py-2.5 rounded-xl border border-white/10 transition-all text-xs sm:text-sm"
+              className="inline-flex items-center justify-center bg-gray-900 hover:bg-black text-white font-medium px-5 py-2.5 rounded-xl transition-all text-xs sm:text-sm shadow-xs"
             >
               Ana Sayfaya Dön
             </Link>
           </div>
         </main>
 
-        {/* Footer */}
-        <footer className="w-full border-t border-white/[0.06] py-5 text-center text-xs text-zinc-500">
-          Parayla değil, Takasla. &copy; {new Date().getFullYear()} Tüm hakları saklıdır.
-        </footer>
+        <Footer outerBg="bg-[#FAF9F5]" />
       </div>
     );
   }
@@ -136,77 +154,105 @@ export default async function ListingPreviewPage({ params }: PageProps) {
   const listingNo = parseInt(cleanCode, 10);
   const listing = await getPublicListingByNo(listingNo);
 
-  // 3. İlan Bulunamadı / Pasif Durumu
+  // 3. İlan Bulunamadı Durumu
   if (!listing) {
     return (
-      <div className="min-h-screen bg-[#0E1110] text-zinc-100 flex flex-col justify-between font-sans selection:bg-[#22C55E]/30 selection:text-white">
-        {/* Top Header */}
-        <header className="w-full border-b border-white/[0.08] bg-[#121514]/80 backdrop-blur-md sticky top-0 z-30">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center transition-opacity hover:opacity-85">
+      <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
+        <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-30">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center">
               <img
                 src="/images/takasla-yesil-logo.png"
                 alt="Takasla"
-                className="h-7 sm:h-8 w-auto object-contain"
+                className="h-7 w-auto object-contain"
               />
             </Link>
             <Link
               href="/"
-              className="text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+              className="text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
             >
               Ana Sayfa
             </Link>
           </div>
         </header>
 
-        {/* Content */}
-        <main className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="w-full max-w-md bg-[#161917] border border-white/[0.08] rounded-2xl p-6 sm:p-8 text-center shadow-xl">
-            <div className="w-12 h-12 rounded-xl bg-zinc-800 border border-white/10 text-zinc-400 flex items-center justify-center mx-auto mb-4">
+        <main className="flex-1 flex items-center justify-center px-4 py-16">
+          <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl p-8 text-center shadow-xs">
+            <div className="w-12 h-12 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center mx-auto mb-4 border border-gray-200">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-white mb-2 tracking-tight">
-              Bu ilan artık görüntülenemiyor.
+            <h1 className="text-lg font-bold text-gray-900 mb-2">
+              İlan Bulunamadı
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 mb-6 leading-relaxed">
-              İlan yayından kaldırılmış, takas tamamlanmış veya bağlantı adresi değişmiş olabilir.
+            <p className="text-xs sm:text-sm text-gray-500 mb-6 leading-relaxed">
+              Bu ilan yayından kaldırılmış veya bağlantı adresi değişmiş olabilir.
             </p>
             <Link
               href="/"
-              className="w-full inline-flex items-center justify-center bg-zinc-800 hover:bg-zinc-700 text-white font-medium px-4 py-2.5 rounded-xl border border-white/10 transition-all text-xs sm:text-sm"
+              className="inline-flex items-center justify-center bg-gray-900 hover:bg-black text-white font-medium px-5 py-2.5 rounded-xl transition-all text-xs sm:text-sm shadow-xs"
             >
               Ana Sayfaya Dön
             </Link>
           </div>
         </main>
 
-        {/* Footer */}
-        <footer className="w-full border-t border-white/[0.06] py-5 text-center text-xs text-zinc-500">
-          Parayla değil, Takasla. &copy; {new Date().getFullYear()} Tüm hakları saklıdır.
-        </footer>
+        <Footer outerBg="bg-[#FAF9F5]" />
       </div>
     );
   }
 
-  // 4. Geçerli İlan Kartı (Kurumsal & Profesyonel Tasarım)
+  // Schema.org Structured Data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: listing.title,
+    image: listing.images.length > 0 ? listing.images : (listing.imageUrl ? [listing.imageUrl] : []),
+    description: listing.description || `${listing.title} Takasla ilan detayları.`,
+    category: listing.category,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "TRY",
+      availability: "https://schema.org/InStock",
+      itemCondition: listing.conditionName?.includes("Sıfır")
+        ? "https://schema.org/NewCondition"
+        : "https://schema.org/UsedCondition",
+    },
+  };
+
+  const formattedDate = formatDate(listing.createdAt);
+
   return (
-    <div className="min-h-screen bg-[#0E1110] text-zinc-100 flex flex-col justify-between font-sans selection:bg-[#22C55E]/30 selection:text-white">
-      {/* Top Header */}
-      <header className="w-full border-b border-white/[0.08] bg-[#121514]/90 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center transition-opacity hover:opacity-85">
+    <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans pb-20 md:pb-0">
+      {/* Schema.org */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* Header */}
+      <header className="w-full border-b border-gray-200/80 bg-white sticky top-0 z-30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
             <img
               src="/images/takasla-yesil-logo.png"
               alt="Takasla"
               className="h-7 sm:h-8 w-auto object-contain"
             />
           </Link>
-          <div className="flex items-center gap-3">
+
+          <div className="flex items-center gap-4">
+            <Link
+              href="#uygulamayi-indir"
+              className="hidden sm:inline-flex items-center justify-center bg-gray-900 hover:bg-black text-white font-medium text-xs sm:text-sm px-4 py-2 rounded-xl transition-all shadow-xs"
+            >
+              Uygulamayı İndir
+            </Link>
             <Link
               href="/"
-              className="text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+              className="text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
             >
               Ana Sayfa
             </Link>
@@ -214,124 +260,182 @@ export default async function ListingPreviewPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Main Listing View */}
-      <main className="flex-1 w-full max-w-xl mx-auto px-4 py-6 sm:py-8">
-        <div className="bg-[#151817] border border-white/[0.08] rounded-2xl shadow-xl overflow-hidden">
-          {/* Listing Image Container */}
-          <div className="relative w-full aspect-[4/3] bg-[#1a1e1c] flex items-center justify-center overflow-hidden border-b border-white/[0.06]">
-            {listing.imageUrl ? (
-              <img
-                src={listing.imageUrl}
-                alt={listing.title}
-                className="w-full h-full object-contain p-2 sm:p-3"
-              />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center text-zinc-500">
-                <svg className="w-12 h-12 mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span className="text-xs font-medium">Görsel bulunmuyor</span>
-              </div>
-            )}
+      {/* Main Content */}
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        {/* Breadcrumb Navigation */}
+        <nav aria-label="Breadcrumb" className="mb-5 text-xs text-gray-500 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+          <Link href="/" className="hover:text-gray-900 transition-colors">
+            Ana Sayfa
+          </Link>
+          <span className="text-gray-300">/</span>
+          {listing.category && (
+            <>
+              <span className="text-gray-600">{listing.category}</span>
+              <span className="text-gray-300">/</span>
+            </>
+          )}
+          <span className="text-gray-900 font-medium">#{listing.listingNo}</span>
+        </nav>
+
+        {/* 2-Column Product Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column: Swipeable Images */}
+          <div className="lg:col-span-6">
+            <ListingSlider
+              images={listing.images}
+              title={listing.title}
+            />
           </div>
 
-          {/* Details Section */}
-          <div className="p-5 sm:p-7">
-            {/* Meta Row: Listing No & Status */}
-            <div className="flex items-center justify-between gap-2 mb-2.5">
-              <span className="text-[11px] font-mono tracking-wider text-zinc-400 uppercase font-medium">
-                İlan No: #{listing.listingNo}
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                Takasa Açık
-              </span>
-            </div>
+          {/* Right Column: Listing Details */}
+          <div className="lg:col-span-6 space-y-6">
+            {/* Meta & Share Actions */}
+            <ListingShareActions listingNo={listing.listingNo} title={listing.title} />
 
-            {/* Listing Title */}
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug mb-4">
-              {listing.title}
-            </h1>
-
-            {/* Structured Specifications Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-5">
-              {listing.conditionName && (
-                <div className="bg-[#1C201E] border border-white/[0.06] rounded-xl p-3 sm:p-3.5 flex flex-col justify-center">
-                  <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">
-                    Ürün Durumu
-                  </span>
-                  <span className="text-sm font-semibold text-zinc-100 mt-1">
-                    {listing.conditionName}
-                  </span>
-                </div>
-              )}
-              {listing.location && (
-                <div className="bg-[#1C201E] border border-white/[0.06] rounded-xl p-3 sm:p-3.5 flex flex-col justify-center">
-                  <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">
-                    Konum
-                  </span>
-                  <span className="text-sm font-semibold text-zinc-100 mt-1 truncate flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    {listing.location}
-                  </span>
-                </div>
+            {/* Product Title */}
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight leading-snug">
+                {listing.title}
+              </h1>
+              {formattedDate && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Yayınlanma Tarihi: {formattedDate}
+                </p>
               )}
             </div>
 
-            {/* Description (if present) */}
-            {listing.description && (
-              <div className="mb-6 pt-4 border-t border-white/[0.06]">
-                <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-                  İlan Açıklaması
+            {/* Specifications Table */}
+            <div className="bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+              <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                İlan Bilgileri
+              </h2>
+
+              <div className="divide-y divide-gray-100 text-sm">
+                {listing.conditionName && (
+                  <div className="py-2.5 flex justify-between items-center gap-4">
+                    <span className="text-gray-500">Ürün Durumu</span>
+                    <span className="font-semibold text-gray-900 text-right">
+                      {listing.conditionName}
+                    </span>
+                  </div>
+                )}
+
+                {listing.location && (
+                  <div className="py-2.5 flex justify-between items-center gap-4">
+                    <span className="text-gray-500">Konum</span>
+                    <span className="font-semibold text-gray-900 text-right">
+                      {listing.location}
+                    </span>
+                  </div>
+                )}
+
+                {listing.category && (
+                  <div className="py-2.5 flex justify-between items-center gap-4">
+                    <span className="text-gray-500">Kategori</span>
+                    <span className="font-semibold text-gray-900 text-right">
+                      {listing.category}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Wanted Item (Takas Tercihi) */}
+            {listing.wantedItem && (
+              <div className="bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xs">
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  İlan Sahibinin Aradığı Ürünler
                 </h2>
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed whitespace-pre-line bg-[#1A1D1B] p-3.5 rounded-xl border border-white/[0.04]">
-                  {listing.description}
+                <p className="text-sm font-medium text-gray-800 leading-relaxed">
+                  {listing.wantedItem}
                 </p>
               </div>
             )}
 
-            {/* Corporate Callout / Conversion Card */}
-            <div className="bg-[#19221D] border border-[#273B30] rounded-xl p-4 sm:p-5 mt-4 text-center">
-              <h3 className="text-sm font-semibold text-white tracking-tight mb-1">
+            {/* Description */}
+            {listing.description ? (
+              <div className="bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xs">
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  Açıklama
+                </h2>
+                <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                  {listing.description}
+                </p>
+              </div>
+            ) : null}
+
+            {/* Seller Info */}
+            {listing.seller && (listing.seller.fullName || listing.seller.username) && (
+              <div className="bg-white border border-gray-200/90 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-xs">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 text-gray-700 flex items-center justify-center font-bold text-xs shrink-0">
+                    {listing.seller.fullName
+                      ? listing.seller.fullName.slice(0, 2).toUpperCase()
+                      : "TK"}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-900 truncate">
+                      {listing.seller.fullName || listing.seller.username}
+                    </p>
+                    {listing.seller.username && (
+                      <p className="text-xs text-gray-400">@{listing.seller.username}</p>
+                    )}
+                  </div>
+                </div>
+
+                {typeof listing.seller.rating === "number" && (
+                  <div className="flex items-center gap-1 text-xs font-medium text-gray-600 bg-gray-50 px-2.5 py-1 rounded-lg border border-gray-200/60">
+                    <span className="text-amber-500">★</span>
+                    <span>{listing.seller.rating.toFixed(1)}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Minimal App Conversion Card */}
+            <section
+              id="uygulamayi-indir"
+              className="bg-white border border-gray-200/90 rounded-2xl p-5 sm:p-6 shadow-xs text-center"
+            >
+              <h3 className="text-base font-bold text-gray-900 mb-1.5">
                 Takas Teklifi Gönderin
               </h3>
-              <p className="text-xs text-zinc-300 mb-4 max-w-sm mx-auto leading-relaxed">
-                Bu ilan Takasla mobil uygulamasında yayındadır. İlan sahibiyle mesajlaşmak ve takas teklifi göndermek için Takasla&apos;yı indirin.
+              <p className="text-xs sm:text-sm text-gray-500 mb-5 max-w-sm mx-auto leading-relaxed">
+                Bu ilan Takasla mobil uygulamasında yayındadır. İlan sahibiyle mesajlaşmak ve takas teklifi vermek için uygulamayı indirin.
               </p>
 
-              {/* App Store Corporate Button */}
+              {/* Store Button */}
               <div className="flex justify-center">
                 <Link
                   href="#"
-                  className="inline-flex items-center justify-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-3 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-lg hover:scale-[1.02] active:scale-98 group"
+                  className="inline-flex items-center justify-center gap-2.5 bg-black hover:bg-gray-900 text-white px-5 py-2.5 rounded-xl transition-all shadow-xs active:scale-95"
                 >
                   <img
                     src="/images/apple-logo.png"
-                    alt="Apple"
-                    className="w-5 h-5 object-contain brightness-0 invert"
+                    alt="App Store"
+                    className="w-4 h-4 object-contain brightness-0 invert"
                   />
                   <div className="flex flex-col text-left leading-none">
-                    <span className="text-[10px] text-zinc-400 font-normal tracking-wide">
-                      App Store&apos;dan
-                    </span>
-                    <span className="text-sm font-semibold text-white tracking-tight mt-0.5">
-                      İndirin
-                    </span>
+                    <span className="text-[9px] text-gray-300 font-normal">App Store&apos;dan</span>
+                    <span className="text-xs font-semibold text-white mt-0.5">İndirin</span>
                   </div>
                 </Link>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-white/[0.06] py-5 text-center text-xs text-zinc-500">
-        Parayla değil, Takasla. &copy; {new Date().getFullYear()} Tüm hakları saklıdır.
-      </footer>
+      <Footer outerBg="bg-[#FAF9F5]" showAboutTeaser={false} />
+
+      {/* Mobile Sticky Bar */}
+      <ListingStickyBar
+        listingNo={listing.listingNo}
+        title={listing.title}
+        conditionName={listing.conditionName}
+        imageUrl={listing.imageUrl}
+      />
     </div>
   );
 }
