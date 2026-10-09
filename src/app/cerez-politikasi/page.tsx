@@ -31,7 +31,7 @@ export default function CerezPolitikasiPage() {
                 Çerez Politikası
               </h1>
               <p className="text-sm text-gray-400 mt-2">
-                Son Güncelleme: 15 Ağustos 2026
+                Son Güncelleme: 9 Ekim 2026
               </p>
             </div>
             <img
@@ -111,10 +111,10 @@ export default function CerezPolitikasiPage() {
             <p>
               Çerez Politikamıza ilişkin her türlü soru ve talepleriniz için bizimle{" "}
               <a
-                href="mailto:destek@takasla.com"
+                href="mailto:takaslappcom@gmail.com"
                 className="text-[#00A859] font-medium underline hover:text-[#00E676] transition-colors"
               >
-                destek@takasla.com
+                takaslappcom@gmail.com
               </a>{" "}
               adresi üzerinden iletişime geçebilirsiniz.
             </p>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import LegalNav from "@/components/LegalNav";
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/gizlilik-politikasi",
   },
-  keywords: ["takasla gizlilik politikası", "veri güvenliği", "kullanıcı gizliliği"],
+  keywords: ["takasla gizlilik politikası","veri güvenliği","kullanıcı gizliliği"],
 };
 
 export default function GizlilikPolitikasiPage() {
@@ -31,7 +30,7 @@ export default function GizlilikPolitikasiPage() {
                 Gizlilik Politikası
               </h1>
               <p className="text-sm text-gray-400 mt-2">
-                Son Güncelleme: 28 Eylül 2026
+                Son Güncelleme: 9 Ekim 2026
               </p>
             </div>
             <img
@@ -47,647 +46,533 @@ export default function GizlilikPolitikasiPage() {
 
         {/* Content Details */}
         <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-gray-100 space-y-4 text-gray-700 leading-relaxed mb-12">
-
           <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla olarak kullanıcılarımızın gizliliğine ve kişisel verilerinin korunmasına önem veriyoruz. Bu Gizlilik Politikası, Takasla mobil uygulamasını ve takaslapp.com internet sitesini kullandığınızda hangi bilgilerin işlendiğini, bu bilgilerin hangi amaçlarla kullanıldığını, kimlerle paylaşılabileceğini, nasıl korunduğunu ve verilerinizle ilgili sahip olduğunuz seçenekleri açıklamaktadır.
-          </p>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla hizmetlerinin işletilmesinden aşağıdaki kişi sorumludur:
+            Takasla olarak kullanıcılarımızın gizliliğine ve kişisel verilerinin korunmasına büyük önem veriyoruz. Bu Gizlilik Politikası, Takasla mobil uygulamasını ve takaslapp.com internet sitesini kullandığınızda hangi kişisel verilerin işlendiğini, bu verilerin hangi amaçlarla kullanıldığını, kimlerle paylaşılabileceğini, nasıl korunduğunu ve haklarınızı açıklamaktadır.
           </p>
 
           <div className="bg-[#FAF9F5] border border-gray-200/80 rounded-2xl p-5 my-4 text-sm sm:text-base leading-relaxed text-gray-700">
-            <p className="font-medium text-gray-900 mb-1">İletişim Bilgileri:</p>
-            <p>Recep Aydoğan<br />Esenler Mah., Horasan Sok., Görgülü Center No:4/4<br />Selçuklu / Konya</p>
+            <p className="font-medium text-gray-900 mb-1">Takasla – Recep Aydoğan</p>
+            <p>Esenler Mah., Horasan Sok., Görgülü Center No:4/4<br />Selçuklu / Konya</p>
             <div className="mt-3 pt-3 border-t border-gray-200 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              <p><strong>E-posta:</strong> <a href="mailto:destek@takasla.com" className="text-[#00A859] hover:underline font-medium">destek@takasla.com</a> / <a href="mailto:takaslappcom@gmail.com" className="text-[#00A859] hover:underline font-medium">takaslappcom@gmail.com</a></p>
-              <p><strong>Telefon:</strong> <span className="text-gray-900 font-medium">0505 063 85 43</span></p>
-              <p><strong>Web:</strong> <a href="https://takaslapp.com" className="text-[#00A859] hover:underline font-medium">takaslapp.com</a></p>
+              <p><strong>E-posta:</strong> <a href="mailto:takaslappcom@gmail.com" className="text-[#00A859] hover:underline font-medium">takaslappcom@gmail.com</a></p>
+              <p><strong>İnternet Sitesi:</strong> <a href="https://takaslapp.com" className="text-[#00A859] hover:underline font-medium">takaslapp.com</a></p>
             </div>
           </div>
 
           <section className="pt-6 first:pt-0">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              1. Hangi Bilgileri İşliyoruz?
+              1. Hesap ve Profil Verileri
             </h2>
           </section>
 
           <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla’nın çalışabilmesi ve kullanıcılar arasında güvenli şekilde takas yapılabilmesi için aşağıdaki bilgiler işlenebilir.
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            1.1. Hesap ve Profil Bilgileri
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Hesap oluşturduğunuzda veya profilinizi düzenlediğinizde aşağıdaki bilgiler işlenebilir:
+            Takasla hesabı oluşturduğunuzda veya profilinizi güncellediğinizde aşağıdaki veriler işlenebilir:
           </p>
 
           <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Ad</li>
-            <li>Soyad</li>
+            <li>Ad ve soyad</li>
+            <li>,
+              </li>
             <li>Kullanıcı adı</li>
+            <li>,
+              </li>
             <li>E-posta adresi</li>
-            <li>İl</li>
-            <li>İlçe</li>
+            <li>,
+              </li>
+            <li>İl ve ilçe seçimi</li>
+            <li>,
+              </li>
             <li>Profil fotoğrafı</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Ayrıca sistemin çalışması amacıyla kullanıcı hesabınızla ilişkili olarak;
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kullanıcı kimliği</li>
-            <li>Hesap oluşturma ve güncelleme tarihleri</li>
-            <li>Kullanıcı rolü</li>
-            <li>Hesap kısıtlama veya yasaklama durumu</li>
-            <li>Ortalama değerlendirme puanı</li>
+            <li>,
+              </li>
+            <li>Hesabınızı ve oturumunuzu yönetmek için gerekli teknik hesap tanımlayıcıları</li>
+            <li>,
+              </li>
+            <li>Oturum açma yöntemi (e-posta, Apple veya Google)</li>
+            <li>,
+              </li>
+            <li>Hesap oluşturma ve son güncelleme zamanları</li>
+            <li>,
+              </li>
+            <li>Ortalama kullanıcı değerlendirme puanı</li>
+            <li>,
+              </li>
             <li>Tamamlanan takas sayısı</li>
-            <li>TakasPara bakiyesi</li>
-            <li>İlk ücretsiz takas teklifi hakkının kullanılıp kullanılmadığı</li>
-          </ul>
+            <li>,
+              </li>
+            <li>TakasPara bakiyesi ve ilk teklif hakkı durumu</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Şifreniz Takasla tarafından düz metin olarak saklanmaz; kimlik doğrulama işlemleri güvenli kimlik doğrulama altyapısı üzerinden yürütülür.</li>
+            <li>,
+            ),
 
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            gibi sistemsel bilgiler işlenebilir.<br />Profil fotoğrafınızı değiştirdiğinizde eski profil fotoğrafınız depolama sisteminden kaldırılır.
-          </p>
+            _buildSectionTitle(</li>
+            <li>2. Konum Bilgileri</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Takasla cihazınızın hassas GPS konumunu toplamaz ve konum izni istemez.
+İlanlarınızın ve profilinizin bulunduğu il ve ilçe bilgileri kullanıcı tarafından arayüz üzerinden manuel olarak seçilir.</li>
+            <li>,
+            ),
 
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              2. İlan Bilgileri
-            </h2>
-          </section>
+            _buildSectionTitle(</li>
+            <li>3. İlan ve Kullanıcı Tarafından Oluşturulan İçerik</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Platform üzerinde ilan yayınladığınızda veya içerik paylaştığınızda aşağıdaki veriler işlenir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
+            <li>İlan başlığı ve detaylı ürün açıklaması</li>
+            <li>,
+              </li>
+            <li>Kategori ve ürünün kullanım durumu</li>
+            <li>,
+              </li>
+            <li>İlana eklenen ürün fotoğrafları</li>
+            <li>,
+              </li>
+            <li>İlanın manuel seçilen il ve ilçe konumu</li>
+            <li>,
+              </li>
+            <li>İlanın oluşturulma, düzenlenme ve yayın durumları</li>
+            <li>,
+              </li>
+            <li>İlan görüntülenme ve favoriye eklenme sayıları</li>
+            <li>,
+              </li>
+            <li>Favoriye eklediğiniz ilanlar</li>
+            <li>,
+              </li>
+            <li>Takas sonrası verilen kullanıcı puanları ve değerlendirme yorumları</li>
+            <li>,
+              </li>
+            <li>Şikayet, rapor ve engelleme kayıtları</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Bu veriler; platform hizmetinin sunulması, ilanların diğer kullanıcılar tarafından keşfedilmesi, moderasyon, topluluk kurallarının uygulanması ve platform güvenliğinin sağlanması amacıyla işlenir.</li>
+            <li>,
+            ),
 
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla’da ilan oluşturduğunuzda aşağıdaki bilgiler işlenebilir:
-          </p>
+            _buildSectionTitle(</li>
+            <li>4. Mesajlaşma ve İletişim</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Uygulama içi mesajlaşma özelliğini kullandığınızda aşağıdaki veriler işlenir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
+            <li>Kullanıcılar arasında gönderilen mesaj metinleri</li>
+            <li>,
+              </li>
+            <li>Gönderici ve alıcı hesap bilgileri</li>
+            <li>,
+              </li>
+            <li>İlgili sohbet ve ilan bağlantısı</li>
+            <li>,
+              </li>
+            <li>Mesaj gönderim zamanı ve okundu durumu</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Mevcut mesajlaşma sisteminde dosya veya fotoğraf eki gönderilmemektedir.
+Mesaj veya teklif bildirimlerinin cihazınıza ulaştırılabilmesi amacıyla, push bildirim altyapısı sağlayıcıları ve Apple Push Notification Service üzerinden bildirim başlığı, mesaj özeti ve teknik yönlendirme verileri iletilebilir.</li>
+            <li>,
+            ),
 
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>İlan başlığı</li>
-            <li>İlan açıklaması</li>
-            <li>Kategori</li>
-            <li>Alt kategori</li>
-            <li>İl ve ilçe bilgisi</li>
-            <li>Ürün fotoğrafları</li>
-            <li>İlan numarası</li>
-            <li>İlanın yayın ve durum bilgisi</li>
-            <li>Görüntülenme sayısı</li>
-            <li>Favoriye eklenme sayısı</li>
-            <li>İlan oluşturma ve güncelleme tarihleri</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            İlanın bulunduğu şehir ve ilçe bilgisi kullanıcı tarafından manuel olarak seçilir. Takasla cihazınızın GPS konumunu takip etmez.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              3. Takas İşlem Bilgileri
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takas sürecinin yürütülebilmesi amacıyla aşağıdaki işlem verileri saklanabilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+            _buildSectionTitle(</li>
+            <li>5. Takas ve TakasPara Süreçleri</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Takas teklifleri ve takas süreçlerinin yürütülmesi kapsamında aşağıdaki işlem verileri işlenir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
             <li>Gönderilen ve alınan takas teklifleri</li>
-            <li>Teklif edilen ürünler</li>
-            <li>Hedef ürün</li>
-            <li>Teklifi gönderen ve alan kullanıcılar</li>
-            <li>Teklifin durumu</li>
-            <li>Kabul, ret veya iptal bilgileri</li>
-            <li>Tarafların takas tamamlandı onayları</li>
-            <li>Tamamlanan takas kayıtları</li>
-            <li>İşlem tarihleri</li>
-            <li>TakasPara ile ilgili işlem kayıtları</li>
+            <li>,
+              </li>
+            <li>Teklife konu edilen ürünler ve varsa nakit farkı bilgisi</li>
+            <li>,
+              </li>
+            <li>Teklifin güncel durumu (beklemede, kabul edildi, reddedildi, iptal edildi, tamamlandı)</li>
+            <li>,
+              </li>
+            <li>Teklif tarafları ve işlem zamanları</li>
+            <li>,
+              </li>
+            <li>TakasPara bakiyesi ve teklif işlem hareketleri</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Bu veriler takas süreçlerinin yönetilmesi, teklif güvence bakiyesinin takibi, işlem bütünlüğünün korunması ve uyuşmazlıkların incelenmesi amacıyla işlenir.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>6. Uygulama İçi Satın Alma ve Ödeme Güvenliği</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>TakasPara paketlerinin satın alınması, Apple App Store uygulama içi satın alma sistemi (StoreKit) üzerinden gerçekleştirilir.
+Satın alım işlemlerinin doğrulanması ve TakasPara bakiyesinin hesaba tanımlanabilmesi amacıyla aşağıdaki sınırlı işlem bilgileri işlenebilir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
+            <li>Satın alınan paket kimliği</li>
+            <li>,
+              </li>
+            <li>İşlem (transaction) kimliği</li>
+            <li>,
+              </li>
+            <li>Satın alma tarihi ve işlem makbuzu doğrulama bilgileri</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Takasla kredi kartı numarası, son kullanma tarihi, CVV veya banka hesap bilgilerinizi görmez veya saklamaz. Tüm ödeme ve faturalandırma işlemleri doğrudan Apple tarafından yürütülür.
+Satın alma işlemlerinin teknik doğrulanmasında uygulama içi satın alma doğrulama hizmeti sağlayıcılarından yararlanılır.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>7. Analitik ve Uygulama Kullanım Ölçümü</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Takasla, kullanıcı deneyimini iyileştirmek, özelliklerin performansını ölçmek ve uygulama kararlılığını sağlamak amacıyla analitik ve uygulama kullanım ölçüm hizmetlerinden yararlanır.</li>
+            <li>,
+            ),
+            _buildParagraph(</li>
+            <li>Bu kapsamda işlenebilecek veriler:</li>
+            <li>),
+            _buildBulletList([
+              </li>
+            <li>Görüntülenen uygulama ekranları (semantik ekran isimleri)</li>
+            <li>,
+              </li>
+            <li>Kategori görüntüleme ve filtreleme etkileşimleri</li>
+            <li>,
+              </li>
+            <li>İlan oluşturma, görüntüleme, paylaşma ve favori etkileşimleri</li>
+            <li>,
+              </li>
+            <li>Takas teklifi başlatma ve sonuçlandırma etkileşimleri</li>
+            <li>,
+              </li>
+            <li>Oturum açma ve kayıt yöntemi türü</li>
+            <li>,
+              </li>
+            <li>TakasPara paket seçimi</li>
+            <li>,
+              </li>
+            <li>Arama özelliğinin kullanımı ve arama metninin karakter uzunluğu (arama metninin kendisi gönderilmez)</li>
+            <li>,
+              </li>
+            <li>Cihaz modeli, işletim sistemi sürümü ve uygulama sürümü</li>
+            <li>,
+              </li>
+            <li>Kurulum ve cihaz seviyesinde teknik tanımlayıcılar (IDFV, kurulum tanımlayıcısı)</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Takasla tarafından analitik sistemine; e-posta adresi, kullanıcı adı, kullanıcı hesap kimliği, mesaj içeriği, ilan veya teklif kimlikleri, gerçek arama metni, il, ilçe veya GPS koordinatı gönderilmez.
+Uygulamada üçüncü taraf reklam ağları (AdMob, Meta Ads vb.) veya uygulamalar arası çapraz takip (IDFA / cross-app tracking) teknolojileri yer almamaktadır.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>8. Uygulama Hata ve Çökme Raporlama</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Uygulamanın kararlılığını sağlamak, çökmeleri önceden tespit etmek ve teknik hataları gidermek amacıyla hata ve çökme raporlama hizmetlerinden yararlanılır.</li>
+            <li>,
+            ),
+            _buildParagraph(</li>
+            <li>Bir hata veya çökme meydana geldiğinde işlenebilecek veriler:</li>
+            <li>),
+            _buildBulletList([
+              </li>
+            <li>Çökme anındaki çağrı yığını (stack trace) ve hata detayları</li>
+            <li>,
+              </li>
+            <li>Cihaz modeli, işletim sistemi sürümü ve mimarisi</li>
+            <li>,
+              </li>
+            <li>Uygulama sürümü ve derleme numarası</li>
+            <li>,
+              </li>
+            <li>Çökme anındaki teknik uygulama durumu (ön plan/arka plan, bellek durumu)</li>
+            <li>,
+              </li>
+            <li>Kurulum veya oturum seviyesinde teknik tanımlayıcılar</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Takasla’nın kendi kodu tarafından hata raporlama sistemine özel olarak e-posta adresi, kullanıcı hesabı kimliği, mesaj metni veya bildirim jetonu aktarılmaz.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>9. Kimlik Doğrulama ve Sunucu Altyapısı</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Takasla hizmetlerinin kesintisiz sunulabilmesi, verilerinizin güvenle saklanması ve anlık iletişim özelliklerinin çalışması için kimlik doğrulama, veritabanı, gerçek zamanlı iletişim ve sunucu altyapısı hizmet sağlayıcılarından yararlanılmaktadır.
+Bu altyapı; kullanıcı profili, ilanlar, mesajlar, takaslar, favoriler, bildirimler ve işlem kayıtlarının güvenli sunucularda işlenmesini ve korunmasını sağlar.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>10. Görsel ve Dosya Depolama</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Kullanıcıların yüklediği profil fotoğrafları ve ilan görselleri, uygulamanın sunulması amacıyla bulut depolama ve içerik barındırma hizmeti sağlayıcıları aracılığıyla saklanır ve sunulur.
+Profil fotoğrafı değiştirildiğinde veya ilan silindiğinde ilgili görsel dosyaları depolama sisteminden temizlenebilir.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>11. Sosyal Giriş Yöntemleri</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Apple ile Giriş veya Google ile Giriş seçeneklerini kullandığınızda, ilgili sağlayıcı tarafından kimlik doğrulama amacıyla aşağıdaki bilgiler sağlanabilir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
+            <li>Apple veya Google kullanıcı hesap tanımlayıcısı</li>
+            <li>,
+              </li>
+            <li>E-posta adresi (Apple için gizli relay e-posta dahil)</li>
+            <li>,
+              </li>
+            <li>İlk yetkilendirmede sağlanan ad ve soyad bilgisi</li>
+            <li>,
+              </li>
+            <li>Profil fotoğrafı bağlantısı (Google)</li>
+            <li>,
+              </li>
+            <li>Kimlik doğrulama için kullanılan geçici yetkilendirme kodları ve tokenlar</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Bu bilgiler yalnızca güvenli giriş ve oturum açma amacıyla kullanılır; geçici tokenlar profilde kalıcı olarak saklanmaz.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>12. Kişisel Verilerin Paylaşıldığı Alıcı Grupları</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Kişisel verileriniz, yalnızca hizmetin sunulması, güvenliğin sağlanması ve yasal yükümlülüklerin yerine getirilmesi için gerekli olduğu ölçüde aşağıdaki alıcı gruplarıyla paylaşılabilir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
+            <li>Kimlik doğrulama ve sunucu altyapısı hizmeti sağlayıcıları</li>
+            <li>,
+              </li>
+            <li>Bulut depolama ve içerik barındırma hizmeti sağlayıcıları</li>
+            <li>,
+              </li>
+            <li>Analitik ve kullanım ölçüm hizmeti sağlayıcıları</li>
+            <li>,
+              </li>
+            <li>Hata ve çökme raporlama hizmeti sağlayıcıları</li>
+            <li>,
+              </li>
+            <li>Push bildirim altyapısı sağlayıcıları ve Apple Push Notification Service</li>
+            <li>,
+              </li>
+            <li>Uygulama içi satın alma doğrulama hizmeti sağlayıcıları</li>
+            <li>,
+              </li>
+            <li>Kullanıcının tercih ettiği kimlik doğrulama hizmeti sağlayıcıları (Apple, Google)</li>
+            <li>,
+              </li>
+            <li>Hukuki zorunluluk halinde yetkili kamu kurum ve kuruluşları</li>
+            <li>,
+            ]),
+
+            _buildSectionTitle(</li>
+            <li>13. Verilerin Yurt Dışında İşlenmesi</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Uygulamanın sunulması kapsamında bazı kişisel veriler, kullanılan kimlik doğrulama, bulut altyapısı, depolama, analitik, hata raporlama, bildirim ve uygulama içi satın alma hizmetlerinin niteliğine bağlı olarak yurt dışında bulunan veya yurt dışından hizmet sunan hizmet sağlayıcılar tarafından işlenebilir.
+Yurt dışına kişisel veri aktarımları, yürürlükteki 6698 sayılı Kişisel Verilerin Korunması Kanunu’nun 9. maddesinde öngörülen şartlar ve uygulanabilir aktarım mekanizmaları çerçevesinde gerçekleştirilir.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>14. Hesap Silme ve Veri Saklama Esasları</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Takasla hesabınızı istediğiniz zaman uygulama içerisindeki Ayarlar &gt; Hesabımı Kalıcı Olarak Sil bölümünden silebilirsiniz.
+Hesap silme işlemi tamamlandığında aşağıdaki aktif veriler sistemden silinir:</li>
+            <li>,
+            ),
+            _buildBulletList([
+              </li>
+            <li>Kullanıcı hesabı ve profil bilgileri</li>
+            <li>,
+              </li>
+            <li>Cihaz push bildirim kayıtları ve bildirimler</li>
+            <li>,
+              </li>
+            <li>Aktif ve tamamlanmamış ilanlar ile bunlara ait fotoğraflar</li>
+            <li>,
+              </li>
+            <li>Aktif mesajlar ve sohbet kayıtları</li>
+            <li>,
+              </li>
+            <li>Favori kayıtları</li>
+            <li>,
+              </li>
+            <li>Kullanıcının oluşturduğu şikayet ve rapor kayıtları</li>
+            <li>,
+              </li>
+            <li>Tamamlanmamış veya bekleyen takas teklifleri</li>
+            <li>,
+            ]),
+            _buildParagraph(
+              </li>
+            <li>Hesap silme işlemi sırasında bazı tamamlanmış işlem, satın alma/cüzdan ve değerlendirme kayıtları otomatik olarak silinmeyebilir. Bu kayıtlar yalnızca ilgili işlemlerin ve platform kayıtlarının devamlılığının gerektirdiği ölçüde saklanabilir.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>15. Veri Güvenliği</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Takasla, kişisel verilerinizin güvenliğini sağlamak amacıyla uygun teknik ve idari güvenlik önlemlerini uygular. Bu kapsamda şifreli ağ iletişimi (HTTPS/TLS), kullanıcı bazlı yetkilendirme politikaları, güvenli veritabanı erişim kontrolleri ve sunucu taraflı işlem doğrulamaları uygulanmaktadır.</li>
+            <li>,
+            ),
+
+            _buildSectionTitle(</li>
+            <li>16. Kullanıcı Hakları ve İletişim</li>
+            <li>),
+            _buildParagraph(
+              </li>
+            <li>Kişisel verilerinizle ilgili bilgi alma, düzeltme, silme veya diğer yasal haklarınızı kullanmak için bizimle iletişime geçebilirsiniz:</li>
+            <li>,
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(top: 8, bottom: 24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: const Color(0xFFE2E8F0)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SelectableText(
+                    </li>
+            <li>Recep Aydoğan
+Esenler Mah., Horasan Sok., Görgülü Center No:4/4
+Selçuklu / Konya</li>
+            <li>,
+                    style: GoogleFonts.inter(
+                      fontSize: 13.5,
+                      color: const Color(0xFF475569),
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        </li>
+            <li>E-posta: </li>
+            <li>,
+                        style: GoogleFonts.inter(
+                          fontSize: 13.5,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF475569),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () =&gt; _launchUrl(</li>
+            <li>mailto:takaslappcom@gmail.com</li>
+            <li>),
+                        child: Text(
+                          </li>
+            <li>takaslappcom@gmail.com</li>
+            <li>,
+                          style: GoogleFonts.inter(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFF2563EB),
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Text(
+                        </li>
+            <li>İnternet Sitesi: </li>
+            <li>,
+                        style: GoogleFonts.inter(
+                          fontSize: 13.5,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF475569),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () =&gt; _launchUrl(</li>
+            <li>https://takaslapp.com</li>
+            <li>),
+                        child: Text(
+                          </li>
+            <li>takaslapp.com</li>
+            <li>,
+                          style: GoogleFonts.inter(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFF2563EB),
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+          </li>
           </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Bu bilgiler takas sürecinin yürütülmesi, işlem bütünlüğünün korunması, kötüye kullanımın önlenmesi ve gerektiğinde uyuşmazlıkların incelenebilmesi amacıyla kullanılabilir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              4. Mesajlaşma Bilgileri
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla içerisindeki mesajlaşma özelliğini kullandığınızda:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Gönderilen mesaj metni</li>
-            <li>Gönderici bilgisi</li>
-            <li>Konuşma bilgisi</li>
-            <li>Mesaj tarihi</li>
-            <li>Okundu bilgisi</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            saklanır.<br />Takasla’nın mevcut mesajlaşma sisteminde fotoğraf veya dosya eki gönderilmemektedir.<br />“Yazıyor…” veya çevrim içi durumu gibi anlık bilgiler kalıcı olarak saklanmaz; yalnızca anlık iletişim sırasında kullanılabilir.<br />Mesajlar, hesabınız aktif olduğu sürece platform içerisindeki iletişimin sağlanması amacıyla saklanabilir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              5. Değerlendirme, Şikâyet ve Engelleme Bilgileri
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Platform güvenliği ve topluluk düzeninin korunması için aşağıdaki bilgiler işlenebilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kullanıcı değerlendirme puanları</li>
-            <li>Değerlendirme yorumları</li>
-            <li>Şikâyet nedeni ve açıklaması</li>
-            <li>Şikâyet durumu</li>
-            <li>Engellenen ve engelleyen kullanıcı ilişkileri</li>
-            <li>İçerik veya kullanıcı raporları</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Bu bilgiler kötüye kullanım, dolandırıcılık, taciz veya topluluk kurallarına aykırı davranışların incelenmesi amacıyla kullanılabilir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              6. Bildirim ve Cihaz Bilgileri
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Anlık bildirimlerin cihazınıza ulaştırılabilmesi amacıyla:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Firebase Cloud Messaging (FCM) bildirim tokenı</li>
-            <li>Platform bilgisi (iOS veya Android)</li>
-            <li>Bildirim tokenının güncellenme zamanı</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            saklanabilir.<br />Takasla aşağıdaki cihaz bilgilerini toplamaz:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>IMEI</li>
-            <li>UDID</li>
-            <li>Seri numarası</li>
-            <li>MAC adresi</li>
-            <li>Donanım kimliği</li>
-            <li>Cihaz modeli</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            FCM tokenı oturum kapatma veya hesap silme işlemleri sırasında sistemden temizlenebilir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              7. IP Adresi ve Teknik Loglar
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla mobil uygulaması IP adresinizi kullanıcı profilinizin bir parçası olarak ayrıca kaydetmez.<br />Ancak Takasla’nın kullandığı sunucu ve altyapı hizmetleri;
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Güvenlik</li>
-            <li>Yetkisiz erişimlerin tespiti</li>
-            <li>Rate limiting</li>
-            <li>DDoS koruması</li>
-            <li>Sistem hatalarının incelenmesi</li>
-            <li>Hizmet sürekliliğinin sağlanması</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            amaçlarıyla IP adresi, istek zamanı ve benzeri teknik erişim kayıtlarını altyapı seviyesinde geçici olarak işleyebilir.<br />Bu teknik kayıtlar kullanıcı profilinin bir parçası olarak saklanmaz.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              8. Kamera ve Fotoğraf Erişimi
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla’da profil fotoğrafı veya ilan görseli eklemek için kamera ve fotoğraf seçme özelliklerini kullanabilirsiniz.<br />Kamera yalnızca sizin bu özelliği kullanmanız halinde devreye girer ve gerekli izin işletim sistemi tarafından talep edilir.<br />iOS cihazlarda fotoğraf seçimi Apple’ın sistem fotoğraf seçicisi üzerinden gerçekleştirilebilir. Bu durumda Takasla tüm fotoğraf arşivinize erişmek yerine yalnızca sizin seçtiğiniz görsellere erişir.<br />Takasla mevcut durumda:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Mikrofon</li>
-            <li>Rehber</li>
-            <li>GPS tabanlı hassas konum</li>
-            <li>Reklam takip izni</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            talep etmez.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              9. Google ile Giriş
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Google ile giriş seçeneğini kullandığınızda Google tarafından Takasla’ya aşağıdaki bilgiler sağlanabilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>E-posta adresi</li>
-            <li>Ad ve soyad</li>
-            <li>Profil fotoğrafı</li>
-            <li>Kimlik doğrulama için kullanılan geçici tokenlar</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Kimlik doğrulama tokenları oturum açma işlemi sırasında kullanılır ve Takasla’nın normal kullanıcı profil tablolarında kalıcı olarak saklanmaz.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              10. Apple ile Giriş
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Sign in with Apple seçeneğini kullandığınızda Apple tarafından aşağıdaki bilgiler sağlanabilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>E-posta adresi</li>
-            <li>Ad ve soyad</li>
-            <li>Apple kullanıcı kimliği</li>
-            <li>Kimlik doğrulama için kullanılan geçici token veya authorization code</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Apple’ın ad ve soyad bilgisini yalnızca ilk yetkilendirme sırasında sağlayabileceği durumlar olabilir.<br />Kimlik doğrulama tokenları kullanıcı profili içerisinde kalıcı olarak saklanmaz.<br />Apple ile oluşturulmuş bir Takasla hesabı kalıcı olarak silindiğinde, hesap silme işlemi sırasında kullanıcının Apple kimliği yeniden doğrulanabilir ve Takasla ile Apple hesabı arasındaki yetkilendirme bağlantısı sunucu tarafında iptal edilir. Apple, Sign in with Apple ile oluşturulan hesaplar silinirken ilgili kullanıcı tokenlarının revoke edilmesini istemektedir. 
-          </p>
-
-          <p className="mb-4">
-            <a
-              href="https://developer.apple.com/design/human-interface-guidelines/managing-accounts?changes=_8&utm_source=chatgpt.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#00A859] font-medium underline hover:text-[#00E676] transition-colors text-sm sm:text-base"
-            >
-              Apple Developer →
-            </a>
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              11. TakasPara ve Uygulama İçi Satın Almalar
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla içerisinde kullanılan TakasPara, Apple App Store uygulama içi satın alma sistemi üzerinden edinilebilir.<br />Ödeme ve faturalandırma işlemleri Apple tarafından gerçekleştirilir.<br />Takasla aşağıdaki finansal bilgileri görmez veya saklamaz:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kredi kartı numarası</li>
-            <li>Banka kartı numarası</li>
-            <li>Kart son kullanma tarihi</li>
-            <li>CVC/CVV</li>
-            <li>Banka hesabı bilgileri</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Satın alma işlemlerinin doğrulanması ve TakasPara bakiyesinin tanımlanabilmesi amacıyla aşağıdaki sınırlı işlem bilgileri saklanabilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>İşlem kimliği</li>
-            <li>Satın alınan ürün/paket kimliği</li>
-            <li>Yüklenen TakasPara miktarı</li>
-            <li>İşlem zamanı</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Satın alma işlemlerinin doğrulanmasında Apple ve RevenueCat altyapıları kullanılmaktadır.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              12. Bildirimler
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla aşağıdaki durumlarda bildirim gönderebilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Yeni takas teklifi</li>
-            <li>Teklif kabul veya ret bilgisi</li>
-            <li>Yeni mesaj</li>
-            <li>Takas süreci güncellemeleri</li>
-            <li>Takasın tamamlanması</li>
-            <li>Değerlendirmeler</li>
-            <li>Sistem veya moderasyon duyuruları</li>
-            <li>Millî ve dinî bayramlar ile özel günlere ilişkin kutlama mesajları</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla mevcut durumda reklam veya kişiselleştirilmiş pazarlama ağı bildirimleri göndermemektedir.<br />Kullanıcılar uygulamadaki Ayarlar &gt; Bildirimler bölümünden bildirim tercihlerini yönetebilir.<br />Cihaz düzeyindeki bildirim izni ayrıca iOS veya Android sistem ayarlarından kapatılabilir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              13. Analitik ve Reklam Teknolojileri
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla’nın mevcut sürümünde:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Google Analytics</li>
-            <li>Firebase Analytics</li>
-            <li>Firebase Crashlytics</li>
-            <li>Sentry</li>
-            <li>Mixpanel</li>
-            <li>Amplitude</li>
-            <li>Meta/Facebook SDK</li>
-            <li>AdMob</li>
-            <li>OneSignal</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            gibi reklam, kullanıcı davranışı analizi veya üçüncü taraf takip SDK’ları kullanılmamaktadır.<br />İleride bu yapı değişirse Gizlilik Politikası buna uygun şekilde güncellenecektir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              14. Kişisel Verilerin Kullanım Amaçları
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Toplanan bilgiler başlıca aşağıdaki amaçlarla kullanılabilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kullanıcı hesabının oluşturulması</li>
-            <li>Kullanıcının kimliğinin doğrulanması</li>
-            <li>Profil bilgilerinin yönetilmesi</li>
-            <li>İlan oluşturulması ve yayınlanması</li>
-            <li>Takas tekliflerinin gönderilmesi</li>
-            <li>Takas sürecinin yönetilmesi</li>
-            <li>Kullanıcılar arasında mesajlaşmanın sağlanması</li>
-            <li>TakasPara işlemlerinin yürütülmesi</li>
-            <li>Uygulama içi satın almaların doğrulanması</li>
-            <li>Bildirimlerin gönderilmesi</li>
-            <li>Kullanıcı değerlendirmelerinin tutulması</li>
-            <li>Şikâyet ve engelleme mekanizmalarının işletilmesi</li>
-            <li>Dolandırıcılık ve kötüye kullanımın önlenmesi</li>
-            <li>Sistem ve hesap güvenliğinin sağlanması</li>
-            <li>Teknik sorunların incelenmesi</li>
-            <li>Hizmetin çalışmasının ve sürekliliğinin sağlanması</li>
-            <li>Hukuki yükümlülüklerin yerine getirilmesi</li>
-          </ul>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              15. Üçüncü Taraf Hizmet Sağlayıcıları
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla hizmetinin sunulabilmesi için aşağıdaki üçüncü taraf hizmetlerden yararlanılmaktadır:
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            Veritabanı ve Sunucu Altyapısı
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Kimlik doğrulama, veritabanı, API, gerçek zamanlı iletişim ve sunucu servisleri altyapısı.
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            Bulut Depolama Hizmetleri
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Profil ve ilan görsellerinin depolanması ve sunulması.
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            Anlık Bildirim Servisleri
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Push bildirimlerinin cihazlara iletilmesi.
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            Google
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Google ile giriş işlemleri.
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            Apple
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Sign in with Apple ve App Store uygulama içi satın alma işlemleri.
-          </p>
-
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mt-4 mb-2">
-            Uygulama İçi Satın Alma Altyapısı
-          </h3>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Uygulama içi satın alma işlemlerinin doğrulanması ve altyapı yönetimi.
-          </p>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Bu hizmet sağlayıcılarıyla yalnızca ilgili hizmetin çalışması için gerekli bilgiler paylaşılabilir.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              16. Verilerin Yurt Dışında İşlenmesi
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla’nın kullandığı bazı teknoloji ve altyapı hizmet sağlayıcılarının sunucuları veya hizmet altyapıları Türkiye dışında bulunabilir.<br />Bu nedenle bazı kişisel veriler hizmetin sunulması sırasında yurt dışında işlenebilir veya barındırılabilir.<br />Yurt dışına veri aktarımının söz konusu olduğu durumlarda, 6698 sayılı Kişisel Verilerin Korunması Kanunu ve ilgili mevzuatta öngörülen şartlara ve uygun güvence mekanizmalarına göre hareket edilmesi esastır.<br />KVKK’nın güncel yaklaşımında yurt dışı veri aktarımı ayrıca değerlendirilmesi gereken bir yükümlülüktür; bu nedenle kullanılan servislerin fiilî veri lokasyonları ve aktarım mekanizmaları işletmeci tarafından ayrıca takip edilmelidir. 
-          </p>
-
-          <p className="mb-4">
-            <a
-              href="https://www.kvkk.gov.tr/Icerik/2033/Aydinlatma-Yukumlulugu-?utm_source=chatgpt.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#00A859] font-medium underline hover:text-[#00E676] transition-colors text-sm sm:text-base"
-            >
-              KVKK →
-            </a>
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              17. Hesap Silme ve Verilerin Saklanması
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla hesabınızı uygulama içerisinden kalıcı olarak silebilirsiniz.<br />Hesap silme işlemi sırasında aşağıdaki veriler fiziksel olarak silinebilir:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kullanıcı profili</li>
-            <li>Kimlik doğrulama hesabı</li>
-            <li>FCM bildirim tokenları</li>
-            <li>Bildirim kayıtları</li>
-            <li>Favoriler</li>
-            <li>Kullanıcının açtığı şikâyet kayıtları</li>
-            <li>Mesajlar</li>
-            <li>Konuşmalar</li>
-            <li>Aktif veya tamamlanmamış ilanlar</li>
-            <li>Bu ilanlara ait görseller</li>
-            <li>Aktif veya tamamlanmamış takas teklifleri</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Bununla birlikte tamamlanmış işlemlere ilişkin bazı kayıtlar platform bütünlüğünün korunması, değerlendirme sisteminin bozulmaması, işlem geçmişinin korunması veya hukuki yükümlülüklerin yerine getirilmesi amacıyla kullanıcı kimliğiyle doğrudan bağlantısı kaldırılarak saklanabilir.<br />Bu kapsamda:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Tamamlanmış takas kayıtları</li>
-            <li>Tamamlanmış takas teklifleri</li>
-            <li>Tamamlanmış ilan kayıtları</li>
-            <li>Takas değerlendirmeleri</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            kişisel profil bağlantısı kaldırılarak veya anonimleştirilerek saklanabilir.<br />Apple da hesap oluşturulan uygulamalarda kullanıcının uygulama içinden hesap silme işlemini başlatabilmesini ve gerekli olmayan ilişkili kişisel verilerin silinmesini beklemektedir. 
-          </p>
-
-          <p className="mb-4">
-            <a
-              href="https://developer.apple.com/support/offering-account-deletion-in-your-app?utm_source=chatgpt.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#00A859] font-medium underline hover:text-[#00E676] transition-colors text-sm sm:text-base"
-            >
-              Apple Developer →
-            </a>
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              18. Hesabınızı Nasıl Silebilirsiniz?
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Hesabınızı Takasla uygulamasında:<br />Ayarlar &gt; Hesabımı kalıcı olarak sil<br />bölümünden silebilirsiniz.<br />Hesap silme işlemi geri alınamaz.<br />Güvenlik amacıyla işlem öncesinde ek doğrulama istenebilir.<br />Apple ile oluşturulmuş hesaplarda, Apple hesabıyla olan bağlantının da kaldırılabilmesi amacıyla hesap silme sırasında yeniden Apple kimlik doğrulaması istenebilir. Bu doğrulama yeni bir hesap oluşturmaz ve kullanıcının Takasla hesabına yeniden giriş yapması amacıyla kullanılmaz.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              19. Veri Güvenliği
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla, kullanıcı bilgilerinin yetkisiz erişime, değiştirmeye, açıklanmaya veya kayba karşı korunması amacıyla uygun teknik ve idari güvenlik önlemleri uygular.<br />Bu kapsamda örneğin:
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kullanıcı bazlı yetkilendirme</li>
-            <li>Veritabanı erişim politikaları</li>
-            <li>Yetki kontrolleri</li>
-            <li>Sunucu taraflı işlem doğrulamaları</li>
-            <li>Şifreli ağ iletişimi</li>
-            <li>Güvenli kimlik doğrulama yöntemleri</li>
-            <li>Private key ve servis secret’larının istemci uygulamasından ayrı tutulması</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            gibi yöntemler kullanılmaktadır.<br />Bununla birlikte internet üzerinden gerçekleştirilen hiçbir veri aktarımı veya depolama yönteminin mutlak biçimde risksiz olduğu garanti edilemez.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              20. Kullanıcı Hakları
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Kullanıcılar kişisel verileriyle ilgili olarak yürürlükteki mevzuat kapsamında;
-          </p>
-
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-            <li>Kişisel verilerinin işlenip işlenmediğini öğrenme</li>
-            <li>İşlenen veriler hakkında bilgi talep etme</li>
-            <li>Verilerin hangi amaçlarla kullanıldığını öğrenme</li>
-            <li>Verilerin aktarıldığı taraflar hakkında bilgi alma</li>
-            <li>Eksik veya yanlış verilerin düzeltilmesini talep etme</li>
-            <li>Şartları oluştuğunda verilerin silinmesini veya yok edilmesini talep etme</li>
-            <li>İlgili mevzuatta tanınan diğer haklarını kullanma</li>
-          </ul>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            hakkına sahip olabilir.<br />KVKK kapsamındaki haklar ve veri işleme hukuki sebepleri ayrıca KVKK Aydınlatma Metni içerisinde açıklanacaktır. KVKK, aydınlatma metninde veri sorumlusunun kimliği, amaçlar, aktarım, toplama yöntemi/hukuki sebep ve ilgili kişinin haklarının açıklanmasını istemektedir. 
-          </p>
-
-          <p className="mb-4">
-            <a
-              href="https://www.kvkk.gov.tr/Icerik/2033/Aydinlatma-Yukumlulugu-?utm_source=chatgpt.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#00A859] font-medium underline hover:text-[#00E676] transition-colors text-sm sm:text-base"
-            >
-              KVKK →
-            </a>
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              21. Gizlilik Politikasındaki Değişiklikler
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Takasla hizmetlerinde, teknik altyapısında, kullanılan üçüncü taraf hizmetlerde veya yürürlükteki mevzuatta değişiklik olması halinde bu Gizlilik Politikası güncellenebilir.<br />Önemli değişiklikler olması halinde kullanıcılar uygulama içerisinden veya uygun diğer iletişim yöntemlerinden bilgilendirilebilir.<br />Politikanın güncel sürümü Takasla uygulaması ve takaslapp.com üzerinden erişilebilir olacaktır.
-          </p>
-
-          <section className="pt-6 first:pt-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-              22. İletişim
-            </h2>
-          </section>
-
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
-            Bu Gizlilik Politikası veya kişisel verilerinizle ilgili sorularınız için bizimle iletişime geçebilirsiniz:
-          </p>
-
-          <div className="bg-[#FAF9F5] border border-gray-200/80 rounded-2xl p-5 my-4 text-sm sm:text-base leading-relaxed text-gray-700">
-            <p className="font-medium text-gray-900 mb-1">İletişim Bilgileri:</p>
-            <p>Recep Aydoğan<br />Esenler Mah., Horasan Sok., Görgülü Center No:4/4<br />Selçuklu / Konya</p>
-            <div className="mt-3 pt-3 border-t border-gray-200 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              <p><strong>E-posta:</strong> <a href="mailto:destek@takasla.com" className="text-[#00A859] hover:underline font-medium">destek@takasla.com</a> / <a href="mailto:takaslappcom@gmail.com" className="text-[#00A859] hover:underline font-medium">takaslappcom@gmail.com</a></p>
-              <p><strong>Telefon:</strong> <span className="text-gray-900 font-medium">0505 063 85 43</span></p>
-              <p><strong>Web:</strong> <a href="https://takaslapp.com" className="text-[#00A859] hover:underline font-medium">takaslapp.com</a></p>
-            </div>
-          </div>
         </div>
       </main>
 
