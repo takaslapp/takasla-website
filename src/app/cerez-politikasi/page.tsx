@@ -31,7 +31,7 @@ export default function CerezPolitikasiPage() {
                 Çerez Politikası
               </h1>
               <p className="text-sm text-gray-400 mt-2">
-                Son Güncelleme: 9 Ekim 2026
+                Son Güncelleme: 10 Ekim 2026
               </p>
             </div>
             <img
