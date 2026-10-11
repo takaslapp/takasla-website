@@ -218,6 +218,10 @@ export default function GizlilikPolitikasiPage() {
             Takasla tarafından analitik sistemine; e-posta adresi, kullanıcı adı, kullanıcı hesap kimliği, mesaj içeriği, ilan veya teklif kimlikleri, gerçek arama metni, il, ilçe veya GPS koordinatı gönderilmez.<br />Uygulamada üçüncü taraf reklam ağları (AdMob, Meta Ads vb.) veya uygulamalar arası çapraz takip (IDFA / cross-app tracking) teknolojileri yer almamaktadır.
           </p>
 
+          <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+            Analitik hizmet sağlayıcıları, cihazın ağ bağlantısı gibi teknik bilgilerden ülke veya yaklaşık bölge düzeyinde konum bilgisi türetebilir. Takasla tarafından analitik sistemine kullanıcının manuel olarak seçtiği il/ilçe bilgisi veya hassas GPS koordinatı gönderilmez.
+          </p>
+
           <section className="pt-6 first:pt-0">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 tracking-tight">
               8. Uygulama Hata ve Çökme Raporlama
