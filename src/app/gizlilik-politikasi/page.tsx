@@ -34,8 +34,10 @@ export default function GizlilikPolitikasiPage() {
               </p>
             </div>
             <img
-              src="/images/takasla-3d.png"
+              src="/images/takasla-3d.webp"
               alt="Takasla 3D"
+              width={96}
+              height={96}
               className="hidden md:block w-24 h-24 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] flex-shrink-0"
             />
           </div>

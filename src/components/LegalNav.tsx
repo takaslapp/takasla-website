@@ -42,6 +42,7 @@ export default function LegalNav({ currentPage }: LegalNavProps) {
             <Link
               key={link.id}
               href={link.href}
+              scroll={false}
               className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all select-none ${
                 isActive
                   ? "bg-[#151716] text-[#00E676] border border-[#00E676]/40 shadow-sm"
