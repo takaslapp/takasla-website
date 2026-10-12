@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import StatementSection from "@/components/StatementSection";
+import AppShowcase from "@/components/AppShowcase";
 
 const FaqSection = dynamic(() => import("@/components/FaqSection"));
 
@@ -80,6 +81,10 @@ export default function Home() {
       {/* BEGIN: Statement Section with Inline Emojis & Pills */}
       <StatementSection />
       {/* END: Statement Section */}
+
+      {/* BEGIN: App Showcase Section (5 Mobile Screens) */}
+      <AppShowcase />
+      {/* END: App Showcase Section */}
 
       {/* BEGIN: FAQ Section */}
       <FaqSection />

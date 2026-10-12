@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
+import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -9,6 +10,13 @@ const outfit = Outfit({
   preload: true,
   adjustFontFallback: true,
 });
+
+export const viewport: Viewport = {
+  themeColor: "#151716",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://takaslapp.com"),
@@ -163,6 +171,7 @@ export default function RootLayout({
       </head>
       <body className="bg-white text-gray-800 antialiased overflow-x-hidden font-sans">
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

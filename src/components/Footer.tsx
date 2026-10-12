@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface FooterProps {
   className?: string;
@@ -56,22 +57,17 @@ export default function Footer({
               </div>
             </div>
 
-            {/* Right Content (Image Area - Currently empty placeholder as requested) */}
-            <div className="lg:col-span-5 w-full">
-              <div
-                className="w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-2xl border-2 border-dashed border-gray-200/90 bg-gray-50/70 overflow-hidden flex items-center justify-center relative transition-all group"
-                aria-label="Görsel Alanı"
-              >
-                {/* Clean, subtle visual space ready for image */}
-                <div className="flex flex-col items-center justify-center text-gray-400 p-6 text-center select-none">
-                  <div className="w-12 h-12 rounded-xl bg-white shadow-xs border border-gray-100 flex items-center justify-center text-gray-400 mb-2">
-                    <svg className="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <polyline points="21 15 16 10 5 21" />
-                    </svg>
-                  </div>
-                  <span className="text-xs font-medium text-gray-400">Görsel Alanı</span>
+            {/* Right Content: Modern App Preview Showcase */}
+            <div className="lg:col-span-5 w-full flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[1284/2200] rounded-[32px] sm:rounded-[36px] p-2 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 shadow-2xl border border-gray-700/60 overflow-hidden group">
+                <div className="relative w-full h-full rounded-[26px] sm:rounded-[30px] overflow-hidden bg-black">
+                  <Image
+                    src="/images/app/takasla-app-kesfet.webp"
+                    alt="Takasla Mobil Uygulaması"
+                    fill
+                    sizes="(max-width: 1024px) 320px, 320px"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
               </div>
             </div>
