@@ -12,8 +12,6 @@ html {
   --color-brand-green: #22C55E;
   --color-brand-accent: #E5F3EF;
   --color-brand-emerald: #0d2818;
-
-  --background-image-hero-gradient: url("/images/hero.webp");
 }
 
 @layer utilities {

@@ -11,9 +11,13 @@ export default function Footer({
   outerBg = "bg-[#0B0D0C]",
   showAboutTeaser = false,
 }: FooterProps = {}) {
+  // If about teaser is shown, the background above the dark container is white.
+  // The outer background must be white so the rounded top corners blend seamlessly.
+  const resolvedOuterBg = showAboutTeaser ? "bg-white" : outerBg;
+
   return (
     <footer
-      className={`relative ${outerBg} pt-0 pb-0 ${className}`}
+      className={`relative ${resolvedOuterBg} pt-0 pb-0 ${className}`}
       data-purpose="main-footer"
     >
       {/* Top About Teaser Section (Hakkımızda & Görsel Alanı) */}
@@ -76,7 +80,8 @@ export default function Footer({
       )}
 
       {/* Dark Container stretching with large rounded top corners */}
-      <div className="relative bg-[#151716] text-white rounded-t-[44px] sm:rounded-t-[64px] md:rounded-t-[80px] border-t border-white/10 px-6 sm:px-12 md:px-16 lg:px-24 pt-0 pb-12">
+      <div className={showAboutTeaser ? "bg-white w-full" : "w-full"}>
+        <div className="relative bg-[#151716] text-white rounded-t-[44px] sm:rounded-t-[64px] md:rounded-t-[80px] border-t border-white/10 px-6 sm:px-12 md:px-16 lg:px-24 pt-0 pb-12">
         {/* Subtle topographic background contour lines */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 rounded-t-[44px] sm:rounded-t-[64px] md:rounded-t-[80px]">
           <svg
@@ -113,8 +118,11 @@ export default function Footer({
         <div className="text-center relative z-10 mb-8 pt-12 sm:pt-16 flex flex-col items-center">
           <Link href="/" className="inline-block group mb-3">
             <img
-              src="/images/takasla-yesil-logo.png"
+              src="/images/takasla-yesil-logo.webp"
               alt="Takasla"
+              width={180}
+              height={50}
+              loading="lazy"
               className="h-10 sm:h-12 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_4px_24px_rgba(190,243,73,0.3)]"
             />
           </Link>
@@ -130,8 +138,11 @@ export default function Footer({
             className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"
           >
             <img
-              src="/images/apple-logo.png"
+              src="/images/apple-logo.webp"
               alt="Apple"
+              width={24}
+              height={24}
+              loading="lazy"
               className="w-6 h-6 object-contain brightness-0 invert"
             />
             <div className="flex flex-col text-left leading-none">
@@ -295,6 +306,7 @@ export default function Footer({
           </p>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   );
 }

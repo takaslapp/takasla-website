@@ -11,8 +11,11 @@ export default function StatementSection() {
           Kullanmadığın eşyaları{" "}
           <span className="inline-block align-middle mx-1 sm:mx-2">
             <img
-              src="/images/takasla-3d.png"
+              src="/images/takasla-3d.webp"
               alt="Takasla Icon"
+              width={56}
+              height={56}
+              loading="lazy"
               className="w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain inline-block align-middle drop-shadow-[0_4px_12px_rgba(0,230,118,0.4)] hover:scale-110 transition-transform"
             />
           </span>{" "}

@@ -50,9 +50,6 @@ export default function FaqSection() {
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="bg-[#00E676]/10 text-[#00E676] border border-[#00E676]/20 text-xs font-semibold px-4 py-1.5 rounded-full inline-block mb-3 uppercase tracking-wider">
-            Merak Edilenler
-          </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
             Sıkça Sorulan Sorular
           </h2>

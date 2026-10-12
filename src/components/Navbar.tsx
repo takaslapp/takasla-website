@@ -63,8 +63,10 @@ export default function Navbar() {
       <div className="flex items-center justify-center">
         <Link href="/" className="flex items-center group">
           <img
-            src="/images/takasla-yesil-logo.png"
+            src="/images/takasla-yesil-logo.webp"
             alt="Takasla"
+            width={130}
+            height={36}
             className="h-7 sm:h-8 md:h-9 w-auto object-contain group-hover:scale-105 transition-transform"
           />
         </Link>

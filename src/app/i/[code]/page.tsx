@@ -109,7 +109,7 @@ export default async function ListingPreviewPage({ params }: PageProps) {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center">
               <img
-                src="/images/takasla-yesil-logo.png"
+                src="/images/takasla-yesil-logo.webp"
                 alt="Takasla"
                 className="h-7 w-auto object-contain"
               />
@@ -162,7 +162,7 @@ export default async function ListingPreviewPage({ params }: PageProps) {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center">
               <img
-                src="/images/takasla-yesil-logo.png"
+                src="/images/takasla-yesil-logo.webp"
                 alt="Takasla"
                 className="h-7 w-auto object-contain"
               />
@@ -237,7 +237,7 @@ export default async function ListingPreviewPage({ params }: PageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <img
-              src="/images/takasla-yesil-logo.png"
+              src="/images/takasla-yesil-logo.webp"
               alt="Takasla"
               className="h-7 sm:h-8 w-auto object-contain"
             />
@@ -411,8 +411,10 @@ export default async function ListingPreviewPage({ params }: PageProps) {
                   className="inline-flex items-center justify-center gap-2.5 bg-black hover:bg-gray-900 text-white px-5 py-2.5 rounded-xl transition-all shadow-xs active:scale-95"
                 >
                   <img
-                    src="/images/apple-logo.png"
+                    src="/images/apple-logo.webp"
                     alt="App Store"
+                    width={16}
+                    height={16}
                     className="w-4 h-4 object-contain brightness-0 invert"
                   />
                   <div className="flex flex-col text-left leading-none">

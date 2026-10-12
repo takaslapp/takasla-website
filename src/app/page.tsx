@@ -1,8 +1,10 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FaqSection from "@/components/FaqSection";
 import StatementSection from "@/components/StatementSection";
+
+const FaqSection = dynamic(() => import("@/components/FaqSection"));
 
 export default function Home() {
   return (
@@ -10,7 +12,7 @@ export default function Home() {
       {/* BEGIN: Hero Section (Full Viewport Height on PC) */}
       <section
         className="relative bg-cover bg-center bg-no-repeat text-white min-h-screen lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between pt-5"
-        style={{ backgroundImage: "url('/images/takasla-hero.png')" }}
+        style={{ backgroundImage: "url('/images/takasla-hero.webp')" }}
         data-purpose="hero-section"
       >
         {/* Balanced overlay preserving image vibrance and text contrast */}
@@ -30,8 +32,11 @@ export default function Home() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[58px] font-bold leading-tight mb-4 max-w-4xl tracking-tight text-white drop-shadow-md flex flex-wrap items-center justify-center gap-x-2.5 sm:gap-x-3.5 md:gap-x-4 gap-y-2">
             <span>Parayla değil,</span>
             <img
-              src="/images/takasla-yesil-logo.png"
+              src="/images/takasla-yesil-logo.webp"
               alt="takasla"
+              width={193}
+              height={52}
+              fetchPriority="high"
               className="h-8 sm:h-10 md:h-12 lg:h-[52px] w-auto object-contain inline-block drop-shadow-[0_4px_20px_rgba(190,243,73,0.35)]"
             />
           </h1>
@@ -49,8 +54,10 @@ export default function Home() {
               className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"
             >
               <img
-                src="/images/apple-logo.png"
+                src="/images/apple-logo.webp"
                 alt="Apple"
+                width={24}
+                height={24}
                 className="w-6 h-6 object-contain brightness-0 invert"
               />
               <div className="flex flex-col text-left leading-none">
@@ -79,7 +86,7 @@ export default function Home() {
       {/* END: FAQ Section */}
 
       {/* BEGIN: Footer Section */}
-      <Footer showAboutTeaser={true} />
+      <Footer showAboutTeaser={true} outerBg="bg-white" />
       {/* END: Footer Section */}
     </>
   );

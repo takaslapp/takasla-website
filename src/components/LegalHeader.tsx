@@ -5,8 +5,10 @@ export default function LegalHeader() {
     <header className="w-full bg-[#151716] text-white py-5 px-6 flex items-center justify-center border-b border-white/10 shadow-md">
       <Link href="/" className="flex items-center group" aria-label="Takasla Ana Sayfa">
         <img
-          src="/images/takasla-yesil-logo.png"
+          src="/images/takasla-yesil-logo.webp"
           alt="Takasla"
+          width={120}
+          height={32}
           className="h-7 sm:h-8 w-auto object-contain group-hover:scale-105 transition-transform"
         />
       </Link>
