@@ -10,6 +10,12 @@
   --color-brand-emerald: #0d2818;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 @layer utilities {
   .glass-card {
     background: rgba(255, 255, 255, 0.95);

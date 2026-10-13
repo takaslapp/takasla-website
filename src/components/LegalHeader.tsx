@@ -30,6 +30,7 @@ export default function LegalHeader() {
     { label: "Ana Sayfa", href: "/" },
     { label: "Hakkımızda", href: "/hakkimizda" },
     { label: "Nasıl Çalışır?", href: "/#nasil-calisir" },
+    { label: "Blog", href: "/blog" },
     { label: "Kariyer", href: "/kariyer" },
     { label: "SSS", href: "/sss" },
     { label: "İletişim", href: "/iletisim" },

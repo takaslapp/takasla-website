@@ -189,6 +189,10 @@ export default function Footer({
                 Kariyer
               </Link>
               <span className="text-gray-600">•</span>
+              <Link href="/blog" className="hover:text-[#00E676] transition-colors">
+                Blog
+              </Link>
+              <span className="text-gray-600">•</span>
               <Link href="/sss" className="hover:text-[#00E676] transition-colors">
                 SSS
               </Link>

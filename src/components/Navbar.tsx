@@ -53,6 +53,9 @@ export default function Navbar() {
           <Link className="hover:text-white transition-colors" href="/#sss">
             SSS
           </Link>
+          <Link className="hover:text-white transition-colors" href="/blog">
+            Blog
+          </Link>
           <Link className="hover:text-white transition-colors" href="/iletisim">
             İletişim
           </Link>
@@ -130,6 +133,13 @@ export default function Navbar() {
           href="/#sss"
         >
           SSS
+        </Link>
+        <Link
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-white hover:text-[#00E676] transition-colors py-3 text-base font-semibold border-b border-white/10"
+          href="/blog"
+        >
+          Blog
         </Link>
         <Link
           onClick={() => setMobileMenuOpen(false)}

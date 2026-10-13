@@ -1,15 +1,30 @@
 import type { MetadataRoute } from "next";
+import { getAllPosts } from "@/data/blog-posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://takaslapp.com";
   const now = new Date();
+  const blogPosts = getAllPosts();
 
-  return [
+  const blogPostEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  const staticEntries: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/hakkimizda`,
@@ -96,4 +111,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
   ];
+
+  return [...staticEntries, ...blogPostEntries];
 }
