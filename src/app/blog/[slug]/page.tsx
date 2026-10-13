@@ -6,7 +6,9 @@ import LegalHeader from "@/components/LegalHeader";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogShareBar from "@/components/blog/BlogShareBar";
-import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/data/blog-posts";
+import { getAllPostsAsync, getPostBySlugAsync } from "@/data/blog-posts";
+
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{
@@ -23,7 +25,7 @@ function slugifyHeading(text: string): string {
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPostsAsync();
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -31,7 +33,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlugAsync(slug);
 
   if (!post) {
     return {
@@ -79,13 +81,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPostDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlugAsync(slug);
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(post.slug, 2);
+  const allPosts = await getAllPostsAsync();
+  const relatedPosts = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
   const formattedDate = new Date(post.publishedAt).toLocaleDateString("tr-TR", {
     day: "numeric",
     month: "long",

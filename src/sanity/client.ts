@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { apiVersion, dataset, projectId, isSanityConfigured } from "./env";
 
 export const client = isSanityConfigured
@@ -12,7 +12,7 @@ export const client = isSanityConfigured
   : null;
 
 // Image URL Builder
-const imageBuilder = isSanityConfigured && client ? imageUrlBuilder(client) : null;
+const imageBuilder = isSanityConfigured && client ? createImageUrlBuilder(client) : null;
 
 // Helper to get image URL
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

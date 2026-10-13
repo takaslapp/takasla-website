@@ -3,7 +3,9 @@ import Link from "next/link";
 import LegalHeader from "@/components/LegalHeader";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
-import { getAllPosts } from "@/data/blog-posts";
+import { getAllPostsAsync } from "@/data/blog-posts";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blog & Rehber - Takasla | Eşya Takası ve Döngüsel Yaşam",
@@ -46,8 +48,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogIndexPage() {
-  const allPosts = getAllPosts();
+export default async function BlogIndexPage() {
+  const allPosts = await getAllPostsAsync();
 
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
