@@ -88,12 +88,18 @@ export default async function BlogIndexPage() {
           </p>
         </div>
 
-        {/* 2-by-2 Grid Layout (En az 2 yazı 2 2 düzeninde) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-          {allPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </div>
+        {/* Blog Posts Grid */}
+        {allPosts.length > 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+            {allPosts.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-white rounded-3xl border border-gray-200/80 p-8">
+            <p className="text-gray-500 text-base">Henüz yayınlanmış bir blog yazısı bulunmuyor.</p>
+          </div>
+        )}
 
         {/* Solid Corporate Conversion CTA Card (No Translucent Wash) */}
         <section
