@@ -100,8 +100,25 @@ export const postType = defineType({
           ],
         },
         {
-          type: "table",
+          type: "object",
+          name: "table",
           title: "Karşılaştırma / Bilgi Tablosu",
+          fields: [
+            {
+              name: "title",
+              title: "Tablo Başlığı (İsteğe Bağlı)",
+              type: "string",
+              placeholder: "Örn: Satış ve takas arasındaki temel farklar",
+            },
+            {
+              name: "rawMarkdown",
+              title: "Tablo Metnini Buraya Yapıştırın (Hızlı Yapıştırma)",
+              description: "ChatGPT'den gelen tabloyu hiçbir şey değiştirmeden doğrudan buraya yapıştırın. Sistem otomatik olarak tabloya dönüştürür.",
+              type: "text",
+              rows: 8,
+              placeholder: "| Değerlendirme kriteri | İkinci el satış | Eşya takası |\n| :--- | :--- | :--- |\n| Temel karşılık | Para | Başka bir ürün |",
+            },
+          ],
         },
         {
           type: "object",

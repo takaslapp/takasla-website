@@ -87,6 +87,21 @@ function parseMarkdownTable(text: string): { rows: { cells: string[] }[] } {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transformSanityPost(sp: any): BlogPost {
   const sections: BlogSection[] = [];
+  let pendingTableLines: string[] = [];
+
+  const flushTable = () => {
+    if (pendingTableLines.length > 0) {
+      const tableData = parseMarkdownTable(pendingTableLines.join("\n"));
+      if (tableData.rows.length > 0) {
+        sections.push({
+          type: "table",
+          table: tableData,
+        });
+      }
+      pendingTableLines = [];
+    }
+  };
+
   if (Array.isArray(sp.content)) {
     for (const block of sp.content) {
       if (block._type === "block") {
@@ -96,6 +111,15 @@ export function transformSanityPost(sp: any): BlogPost {
           : "";
         if (!text.trim()) continue;
 
+        // If this line is part of a markdown table (e.g. "| Kriter | Satış |")
+        if (text.trim().startsWith("|") || isMarkdownTable(text)) {
+          pendingTableLines.push(text.trim());
+          continue;
+        }
+
+        // If we were accumulating table lines and now reached non-table text:
+        flushTable();
+
         if (block.style === "h2") {
           sections.push({ type: "heading", level: 2, text });
         } else if (block.style === "h3") {
@@ -104,34 +128,43 @@ export function transformSanityPost(sp: any): BlogPost {
           sections.push({ type: "quote", text });
         } else if (block.listItem) {
           sections.push({ type: "list", items: [text] });
-        } else if (isMarkdownTable(text)) {
-          sections.push({
-            type: "table",
-            table: parseMarkdownTable(text),
-          });
         } else {
           sections.push({ type: "paragraph", content: text });
         }
-      } else if (block._type === "table") {
-        if (Array.isArray(block.rows)) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const rows = block.rows.map((r: any) => ({
-            cells: Array.isArray(r.cells) ? r.cells : [],
-          }));
+      } else {
+        flushTable();
+        if (block._type === "table") {
+          if (block.rawMarkdown && typeof block.rawMarkdown === "string") {
+            const tableData = parseMarkdownTable(block.rawMarkdown);
+            if (tableData.rows.length > 0) {
+              sections.push({
+                type: "table",
+                title: block.title,
+                table: tableData,
+              });
+            }
+          } else if (Array.isArray(block.rows)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const rows = block.rows.map((r: any) => ({
+              cells: Array.isArray(r.cells) ? r.cells : [],
+            }));
+            sections.push({
+              type: "table",
+              title: block.title,
+              table: { rows },
+            });
+          }
+        } else if (block._type === "callout") {
           sections.push({
-            type: "table",
-            table: { rows },
+            type: "callout",
+            variant: "tip",
+            title: block.title || "Önemli İpucu",
+            text: block.text || "",
           });
         }
-      } else if (block._type === "callout") {
-        sections.push({
-          type: "callout",
-          variant: "tip",
-          title: block.title || "Önemli İpucu",
-          text: block.text || "",
-        });
       }
     }
+    flushTable();
   }
 
   const slug = typeof sp.slug === "string" ? sp.slug : sp.slug?.current || "";
