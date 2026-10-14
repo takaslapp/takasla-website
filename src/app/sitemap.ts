@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getAllPostsAsync } from "@/data/blog-posts";
 
+// 60 saniyede bir sitemap'i Sanity'deki yeni yazılarla otomatik güncelle (ISR)
+export const revalidate = 60;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://takaslapp.com";
   const now = new Date();
