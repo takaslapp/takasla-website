@@ -255,40 +255,60 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
             />
           </div>
 
-          {/* Table of Contents (İçindekiler) */}
+          {/* Table of Contents (İçindekiler - Açılır / Kapanır Akordeon) */}
           {headings.length > 0 && (
-            <nav
-              aria-label="İçindekiler"
-              className="bg-white border border-gray-200/90 rounded-2xl p-5 sm:p-7 mb-10 shadow-xs max-w-full overflow-hidden"
+            <details
+              open={headings.length <= 4}
+              className="group bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-6 mb-10 shadow-xs max-w-full overflow-hidden transition-all"
             >
-              <div className="flex items-center gap-2.5 mb-4 text-gray-900 font-bold text-base sm:text-lg border-b border-gray-100 pb-3">
-                <svg className="w-5 h-5 text-[#00A859]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h7" />
-                </svg>
-                <span>İçindekiler</span>
-              </div>
-              <ol className="space-y-2.5 text-sm sm:text-base text-gray-700 min-w-0">
-                {headings.map((heading, i) => {
-                  const headingId = slugifyHeading(heading.text);
-                  const cleanText = heading.text.replace(/^\d+\.\s*/, "");
-                  return (
-                    <li key={i} className="min-w-0">
-                      <a
-                        href={`#${headingId}`}
-                        className="hover:text-[#00A859] hover:underline underline-offset-4 transition-colors flex items-start gap-2.5 group min-w-0"
-                      >
-                        <span className="text-[#00A859] font-bold text-xs mt-1 shrink-0">
-                          {i + 1}.
-                        </span>
-                        <span className="group-hover:text-[#00A859] leading-snug break-words min-w-0 flex-1">
-                          {cleanText}
-                        </span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ol>
-            </nav>
+              <summary className="flex items-center justify-between cursor-pointer list-none select-none">
+                <div className="flex items-center gap-2.5 text-gray-900 font-bold text-base sm:text-lg">
+                  <svg className="w-5 h-5 text-[#00A859]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+                  </svg>
+                  <span>İçindekiler</span>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+                    {headings.length} Başlık
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors">
+                  <span className="group-open:hidden">Listeyi Aç</span>
+                  <span className="hidden group-open:inline">Listeyi Kapat</span>
+                  <svg
+                    className="w-4 h-4 transition-transform duration-200 group-open:rotate-180 text-gray-500"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </summary>
+              <nav aria-label="İçindekiler" className="mt-4 pt-4 border-t border-gray-100">
+                <ol className="space-y-2.5 text-sm sm:text-base text-gray-700 min-w-0">
+                  {headings.map((heading, i) => {
+                    const headingId = slugifyHeading(heading.text);
+                    const cleanText = heading.text.replace(/^\d+\.\s*/, "");
+                    return (
+                      <li key={i} className="min-w-0">
+                        <a
+                          href={`#${headingId}`}
+                          className="hover:text-[#00A859] hover:underline underline-offset-4 transition-colors flex items-start gap-2.5 group/item min-w-0"
+                        >
+                          <span className="text-[#00A859] font-bold text-xs mt-1 shrink-0">
+                            {i + 1}.
+                          </span>
+                          <span className="group-hover/item:text-[#00A859] leading-snug break-words min-w-0 flex-1">
+                            {cleanText}
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </nav>
+            </details>
           )}
 
           {/* Article Body Content */}

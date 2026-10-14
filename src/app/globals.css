@@ -10,6 +10,10 @@
   --color-brand-emerald: #0d2818;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   overflow-x: hidden;
