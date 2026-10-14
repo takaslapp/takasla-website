@@ -4,7 +4,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Kullanım Koşulları ve Kullanıcı Sözleşmesi - Takasla",
+  title: "Kullanım Koşulları",
   description: "Takasla platformu kullanım şartları, kullanıcı hak ve sorumlulukları ile sözleşme esasları.",
   alternates: {
     canonical: "/kullanim-kosullari",

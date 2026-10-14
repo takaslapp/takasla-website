@@ -5,7 +5,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Ön Bilgilendirme Formu - Takasla",
+  title: "Ön Bilgilendirme Formu",
   description:
     "Takasla mobil uygulaması ve platformu üzerinden sunulan ücretli dijital hizmetlerin satın alınmasına ilişkin Ön Bilgilendirme Formu.",
   alternates: {

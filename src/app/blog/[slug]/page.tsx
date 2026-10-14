@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const pageUrl = `https://takaslapp.com/blog/${post.slug}`;
 
   return {
-    title: `${post.title} - Takasla Blog`,
+    title: post.title,
     description: post.excerpt,
     keywords: post.tags,
     alternates: {

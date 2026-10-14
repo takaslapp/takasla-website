@@ -5,7 +5,7 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "Sıkça Sorulan Sorular (SSS) - Takasla",
+  title: "Sıkça Sorulan Sorular",
   description:
     "Takasla hakkında en çok merak edilen sorular; üyelik, ilan oluşturma, takas teklifleri, TakasPara kullanımı ve güvenlik süreçleri.",
   keywords: [

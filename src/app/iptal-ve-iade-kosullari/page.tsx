@@ -5,7 +5,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "İptal, Cayma ve İade Koşulları - Takasla",
+  title: "İptal ve İade Koşulları",
   description:
     "Takasla mobil uygulaması ve platformu üzerinden sunulan ücretli dijital hizmetler, TakasPara kullanımı ve satın alma işlemlerine ilişkin iptal, cayma ve iade esasları.",
   alternates: {

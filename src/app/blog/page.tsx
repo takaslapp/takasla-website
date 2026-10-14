@@ -8,7 +8,7 @@ import { getAllPostsAsync } from "@/data/blog-posts";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog & Rehber - Takasla | Eşya Takası ve Döngüsel Yaşam",
+  title: "Blog",
   description:
     "Eşya takası, sürdürülebilir yaşam, döngüsel ekonomi ve güvenli takas süreçlerine dair en güncel rehberler, püf noktaları ve tasarruf ipuçları.",
   keywords: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://takaslapp.com/blog",
     siteName: "Takasla",
-    title: "Blog & Rehber - Takasla",
+    title: "Blog - Takasla",
     description:
       "Eşya takası, sürdürülebilir yaşam ve döngüsel ekonomi rehberleri.",
     images: [
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
         url: "/images/blog/esya-takasi-rehberi.webp",
         width: 1200,
         height: 630,
-        alt: "Takasla Blog & Rehber",
+        alt: "Takasla Blog",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog & Rehber - Takasla",
+    title: "Blog - Takasla",
     description:
       "Eşya takası, sürdürülebilir yaşam ve döngüsel ekonomi rehberleri.",
     images: ["/images/blog/esya-takasi-rehberi.webp"],

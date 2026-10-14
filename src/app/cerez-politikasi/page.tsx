@@ -5,7 +5,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Çerez Politikası - Takasla",
+  title: "Çerez Politikası",
   description: "Takasla internet sitesi ve mobil platformunda kullanılan çerezler, takip teknolojileri ve çerez yönetimi politikası.",
   alternates: {
     canonical: "/cerez-politikasi",

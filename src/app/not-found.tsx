@@ -4,7 +4,7 @@ import LegalHeader from "@/components/LegalHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Sayfa Bulunamadı - Takasla",
+  title: "Sayfa Bulunamadı",
   description: "Aradığınız sayfa kaldırılmış veya bağlantı adresi değişmiş olabilir. Takasla ana sayfasına dönerek devam edebilirsiniz.",
   robots: { index: false, follow: false },
 };

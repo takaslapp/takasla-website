@@ -4,7 +4,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "KVKK Aydınlatma Metni - Takasla",
+  title: "KVKK Aydınlatma Metni",
   description: "Takasla 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca aydınlatma metni.",
   alternates: {
     canonical: "/kvkk-aydinlatma-metni",

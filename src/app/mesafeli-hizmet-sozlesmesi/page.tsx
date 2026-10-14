@@ -5,7 +5,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Mesafeli Hizmet Sözleşmesi - Takasla",
+  title: "Mesafeli Hizmet Sözleşmesi",
   description:
     "Takasla mobil uygulaması ve platformu üzerinden sunulan ücretli dijital hizmetler ve TakasPara kullanımına ilişkin Mesafeli Hizmet Sözleşmesi.",
   alternates: {

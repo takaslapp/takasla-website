@@ -4,7 +4,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Gizlilik Politikası - Takasla",
+  title: "Gizlilik Politikası",
   description: "Takasla kullanıcılarının kişisel verilerinin korunması, işlenmesi ve gizlilik esasları.",
   alternates: {
     canonical: "/gizlilik-politikasi",

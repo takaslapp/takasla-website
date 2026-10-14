@@ -5,7 +5,7 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "Kariyer - Ekibimize Katılın",
+  title: "Kariyer",
   description:
     "Takasla ekibine katılın! Türkiye'nin yeni nesil takas ekosistemini ve döngüsel tüketim altyapısını birlikte inşa edelim.",
   keywords: [

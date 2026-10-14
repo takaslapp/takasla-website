@@ -5,7 +5,7 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "İletişim - Adres ve Ulaşım Bilgileri",
+  title: "İletişim",
   description:
     "Takasla iletişim bilgileri, genel merkez adresi ve harita konumu. Bize takaslappcom@gmail.com üzerinden kolayca ulaşabilirsiniz.",
   keywords: [

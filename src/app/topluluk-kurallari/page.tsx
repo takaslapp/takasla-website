@@ -4,7 +4,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Topluluk Kuralları - Takasla",
+  title: "Topluluk Kuralları",
   description: "Takasla topluluk kuralları, saygılı iletişim standartları, yasaklı ürünler ve güvenli ilan politikası.",
   alternates: {
     canonical: "/topluluk-kurallari",

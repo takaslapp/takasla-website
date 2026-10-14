@@ -4,7 +4,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "Hesap ve Veri Silme Bilgilendirmesi - Takasla",
+  title: "Hesap ve Veri Silme",
   description: "Takasla hesabınızı silme adımları, veri silme ve saklama esasları hakkında bilgilendirme.",
   alternates: {
     canonical: "/hesap-ve-veri-silme",

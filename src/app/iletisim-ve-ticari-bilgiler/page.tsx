@@ -5,7 +5,7 @@ import LegalNav from "@/components/LegalNav";
 import LegalHeader from "@/components/LegalHeader";
 
 export const metadata: Metadata = {
-  title: "İletişim ve Ticari Bilgiler - Takasla",
+  title: "İletişim ve Ticari Bilgiler",
   description:
     "Takasla mobil uygulaması ve takaslapp.com platformuna ilişkin resmi hizmet sağlayıcı, ticari unvan ve kurumsal iletişim bilgileri.",
   alternates: {

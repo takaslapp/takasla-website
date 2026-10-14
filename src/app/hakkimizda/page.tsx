@@ -5,7 +5,7 @@ import LegalHeader from "@/components/LegalHeader";
 import CorporateSidebar from "@/components/CorporateSidebar";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda - Takasla Nedir?",
+  title: "Hakkımızda",
   description:
     "Takasla nedir? Takasla; kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı, para harcamadan güvenle takas yapılabildiği yeni nesil dijital takas ekosistemidir.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: "/hakkimizda",
   },
   openGraph: {
-    title: "Hakkımızda - Takasla Nedir?",
+    title: "Hakkımızda - Takasla",
     description:
       "Takasla, kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı yeni nesil dijital takas platformudur.",
     url: "https://takaslapp.com/hakkimizda",
