@@ -100,6 +100,10 @@ export const postType = defineType({
           ],
         },
         {
+          type: "table",
+          title: "Karşılaştırma / Bilgi Tablosu",
+        },
+        {
           type: "object",
           name: "callout",
           title: "İpucu / Vurgu Kutusu",

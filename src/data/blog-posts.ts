@@ -1,7 +1,7 @@
 import { client, urlForImage } from "@/sanity/client";
 
 export interface BlogSection {
-  type: "paragraph" | "heading" | "callout" | "quote" | "list";
+  type: "paragraph" | "heading" | "callout" | "quote" | "list" | "table";
   level?: 2 | 3;
   text?: string;
   content?: string;
@@ -9,6 +9,11 @@ export interface BlogSection {
   author?: string;
   items?: string[];
   variant?: "tip" | "info";
+  table?: {
+    rows: {
+      cells: string[];
+    }[];
+  };
 }
 
 export interface BlogPost {
@@ -55,6 +60,29 @@ export function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPos
   return BLOG_POSTS.filter((p) => p.slug !== currentSlug).slice(0, limit);
 }
 
+function isMarkdownTable(text: string): boolean {
+  const lines = text.trim().split("\n").map((l) => l.trim()).filter(Boolean);
+  return lines.length >= 2 && lines[0].includes("|") && (lines[1].includes("---") || lines[1].includes("|"));
+}
+
+function parseMarkdownTable(text: string): { rows: { cells: string[] }[] } {
+  const lines = text.trim().split("\n").map((l) => l.trim()).filter(Boolean);
+  const rows: { cells: string[] }[] = [];
+  for (const line of lines) {
+    if (line.replace(/[|\s-:]/g, "").length === 0) continue;
+    const rawCells = line.split("|").map((c) => c.trim());
+    const cells = rawCells.filter((c, idx) => {
+      if (idx === 0 && line.startsWith("|") && c === "") return false;
+      if (idx === rawCells.length - 1 && line.endsWith("|") && c === "") return false;
+      return true;
+    });
+    if (cells.length > 0) {
+      rows.push({ cells });
+    }
+  }
+  return { rows };
+}
+
 // Transform raw Sanity post into BlogPost interface
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transformSanityPost(sp: any): BlogPost {
@@ -76,8 +104,24 @@ export function transformSanityPost(sp: any): BlogPost {
           sections.push({ type: "quote", text });
         } else if (block.listItem) {
           sections.push({ type: "list", items: [text] });
+        } else if (isMarkdownTable(text)) {
+          sections.push({
+            type: "table",
+            table: parseMarkdownTable(text),
+          });
         } else {
           sections.push({ type: "paragraph", content: text });
+        }
+      } else if (block._type === "table") {
+        if (Array.isArray(block.rows)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const rows = block.rows.map((r: any) => ({
+            cells: Array.isArray(r.cells) ? r.cells : [],
+          }));
+          sections.push({
+            type: "table",
+            table: { rows },
+          });
         }
       } else if (block._type === "callout") {
         sections.push({

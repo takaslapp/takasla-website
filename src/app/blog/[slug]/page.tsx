@@ -377,6 +377,49 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
                 );
               }
 
+              if (section.type === "table" && section.table && section.table.rows && section.table.rows.length > 0) {
+                const [headerRow, ...bodyRows] = section.table.rows;
+                return (
+                  <div key={idx} className="my-8 overflow-x-auto rounded-xl border border-gray-200 shadow-xs">
+                    <table className="w-full text-left text-sm border-collapse bg-white min-w-[500px]">
+                      {headerRow && (
+                        <thead className="bg-[#121413] text-white">
+                          <tr>
+                            {headerRow.cells.map((cell, cIdx) => (
+                              <th
+                                key={cIdx}
+                                className="px-4 py-3.5 font-bold tracking-tight border-b border-gray-800 first:pl-5 last:pr-5"
+                              >
+                                {cell}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                      )}
+                      <tbody className="divide-y divide-gray-100 text-gray-700">
+                        {bodyRows.map((row, rIdx) => (
+                          <tr
+                            key={rIdx}
+                            className={rIdx % 2 === 0 ? "bg-white hover:bg-gray-50/80 transition-colors" : "bg-gray-50/50 hover:bg-gray-50/80 transition-colors"}
+                          >
+                            {row.cells.map((cell, cIdx) => (
+                              <td
+                                key={cIdx}
+                                className={`px-4 py-3.5 leading-relaxed first:pl-5 last:pr-5 ${
+                                  cIdx === 0 ? "font-semibold text-gray-900" : ""
+                                }`}
+                              >
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              }
+
               return null;
             })}
 
