@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { TablePasteInput } from "../components/TablePasteInput";
 
 export const postType = defineType({
   name: "post",
@@ -108,15 +109,31 @@ export const postType = defineType({
               name: "title",
               title: "Tablo Başlığı (İsteğe Bağlı)",
               type: "string",
-              placeholder: "Örn: Satış ve takas arasındaki temel farklar",
+              placeholder: "Örn: İkinci El Satış vs Eşya Takası",
+            },
+            {
+              name: "columnsCount",
+              title: "Sütun Sayısı",
+              type: "number",
+              description: "Tablonuz kaç sütundan oluşuyor? (Standart: 3)",
+              initialValue: 3,
+              options: {
+                list: [
+                  { title: "2 Sütunlu (İkili Karşılaştırma)", value: 2 },
+                  { title: "3 Sütunlu (Kriter / Satış / Takas)", value: 3 },
+                  { title: "4 Sütunlu", value: 4 },
+                ],
+                layout: "radio",
+              },
             },
             {
               name: "rawMarkdown",
-              title: "Tablo Metnini Buraya Yapıştırın (Hızlı Yapıştırma)",
-              description: "ChatGPT'den gelen tabloyu hiçbir şey değiştirmeden doğrudan buraya yapıştırın. Sistem otomatik olarak tabloya dönüştürür.",
+              title: "Tablo Metnini Buraya Yapıştırın",
+              description: "ChatGPT'den veya Excel'den kopyaladığınız tabloyu doğrudan buraya yapıştırın. Sistem otomatik olarak tabloya dönüştürür.",
               type: "text",
-              rows: 8,
-              placeholder: "| Değerlendirme kriteri | İkinci el satış | Eşya takası |\n| :--- | :--- | :--- |\n| Temel karşılık | Para | Başka bir ürün |",
+              components: {
+                input: TablePasteInput,
+              },
             },
           ],
         },

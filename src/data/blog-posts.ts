@@ -65,21 +65,54 @@ function isMarkdownTable(text: string): boolean {
   return lines.length >= 2 && lines[0].includes("|") && (lines[1].includes("---") || lines[1].includes("|"));
 }
 
-function parseMarkdownTable(text: string): { rows: { cells: string[] }[] } {
+function parseMarkdownTable(text: string, defaultCols: number = 3): { rows: { cells: string[] }[] } {
   const lines = text.trim().split("\n").map((l) => l.trim()).filter(Boolean);
+  if (lines.length === 0) return { rows: [] };
+
+  const hasPipes = lines.some((l) => l.includes("|"));
+  const hasTabs = lines.some((l) => l.includes("\t"));
+
   const rows: { cells: string[] }[] = [];
-  for (const line of lines) {
-    if (line.replace(/[|\s-:]/g, "").length === 0) continue;
-    const rawCells = line.split("|").map((c) => c.trim());
-    const cells = rawCells.filter((c, idx) => {
-      if (idx === 0 && line.startsWith("|") && c === "") return false;
-      if (idx === rawCells.length - 1 && line.endsWith("|") && c === "") return false;
-      return true;
-    });
-    if (cells.length > 0) {
-      rows.push({ cells });
+
+  if (hasPipes) {
+    for (const line of lines) {
+      if (line.replace(/[|\s-:]/g, "").length === 0) continue;
+      const rawCells = line.split("|").map((c) => c.trim());
+      const cells = rawCells.filter((c, idx) => {
+        if (idx === 0 && line.startsWith("|") && c === "") return false;
+        if (idx === rawCells.length - 1 && line.endsWith("|") && c === "") return false;
+        return true;
+      });
+      if (cells.length > 0) {
+        rows.push({ cells });
+      }
+    }
+  } else if (hasTabs) {
+    for (const line of lines) {
+      const cells = line.split("\t").map((c) => c.trim()).filter(Boolean);
+      if (cells.length > 0) {
+        rows.push({ cells });
+      }
+    }
+  } else {
+    // Flattened text lines (copied from browser without pipes or tabs)
+    const cols =
+      defaultCols && defaultCols >= 2
+        ? defaultCols
+        : lines.length % 3 === 0
+        ? 3
+        : lines.length % 2 === 0
+        ? 2
+        : 3;
+
+    for (let i = 0; i < lines.length; i += cols) {
+      const cells = lines.slice(i, i + cols);
+      if (cells.length > 0) {
+        rows.push({ cells });
+      }
     }
   }
+
   return { rows };
 }
 
@@ -134,8 +167,9 @@ export function transformSanityPost(sp: any): BlogPost {
       } else {
         flushTable();
         if (block._type === "table") {
+          const cols = typeof block.columnsCount === "number" ? block.columnsCount : 3;
           if (block.rawMarkdown && typeof block.rawMarkdown === "string") {
-            const tableData = parseMarkdownTable(block.rawMarkdown);
+            const tableData = parseMarkdownTable(block.rawMarkdown, cols);
             if (tableData.rows.length > 0) {
               sections.push({
                 type: "table",
