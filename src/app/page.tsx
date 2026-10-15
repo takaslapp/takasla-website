@@ -68,7 +68,7 @@ export default function Home() {
                   App Store&apos;dan
                 </span>
                 <span className="text-base font-semibold text-white tracking-tight mt-0.5">
-                  İndirin
+                  Yakında
                 </span>
               </div>
             </Link>

@@ -17,10 +17,6 @@ export default async function HomeBlogSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-4">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#00A859]/10 text-[#00A859] text-xs font-bold uppercase tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#00A859]" />
-              Rehber & İçerikler
-            </div>
             <h2
               id="home-blog-heading"
               className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900 leading-tight"
