@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import StatementSection from "@/components/StatementSection";
 import AppShowcase from "@/components/AppShowcase";
+import HomeBlogSection from "@/components/HomeBlogSection";
 
 const FaqSection = dynamic(() => import("@/components/FaqSection"));
 
@@ -29,17 +30,18 @@ export default function Home() {
           className="container mx-auto px-6 relative z-10 flex-grow flex flex-col items-center text-center justify-center pt-20 sm:pt-28 lg:pt-36 pb-20 sm:pb-28"
           data-purpose="hero-content"
         >
-          {/* Main Slogan */}
+          {/* Main Slogan & Semantic H1 for SEO */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[58px] font-bold leading-tight mb-4 max-w-4xl tracking-tight text-white drop-shadow-md flex flex-wrap items-center justify-center gap-x-2.5 sm:gap-x-3.5 md:gap-x-4 gap-y-2">
             <span>Parayla değil,</span>
             <img
               src="/images/takasla-yesil-logo.webp"
-              alt="takasla"
+              alt="Takasla - Yeni Nesil Eşya Takası Platformu"
               width={193}
               height={52}
               fetchPriority="high"
               className="h-8 sm:h-10 md:h-12 lg:h-[52px] w-auto object-contain inline-block drop-shadow-[0_4px_20px_rgba(190,243,73,0.35)]"
             />
+            <span className="sr-only">Takasla - Türkiye&apos;nin Yeni Nesil Eşya Takası ve İkinci El Takas Platformu</span>
           </h1>
 
           {/* Subtitle */}
@@ -85,6 +87,10 @@ export default function Home() {
       {/* BEGIN: App Showcase Section (5 Mobile Screens) */}
       <AppShowcase />
       {/* END: App Showcase Section */}
+
+      {/* BEGIN: Latest Blog & Guides Section for Internal Linking & SEO */}
+      <HomeBlogSection />
+      {/* END: Latest Blog & Guides Section */}
 
       {/* BEGIN: FAQ Section */}
       <FaqSection />

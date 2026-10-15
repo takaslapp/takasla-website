@@ -21,7 +21,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://takaslapp.com"),
   title: {
-    default: "Takasla - Parayla Değil Takasla",
+    default: "Takasla - Türkiye'nin Yeni Nesil Eşya Takası Platformu | Parayla Değil Takasla",
     template: "%s - Takasla",
   },
   description:
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://takaslapp.com",
     siteName: "Takasla",
-    title: "Takasla - Parayla Değil Takasla",
+    title: "Takasla - Türkiye'nin Yeni Nesil Eşya Takası Platformu",
     description:
       "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
     images: [
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Takasla - Parayla Değil Takasla",
+    title: "Takasla - Türkiye'nin Yeni Nesil Eşya Takası Platformu",
     description:
       "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
     site: "@takaslapp",
