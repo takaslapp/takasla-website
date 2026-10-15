@@ -143,10 +143,10 @@ export default function Footer({
             />
             <div className="flex flex-col text-left leading-none">
               <span className="text-[10px] text-gray-300 font-normal tracking-wide">
-                App Store&apos;dan
+                App Store&apos;da
               </span>
               <span className="text-base font-semibold text-white tracking-tight mt-0.5">
-                Yakında
+                Çok Yakında
               </span>
             </div>
           </Link>

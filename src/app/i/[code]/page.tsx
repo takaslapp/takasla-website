@@ -418,8 +418,8 @@ export default async function ListingPreviewPage({ params }: PageProps) {
                     className="w-4 h-4 object-contain brightness-0 invert"
                   />
                   <div className="flex flex-col text-left leading-none">
-                    <span className="text-[9px] text-gray-300 font-normal">App Store&apos;dan</span>
-                    <span className="text-xs font-semibold text-white mt-0.5">Yakında</span>
+                    <span className="text-[9px] text-gray-300 font-normal">App Store&apos;da</span>
+                    <span className="text-xs font-semibold text-white mt-0.5">Çok Yakında</span>
                   </div>
                 </Link>
               </div>
