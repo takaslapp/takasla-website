@@ -20,6 +20,19 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.1.218", "localhost:3000", "0.0.0.0:3000"],
   async redirects() {
     return [
+      // WWW -> non-WWW permanent redirect (HTTP 308)
+      // Excludes /.well-known to keep Apple Universal Links (apple-app-site-association) working without redirect
+      {
+        source: "/:path((?!\\.well-known).*)",
+        has: [
+          {
+            type: "host",
+            value: "www.takaslapp.com",
+          },
+        ],
+        destination: "https://takaslapp.com/:path",
+        permanent: true,
+      },
       { source: "/kvkk", destination: "/kvkk-aydinlatma-metni", permanent: true },
       { source: "/terms", destination: "/kullanim-kosullari", permanent: true },
       { source: "/kullanim-sartlari", destination: "/kullanim-kosullari", permanent: true },

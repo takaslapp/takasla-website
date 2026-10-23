@@ -107,7 +107,11 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
-    image: `https://takaslapp.com${post.coverImage}`,
+    image: post.coverImage
+      ? post.coverImage.startsWith("http://") || post.coverImage.startsWith("https://")
+        ? post.coverImage
+        : `https://takaslapp.com${post.coverImage.startsWith("/") ? "" : "/"}${post.coverImage}`
+      : "https://takaslapp.com/images/takasla-icon.jpg",
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
     author: {
