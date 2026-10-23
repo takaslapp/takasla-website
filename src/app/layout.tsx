@@ -90,6 +90,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  itunes: {
+    appId: "6812309534",
+  },
 };
 
 export default function RootLayout({
@@ -133,9 +136,10 @@ export default function RootLayout({
       },
       {
         "@type": "SoftwareApplication",
-        name: "Takasla",
-        operatingSystem: "iOS, Android",
+        name: "Takasla - Yeni Nesil Takas",
+        operatingSystem: "iOS",
         applicationCategory: "ShoppingApplication",
+        installUrl: "https://apps.apple.com/app/takasla-yeni-nesil-takas/id6812309534",
         offers: {
           "@type": "Offer",
           price: "0",

@@ -53,22 +53,24 @@ export default function Home() {
           {/* Apple App Store Corporate Button Centered */}
           <div className="flex items-center justify-center mb-6">
             <Link
-              href="#"
+              href="https://apps.apple.com/app/takasla-yeni-nesil-takas/id6812309534"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"
             >
               <img
                 src="/images/apple-logo.webp"
-                alt="Apple"
+                alt="Apple App Store"
                 width={24}
                 height={24}
                 className="w-6 h-6 object-contain brightness-0 invert"
               />
               <div className="flex flex-col text-left leading-none">
                 <span className="text-[10px] text-gray-300 font-normal tracking-wide">
-                  App Store&apos;da
+                  App Store&apos;dan
                 </span>
                 <span className="text-base font-semibold text-white tracking-tight mt-0.5">
-                  Çok Yakında
+                  İndirin
                 </span>
               </div>
             </Link>

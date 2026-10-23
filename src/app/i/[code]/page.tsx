@@ -407,7 +407,9 @@ export default async function ListingPreviewPage({ params }: PageProps) {
               {/* Store Button */}
               <div className="flex justify-center">
                 <Link
-                  href="#"
+                  href="https://apps.apple.com/app/takasla-yeni-nesil-takas/id6812309534"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 bg-black hover:bg-gray-900 text-white px-5 py-2.5 rounded-xl transition-all shadow-xs active:scale-95"
                 >
                   <img
@@ -418,8 +420,8 @@ export default async function ListingPreviewPage({ params }: PageProps) {
                     className="w-4 h-4 object-contain brightness-0 invert"
                   />
                   <div className="flex flex-col text-left leading-none">
-                    <span className="text-[9px] text-gray-300 font-normal">App Store&apos;da</span>
-                    <span className="text-xs font-semibold text-white mt-0.5">Çok Yakında</span>
+                    <span className="text-[9px] text-gray-300 font-normal">App Store&apos;dan</span>
+                    <span className="text-xs font-semibold text-white mt-0.5">İndirin</span>
                   </div>
                 </Link>
               </div>
