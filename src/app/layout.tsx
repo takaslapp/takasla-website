@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Outfit } from "next/font/google";
 import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
@@ -95,6 +96,8 @@ export const metadata: Metadata = {
   },
 };
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-WGPBVYF545";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -174,6 +177,19 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white text-gray-800 antialiased overflow-x-hidden font-sans">
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         {children}
         <CookieBanner />
       </body>
