@@ -139,7 +139,7 @@ export default function RootLayout({
         name: "Takasla - Yeni Nesil Takas",
         operatingSystem: "iOS",
         applicationCategory: "ShoppingApplication",
-        installUrl: "https://apps.apple.com/app/takasla-yeni-nesil-takas/id6812309534",
+        installUrl: "https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534?l=tr",
         offers: {
           "@type": "Offer",
           price: "0",

@@ -53,7 +53,7 @@ export default function Home() {
           {/* Apple App Store Corporate Button Centered */}
           <div className="flex items-center justify-center mb-6">
             <Link
-              href="https://apps.apple.com/app/takasla-yeni-nesil-takas/id6812309534"
+              href="https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534?l=tr"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"

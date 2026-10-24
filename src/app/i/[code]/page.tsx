@@ -407,7 +407,7 @@ export default async function ListingPreviewPage({ params }: PageProps) {
               {/* Store Button */}
               <div className="flex justify-center">
                 <Link
-                  href="https://apps.apple.com/app/takasla-yeni-nesil-takas/id6812309534"
+                  href="https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534?l=tr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 bg-black hover:bg-gray-900 text-white px-5 py-2.5 rounded-xl transition-all shadow-xs active:scale-95"
