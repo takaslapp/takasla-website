@@ -26,7 +26,7 @@ export function GooglePlayBadgeSoon({ height = 40 }: { height?: number }) {
   const imgH = Math.round(height * 1.45);
   return (
     <span className="inline-flex shrink-0 items-center gap-2" aria-label="Google Play sürümü yakında">
-      <span className="inline-block overflow-hidden rounded-[7px] opacity-60" style={{ height, width: Math.round(height * 3.37) }}>
+      <span className="inline-block overflow-hidden rounded-[7px]" style={{ height, width: Math.round(height * 3.37) }}>
         <img
           src={GOOGLE_PLAY_BADGE}
           alt="Google Play'den alın"

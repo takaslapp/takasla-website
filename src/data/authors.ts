@@ -14,6 +14,7 @@ export const AUTHORS: Author[] = [
     name: "Recep Aydoğan",
     role: "Takasla Kurucu Ortağı",
     bio: "Takasla'nın kurucu ortağı. Ürün geliştirme ve takas topluluğunun büyümesi üzerine çalışıyor. Blogda eşya takası, ikinci el ürünlerin değerlendirilmesi ve güvenli takas üzerine rehberler yazıyor.",
+    sameAs: ["https://www.linkedin.com/in/recepaydogan/", "https://www.instagram.com/recepaydogaann"],
   },
 ];
 

@@ -48,7 +48,7 @@ export default async function SiteHeader({ query }: SiteHeaderProps) {
 
         <div className="order-last flex w-full min-w-0 gap-2 sm:order-none sm:w-auto sm:flex-1">
           <LocationPicker cities={loc.cities} districts={loc.districts} />
-          <form action="/ilanlar" method="get" role="search" className="flex min-w-0 flex-1">
+          <form action="/ilanlar" method="get" role="search" className="flex min-w-0 flex-1 rounded-lg focus-within:ring-2 focus-within:ring-ink/15">
             <label htmlFor="site-search" className="sr-only">
               İlanlarda ara
             </label>
@@ -58,12 +58,12 @@ export default async function SiteHeader({ query }: SiteHeaderProps) {
               type="search"
               defaultValue={query}
               placeholder="Ne takaslamak istiyorsun?"
-              className="h-10 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-surface px-3 text-base sm:text-sm outline-none placeholder:text-muted focus:border-ink focus:bg-white"
+              className="h-10 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-surface px-3 text-base outline-none placeholder:text-muted focus:border-ink focus:bg-white focus-visible:outline-none sm:text-sm"
             />
             <button
               type="submit"
               aria-label="Ara"
-              className="flex h-10 shrink-0 items-center rounded-r-lg bg-ink px-3 text-sm font-medium text-white hover:bg-black sm:px-4"
+              className="flex h-10 shrink-0 items-center rounded-r-lg border border-ink bg-ink px-3 text-sm font-medium text-white hover:bg-black sm:px-5"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true" className="sm:hidden">
                 <circle cx="11" cy="11" r="7" />

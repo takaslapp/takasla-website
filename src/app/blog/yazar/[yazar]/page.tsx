@@ -8,6 +8,7 @@ import BlogCard from "@/components/blog/BlogCard";
 import { getAllPostsAsync } from "@/data/blog-posts";
 import { AUTHORS, authorBySlug, authorPath } from "@/data/authors";
 import { absoluteUrl } from "@/lib/site";
+import { InstagramIcon } from "@/components/market/StoreBadges";
 
 export const revalidate = 300;
 
@@ -76,6 +77,32 @@ export default async function AuthorPage({ params }: { params: Params }) {
             <h1 className="text-2xl font-semibold sm:text-3xl">{author.name}</h1>
             <p className="mt-1 text-muted">{author.role}</p>
             <p className="mt-3 text-[15px] leading-relaxed">{author.bio}</p>
+            {author.sameAs && author.sameAs.length > 0 && (
+              <ul className="mt-4 flex flex-wrap gap-2 text-sm">
+                {author.sameAs.map((url) => {
+                  const label = url.includes("linkedin.com") ? "LinkedIn" : url.includes("instagram.com") ? "Instagram" : new URL(url).hostname;
+                  return (
+                    <li key={url}>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="me noopener noreferrer"
+                        className="inline-flex h-9 items-center gap-2 rounded-full border border-line bg-white px-3.5 hover:border-ink"
+                      >
+                        {label === "Instagram" ? (
+                          <InstagramIcon size={16} />
+                        ) : label === "LinkedIn" ? (
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+                          </svg>
+                        ) : null}
+                        {label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         </section>
 
