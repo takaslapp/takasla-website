@@ -270,6 +270,30 @@ export async function getListingsBySeller(sellerId: string, excludeNo?: number, 
 }
 
 /** En çok görüntülenen aktif ilanlar. */
+export interface PublicProfile extends ListingSeller {
+  activeListingsCount: number;
+}
+
+/**
+ * Kullanıcı adına göre herkese açık profil. Kullanıcı adı → kimlik eşlemesi yayındaki ilanlardan
+ * yapılır; yani yalnızca aktif ilanı olan kullanıcıların web profili vardır.
+ */
+export const getProfileByUsername = cache(
+  async (username: string): Promise<{ profile: PublicProfile; listings: Listing[] } | null> => {
+    const uname = username.toLocaleLowerCase("tr-TR");
+    const all = await getAllListings();
+    const listings = all.filter((l) => l.seller?.username?.toLocaleLowerCase("tr-TR") === uname);
+    const base = listings[0]?.seller;
+    if (!base?.id) return null;
+    const data = await rpc<unknown>("get_public_profile", { p_user_id: base.id }, 300);
+    const row = Array.isArray(data) ? data[0] : data;
+    const fresh = normalizeSeller(row) ?? base;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const count = typeof (row as any)?.active_listings_count === "number" ? (row as any).active_listings_count : listings.length;
+    return { profile: { ...base, ...fresh, id: base.id, activeListingsCount: count }, listings };
+  }
+);
+
 export async function getMostViewed(limit = 12): Promise<Listing[]> {
   const all = await getAllListings();
   return [...all].sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0)).slice(0, limit);
@@ -331,7 +355,7 @@ function mapBannerTarget(type: string, value: string): { href: string; external:
 export type ListingSummary = Pick<
   Listing,
   "listingNo" | "title" | "imageUrl" | "location" | "conditionName" | "wantedItem" | "publishedAt" | "createdAt"
-> & { images: string[] };
+> & { images: string[]; imageCount: number };
 
 export function toSummary(l: Listing): ListingSummary {
   return {
@@ -339,6 +363,7 @@ export function toSummary(l: Listing): ListingSummary {
     title: l.title,
     imageUrl: l.imageUrl,
     images: l.imageUrl ? [l.imageUrl] : [],
+    imageCount: l.images.length,
     location: l.location,
     conditionName: l.conditionName,
     wantedItem: l.wantedItem,

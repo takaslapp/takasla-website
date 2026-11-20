@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllPostsAsync } from "@/data/blog-posts";
 import { getAllListings, getFacets, isIndexable } from "@/lib/listings";
-import { listingPath, parseLocation, slugify } from "@/lib/taxonomy";
+import { listingPath, parseLocation, profilePath, slugify } from "@/lib/taxonomy";
 
 // 60 saniyede bir sitemap'i Sanity'deki yeni yazılarla otomatik güncelle (ISR)
 export const revalidate = 60;
@@ -149,5 +149,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     images: l.imageUrl ? [l.imageUrl] : undefined,
   }));
 
-  return [...staticEntries, ...marketEntries, ...comboEntries, ...listingEntries, ...blogPostEntries];
+  // Kullanıcı profilleri (yalnızca dizine eklenebilir ilanı olanlar)
+  const profileSeen = new Map<string, Date>();
+  for (const l of listings) {
+    const u = l.seller?.username;
+    if (!u || !isIndexable(l)) continue;
+    const d = l.publishedAt ? new Date(l.publishedAt) : staticLastModified;
+    const prev = profileSeen.get(u);
+    if (!prev || d > prev) profileSeen.set(u, d);
+  }
+  const profileEntries: MetadataRoute.Sitemap = [...profileSeen].map(([u, d]) => ({
+    url: `${baseUrl}${profilePath(u)}`,
+    lastModified: d,
+    changeFrequency: "weekly" as const,
+    priority: 0.4,
+  }));
+
+  return [...staticEntries, ...marketEntries, ...comboEntries, ...listingEntries, ...profileEntries, ...blogPostEntries];
 }

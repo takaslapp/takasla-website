@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import SiteHeader from "@/components/market/SiteHeader";
@@ -7,6 +8,7 @@ import ListingRow from "@/components/market/ListingRow";
 import { AppStoreBadge } from "@/components/market/StoreBadges";
 import ListingSlider from "@/components/listing/ListingSlider";
 import ListingShareActions from "@/components/listing/ListingShareActions";
+import CopyListingNo from "@/components/listing/CopyListingNo";
 import Footer from "@/components/Footer";
 import {
   getListingByNo,
@@ -16,7 +18,7 @@ import {
   toSummary,
   type Listing,
 } from "@/lib/listings";
-import { categorySlug, cityBySlug, listingNoFromSlug, listingPath, parseLocation, slugify } from "@/lib/taxonomy";
+import { categorySlug, cityBySlug, listingNoFromSlug, listingPath, parseLocation, profilePath, slugify } from "@/lib/taxonomy";
 import { absoluteUrl, formatDateTR, relativeDateTR } from "@/lib/site";
 
 export const revalidate = 300;
@@ -93,8 +95,8 @@ export default async function IlanPage({ params }: { params: Params }) {
   const shown = new Set([l.listingNo, ...sellerOthers.map((x) => x.listingNo)]);
   const similar = similarPage.items.filter((x) => !shown.has(x.listingNo)).slice(0, 10);
 
-  const details: [string, string][] = [
-    ["İlan no", String(l.listingNo)],
+  const details: [string, ReactNode][] = [
+    ["İlan no", <CopyListingNo key="no" value={String(l.listingNo)} />],
     ...(l.conditionName ? ([["Durumu", l.conditionName]] as [string, string][]) : []),
     ...(l.category ? ([["Kategori", l.category]] as [string, string][]) : []),
     ...(l.location ? ([["Konum", [district, city].filter(Boolean).join(", ")]] as [string, string][]) : []),
@@ -152,7 +154,10 @@ export default async function IlanPage({ params }: { params: Params }) {
             </div>
 
             {seller?.username && (
-              <div className="mt-5 flex items-center gap-3 border-t border-line pt-5">
+              <Link
+                href={profilePath(seller.username)}
+                className="group mt-5 flex items-center gap-3 border-t border-line pt-5"
+              >
                 <img
                   src={seller.avatarUrl || "/images/takasla-icon.jpg"}
                   alt=""
@@ -160,8 +165,8 @@ export default async function IlanPage({ params }: { params: Params }) {
                   height={48}
                   className="h-12 w-12 shrink-0 rounded-full border border-line object-cover"
                 />
-                <div className="min-w-0 text-sm">
-                  <p className="flex items-center gap-1.5 font-medium">
+                <div className="min-w-0 flex-1 text-sm">
+                  <p className="flex items-center gap-1.5 font-medium group-hover:underline">
                     @{seller.username}
                     {seller.isVerified && (
                       <svg width="16" height="16" viewBox="0 0 24 24" aria-label="Doğrulanmış hesap" role="img">
@@ -180,7 +185,8 @@ export default async function IlanPage({ params }: { params: Params }) {
                       .join(" · ") || "Takasla üyesi"}
                   </p>
                 </div>
-              </div>
+                <span className="shrink-0 text-sm text-link">Profili gör</span>
+              </Link>
             )}
 
             <div className="mt-5 border-t border-line pt-4">
@@ -202,7 +208,7 @@ export default async function IlanPage({ params }: { params: Params }) {
               <h2 className="mb-3 text-base font-semibold">İlan bilgileri</h2>
               <dl className="grid border-t border-line text-sm sm:grid-cols-2 sm:gap-x-8">
                 {details.map(([k, v]) => (
-                  <div key={k} className="flex justify-between gap-4 border-b border-line py-2.5">
+                  <div key={k} className="flex min-h-11 items-center justify-between gap-4 border-b border-line py-2">
                     <dt className="text-muted">{k}</dt>
                     <dd className="text-right">{v}</dd>
                   </div>
@@ -224,6 +230,8 @@ export default async function IlanPage({ params }: { params: Params }) {
         <ListingRow
           title={seller?.username ? `@${seller.username} kullanıcısının diğer ilanları` : "Takasçının diğer ilanları"}
           listings={sellerOthers.map(toSummary)}
+          moreHref={seller?.username ? profilePath(seller.username) : undefined}
+          moreLabel="Profile git"
         />
         <ListingRow
           title="Benzer ilanlar"

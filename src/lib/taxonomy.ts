@@ -90,3 +90,8 @@ export function listingNoFromSlug(slug: string): number | null {
   const m = /(?:^|-)(\d{8})$/.exec(slug);
   return m ? Number(m[1]) : null;
 }
+
+/** Kullanıcı profili URL'si: /profil/kullanici_adi */
+export function profilePath(username: string): string {
+  return `/profil/${encodeURIComponent(username)}`;
+}

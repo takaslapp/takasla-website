@@ -24,8 +24,8 @@ export default function BlogShareBar({ title, url }: BlogShareBarProps) {
   };
 
   return (
-    <div className="pt-6 mt-8 border-t border-gray-100 flex items-center justify-between gap-4">
-      <span className="text-xs font-medium text-gray-400">
+    <div className="pt-6 mt-10 border-t border-line flex items-center justify-between gap-4">
+      <span className="text-xs font-medium text-muted">
         Rehberi Paylaş
       </span>
 
@@ -36,7 +36,7 @@ export default function BlogShareBar({ title, url }: BlogShareBarProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp'ta Paylaş"
-          className="w-9 h-9 rounded-full border border-gray-200 hover:border-gray-400 hover:bg-gray-50 text-gray-600 hover:text-black flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-full border border-line hover:border-gray-400 hover:bg-gray-50 text-muted hover:text-black flex items-center justify-center transition-colors"
           title="WhatsApp'ta Paylaş"
         >
           <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -50,7 +50,7 @@ export default function BlogShareBar({ title, url }: BlogShareBarProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="X'te Paylaş"
-          className="w-9 h-9 rounded-full border border-gray-200 hover:border-gray-400 hover:bg-gray-50 text-gray-600 hover:text-black flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-full border border-line hover:border-gray-400 hover:bg-gray-50 text-muted hover:text-black flex items-center justify-center transition-colors"
           title="X'te Paylaş"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export default function BlogShareBar({ title, url }: BlogShareBarProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn'de Paylaş"
-          className="w-9 h-9 rounded-full border border-gray-200 hover:border-gray-400 hover:bg-gray-50 text-gray-600 hover:text-black flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-full border border-line hover:border-gray-400 hover:bg-gray-50 text-muted hover:text-black flex items-center justify-center transition-colors"
           title="LinkedIn'de Paylaş"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ export default function BlogShareBar({ title, url }: BlogShareBarProps) {
           className={`w-9 h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
             copied
               ? "border-[#00A859] bg-[#00A859] text-white"
-              : "border-gray-200 hover:border-gray-400 hover:bg-gray-50 text-gray-600 hover:text-black"
+              : "border-line hover:border-gray-400 hover:bg-gray-50 text-muted hover:text-black"
           }`}
           title={copied ? "Kopyalandı!" : "Bağlantıyı Kopyala"}
         >

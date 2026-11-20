@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import LegalHeader from "@/components/LegalHeader";
+import SiteHeader from "@/components/market/SiteHeader";
+import Breadcrumbs from "@/components/market/Breadcrumbs";
+import ListingRow from "@/components/market/ListingRow";
+import { getListings, toSummary } from "@/lib/listings";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogShareBar from "@/components/blog/BlogShareBar";
@@ -88,13 +91,13 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const allPosts = await getAllPostsAsync();
+  const [allPosts, latest] = await Promise.all([getAllPostsAsync(), getListings({ limit: 10 })]);
   const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
   // Önce aynı kategorideki yazılar, sonra en yeniler: güçlü iç bağlantı için 4 kart
   const relatedPosts = [
     ...otherPosts.filter((p) => p.category === post.category),
     ...otherPosts.filter((p) => p.category !== post.category),
-  ].slice(0, 4);
+  ].slice(0, 3);
   const moreLinks = otherPosts.filter((p) => !relatedPosts.includes(p));
   const formattedDate = new Date(post.publishedAt).toLocaleDateString("tr-TR", {
     day: "numeric",
@@ -144,359 +147,210 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     keywords: post.tags.join(", "),
   };
 
-  // Breadcrumb Schema
-  const breadcrumbLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Ana Sayfa",
-        item: "https://takaslapp.com",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: "https://takaslapp.com/blog",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: canonicalUrl,
-      },
-    ],
+
+  const renderSection = (section: (typeof post.sections)[number], idx: number) => {
+    if (section.type === "paragraph") return <p key={idx}>{section.content}</p>;
+
+    if (section.type === "heading") {
+      const id = section.text ? slugifyHeading(section.text) : undefined;
+      return section.level === 3 ? (
+        <h3 key={idx} id={id}>
+          {section.text}
+        </h3>
+      ) : (
+        <h2 key={idx} id={id}>
+          {section.text}
+        </h2>
+      );
+    }
+
+    if (section.type === "list" && section.items) {
+      return (
+        <ul key={idx}>
+          {section.items.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    if (section.type === "callout") {
+      return (
+        <aside key={idx} className="article-note">
+          {section.title && <p className="article-note-title">{section.title}</p>}
+          <p>{section.text}</p>
+        </aside>
+      );
+    }
+
+    if (section.type === "quote") {
+      return (
+        <blockquote key={idx}>
+          <p>{section.text}</p>
+          {section.author && <cite>{section.author}</cite>}
+        </blockquote>
+      );
+    }
+
+    if (section.type === "table" && section.table?.rows?.length) {
+      const [headerRow, ...bodyRows] = section.table.rows;
+      return (
+        <div key={idx} className="article-table">
+          <table>
+            {headerRow && (
+              <thead>
+                <tr>
+                  {headerRow.cells.map((c, i) => (
+                    <th key={i} scope="col">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {bodyRows.map((row, r) => (
+                <tr key={r}>
+                  {row.cells.map((c, i) => (
+                    <td key={i}>{c}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    return null;
   };
 
+  const toc = headings.filter((h) => h.level !== 3);
+  const cleanHeading = (t: string) => t.replace(/^\d+\.\s*/, "");
+
   return (
-    <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans w-full overflow-x-hidden">
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
-      />
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Top Header */}
-      <LegalHeader />
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-12 pt-4">
+        <Breadcrumbs
+          items={[
+            { name: "Blog", href: "/blog" },
+            { name: post.title, href: `/blog/${post.slug}` },
+          ]}
+        />
 
-      {/* Breadcrumb Navigation - Clean, Never Overflowing on Mobile */}
-      <nav aria-label="Breadcrumb" className="border-b border-gray-200/80 bg-white w-full overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-1.5 sm:gap-2 text-xs text-gray-500 min-w-0">
-          <Link
-            href="/"
-            aria-label="Ana Sayfa"
-            className="hover:text-black transition-colors flex items-center gap-1 shrink-0"
-          >
-            <svg className="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-            <span>Ana Sayfa</span>
-          </Link>
-          <span className="text-gray-300 shrink-0">&gt;</span>
-          <Link href="/blog" className="hover:text-black transition-colors shrink-0">
-            Blog
-          </Link>
-          <span className="text-gray-300 shrink-0">&gt;</span>
-          <span className="text-gray-900 font-semibold truncate min-w-0 flex-1" title={post.title}>
-            <span className="sm:hidden">{post.category}</span>
-            <span className="hidden sm:inline">{post.title}</span>
-          </span>
-        </div>
-      </nav>
-
-      {/* Main Article Container */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-14 w-full flex-grow overflow-x-hidden">
-        <article className="w-full max-w-full overflow-hidden">
-          {/* Article Header */}
-          <header className="mb-8 sm:mb-10">
-            {/* Category Badge & Read Time (Solid Opaque, No Glass Effect) */}
-            <div className="flex items-center gap-3 mb-4">
-              <span className="inline-block px-3 py-1 rounded-md bg-[#00A859] text-white text-xs font-bold uppercase tracking-wider">
-                {post.category}
-              </span>
-              <span className="text-xs text-gray-500 font-medium">
-                {post.readTime}
-              </span>
-            </div>
-
-            {/* Main Title */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-[1.2] mb-4 break-words">
-              {post.title}
-            </h1>
-
-            {/* Excerpt Lead Paragraph */}
-            <p className="text-base sm:text-xl text-gray-600 leading-relaxed font-normal mb-6 break-words">
-              {post.excerpt}
-            </p>
-
-            {/* Author & Publish Meta Box */}
-            <div className="flex items-center gap-3 pt-4 border-t border-gray-200 min-w-0">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200 shrink-0 relative bg-white shadow-xs">
-                <Image
-                  src={post.author.avatar || "/images/takasla-icon.jpg"}
-                  alt={post.author.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+        <article className="mt-6">
+          <header className="mx-auto max-w-3xl">
+            <p className="text-sm text-link">{post.category}</p>
+            <h1 className="mt-2 text-[28px] font-semibold leading-[1.2] sm:text-4xl">{post.title}</h1>
+            <p className="mt-4 text-lg leading-relaxed text-muted">{post.excerpt}</p>
+            <div className="mt-6 flex items-center gap-3 border-t border-line pt-5 text-sm">
+              <Image
+                src={post.author.avatar || "/images/takasla-icon.jpg"}
+                alt=""
+                width={40}
+                height={40}
+                className="h-10 w-10 shrink-0 rounded-full border border-line object-cover"
+              />
               <div className="min-w-0">
-                <p className="text-sm font-bold text-gray-900 leading-tight truncate">
-                  {post.author.name}
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5 truncate">
-                  {post.author.role} • <time dateTime={post.publishedAt}>{formattedDate}</time>
+                <p className="font-medium">{post.author.name}</p>
+                <p className="text-muted">
+                  <time dateTime={post.publishedAt}>{formattedDate}</time> · {post.readTime}
                 </p>
               </div>
             </div>
           </header>
 
-          {/* Cover Image */}
-          <div className="relative aspect-[16/9] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 mb-10 sm:mb-12 border border-gray-200/90 shadow-sm">
-            <Image
-              src={post.coverImage}
-              alt={post.title}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 896px"
-              className="object-cover"
-            />
+          <div className="relative mx-auto mt-8 aspect-[16/9] max-w-4xl overflow-hidden rounded-xl bg-surface">
+            <Image src={post.coverImage} alt={post.title} fill priority sizes="(min-width: 1024px) 896px, 100vw" className="object-cover" />
           </div>
 
-          {/* Table of Contents (İçindekiler - Açılır / Kapanır Akordeon) */}
-          {headings.length > 0 && (
-            <details
-              open={headings.length <= 4}
-              className="group bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-6 mb-10 shadow-xs max-w-full overflow-hidden transition-all"
-            >
-              <summary className="flex items-center justify-between cursor-pointer list-none select-none">
-                <div className="flex items-center gap-2.5 text-gray-900 font-bold text-base sm:text-lg">
-                  <svg className="w-5 h-5 text-[#00A859]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h7" />
-                  </svg>
-                  <span>İçindekiler</span>
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
-                    {headings.length} Başlık
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors">
-                  <span className="group-open:hidden">Listeyi Aç</span>
-                  <span className="hidden group-open:inline">Listeyi Kapat</span>
-                  <svg
-                    className="w-4 h-4 transition-transform duration-200 group-open:rotate-180 text-gray-500"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </summary>
-              <nav aria-label="İçindekiler" className="mt-4 pt-4 border-t border-gray-100">
-                <ol className="space-y-2.5 text-sm sm:text-base text-gray-700 min-w-0">
-                  {headings.map((heading, i) => {
-                    const headingId = slugifyHeading(heading.text);
-                    const cleanText = heading.text.replace(/^\d+\.\s*/, "");
-                    return (
-                      <li key={i} className="min-w-0">
-                        <a
-                          href={`#${headingId}`}
-                          className="hover:text-[#00A859] hover:underline underline-offset-4 transition-colors flex items-start gap-2.5 group/item min-w-0"
-                        >
-                          <span className="text-[#00A859] font-bold text-xs mt-1 shrink-0">
-                            {i + 1}.
-                          </span>
-                          <span className="group-hover/item:text-[#00A859] leading-snug break-words min-w-0 flex-1">
-                            {cleanText}
-                          </span>
+          <div className="mx-auto mt-10 grid max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
+            <div className="min-w-0">
+              {toc.length > 2 && (
+                <details className="mb-8 rounded-lg bg-surface lg:hidden">
+                  <summary className="cursor-pointer px-4 py-3 text-sm font-medium">Bu yazıda</summary>
+                  <ol className="space-y-1.5 px-4 pb-4 text-sm">
+                    {toc.map((h, i) => (
+                      <li key={i}>
+                        <a href={`#${slugifyHeading(h.text)}`} className="text-muted hover:text-ink hover:underline">
+                          {cleanHeading(h.text)}
                         </a>
                       </li>
-                    );
-                  })}
-                </ol>
-              </nav>
-            </details>
-          )}
-
-          {/* Article Body Content */}
-          <div className="bg-white border border-gray-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-xs space-y-6 text-gray-800 text-base sm:text-lg leading-[1.8] font-normal max-w-full overflow-hidden break-words">
-            {post.sections.map((section, idx) => {
-              if (section.type === "paragraph") {
-                return (
-                  <p key={idx} className="text-gray-700 leading-relaxed">
-                    {section.content}
-                  </p>
-                );
-              }
-
-              if (section.type === "heading") {
-                const headingId = section.text ? slugifyHeading(section.text) : undefined;
-                if (section.level === 3) {
-                  return (
-                    <h3
-                      key={idx}
-                      id={headingId}
-                      className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight pt-4 mt-6 first:pt-0 scroll-mt-24"
-                    >
-                      {section.text}
-                    </h3>
-                  );
-                }
-                return (
-                  <div key={idx} className="border-l-4 border-[#00A859] pl-4 py-0.5 mt-10 mb-4 first:mt-0 scroll-mt-24" id={headingId}>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                      {section.text}
-                    </h2>
-                  </div>
-                );
-              }
-
-              if (section.type === "list" && section.items) {
-                return (
-                  <ul key={idx} className="space-y-2.5 my-4 text-base text-gray-700 pl-2">
-                    {section.items.map((item, itemIdx) => (
-                      <li key={itemIdx} className="flex items-start gap-2.5">
-                        <span className="w-2 h-2 rounded-full bg-[#00A859] mt-2.5 shrink-0" />
-                        <span>{item}</span>
-                      </li>
                     ))}
-                  </ul>
-                );
-              }
+                  </ol>
+                </details>
+              )}
 
-              if (section.type === "callout") {
-                const isTip = section.variant === "tip";
-                return (
-                  <div
-                    key={idx}
-                    className={`my-6 p-5 sm:p-6 rounded-2xl border-l-4 border-y-0 border-r-0 ${
-                      isTip
-                        ? "bg-[#F7FDF9] border-[#00A859] text-gray-900"
-                        : "bg-gray-50 border-gray-700 text-gray-900"
-                    }`}
-                  >
-                    {section.title && (
-                      <p className="font-bold text-sm sm:text-base mb-1.5 flex items-center gap-2 text-[#00A859]">
-                        <span>●</span>
-                        <span>{section.title}</span>
-                      </p>
-                    )}
-                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-normal">
-                      {section.text}
-                    </p>
-                  </div>
-                );
-              }
+              <div className="article">{post.sections.map(renderSection)}</div>
 
-              if (section.type === "quote") {
-                return (
-                  <blockquote
-                    key={idx}
-                    className="border-l-4 border-gray-900 pl-5 sm:pl-6 my-8 italic text-gray-800 text-lg sm:text-xl font-medium leading-relaxed bg-gray-50 py-4 rounded-r-xl"
-                  >
-                    <p className="mb-2">&ldquo;{section.text}&rdquo;</p>
-                    {section.author && (
-                      <cite className="block not-italic text-xs font-semibold uppercase tracking-wider text-gray-500">
-                        — {section.author}
-                      </cite>
-                    )}
-                  </blockquote>
-                );
-              }
-
-              if (section.type === "table" && section.table && section.table.rows && section.table.rows.length > 0) {
-                const [headerRow, ...bodyRows] = section.table.rows;
-                return (
-                  <div key={idx} className="my-8 overflow-x-auto rounded-xl border border-gray-200 shadow-xs">
-                    <table className="w-full text-left text-sm border-collapse bg-white min-w-[500px]">
-                      {headerRow && (
-                        <thead className="bg-[#121413] text-white">
-                          <tr>
-                            {headerRow.cells.map((cell, cIdx) => (
-                              <th
-                                key={cIdx}
-                                className="px-4 py-3.5 font-bold tracking-tight border-b border-gray-800 first:pl-5 last:pr-5"
-                              >
-                                {cell}
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                      )}
-                      <tbody className="divide-y divide-gray-100 text-gray-700">
-                        {bodyRows.map((row, rIdx) => (
-                          <tr
-                            key={rIdx}
-                            className={rIdx % 2 === 0 ? "bg-white hover:bg-gray-50/80 transition-colors" : "bg-gray-50/50 hover:bg-gray-50/80 transition-colors"}
-                          >
-                            {row.cells.map((cell, cIdx) => (
-                              <td
-                                key={cIdx}
-                                className={`px-4 py-3.5 leading-relaxed first:pl-5 last:pr-5 ${
-                                  cIdx === 0 ? "font-semibold text-gray-900" : ""
-                                }`}
-                              >
-                                {cell}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                );
-              }
-
-              return null;
-            })}
-
-            {/* Social Share Bar */}
-            <BlogShareBar title={post.title} url={canonicalUrl} />
-          </div>
-
-          {/* Related Posts */}
-          {relatedPosts.length > 0 && (
-            <div className="mt-14 sm:mt-16 space-y-6">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
-                İlgili Diğer Rehberler
-              </h3>
-              <div className={`grid gap-6 ${relatedPosts.length > 1 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 max-w-xl"}`}>
-                {relatedPosts.map((related) => (
-                  <BlogCard key={related.slug} post={related} />
-                ))}
-              </div>
+              <BlogShareBar title={post.title} url={canonicalUrl} />
             </div>
-          )}
 
-          {/* Tüm diğer rehberlere metin bağlantıları (iç linkleme) */}
-          {moreLinks.length > 0 && (
-            <nav aria-label="Diğer rehberler" className="mt-10 border-t border-gray-200 pt-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Diğer Takas Rehberleri</h3>
-              <ul className="space-y-2">
-                {moreLinks.map((p) => (
-                  <li key={p.slug}>
-                    <Link href={`/blog/${p.slug}`} className="text-gray-700 hover:text-[#00A859] underline-offset-4 hover:underline">
-                      {p.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link href="/blog" className="inline-block mt-5 font-semibold text-[#00A859] hover:underline">
-                Tüm blog yazıları →
-              </Link>
-            </nav>
-          )}
+            <aside className="hidden lg:block">
+              <div className="sticky top-24 max-h-[calc(100vh-7rem)] space-y-8 overflow-y-auto pb-4">
+                {toc.length > 2 && (
+                  <nav aria-label="Bu yazıda">
+                    <p className="text-sm font-medium">Bu yazıda</p>
+                    <ol className="mt-3 space-y-2 border-l border-line text-sm">
+                      {toc.map((h, i) => (
+                        <li key={i}>
+                          <a
+                            href={`#${slugifyHeading(h.text)}`}
+                            className="-ml-px block border-l border-transparent pl-3 leading-snug text-muted hover:border-ink hover:text-ink"
+                          >
+                            {cleanHeading(h.text)}
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </nav>
+                )}
+                <div className="rounded-xl border border-line p-4 text-sm">
+                  <p className="font-medium">Takasa açık ilanlar</p>
+                  <p className="mt-1 text-muted">Kullanmadığın eşyayı ihtiyacın olan bir ürünle takas et.</p>
+                  <Link href="/ilanlar" className="mt-3 inline-block font-medium text-link underline">
+                    İlanlara göz at
+                  </Link>
+                </div>
+              </div>
+            </aside>
+          </div>
         </article>
+
+        {relatedPosts.length > 0 && (
+          <section className="mx-auto mt-16 max-w-5xl border-t border-line pt-10" aria-labelledby="ilgili">
+            <h2 id="ilgili" className="mb-6 text-lg font-semibold">
+              İlgili rehberler
+            </h2>
+            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((r) => (
+                <BlogCard key={r.slug} post={r} />
+              ))}
+            </div>
+            {moreLinks.length > 0 && (
+              <nav aria-label="Diğer rehberler" className="mt-10">
+                <p className="text-sm font-medium">Diğer yazılar</p>
+                <ul className="mt-3 space-y-2 text-[15px]">
+                  {moreLinks.map((p) => (
+                    <li key={p.slug}>
+                      <Link href={`/blog/${p.slug}`} className="text-muted hover:text-ink hover:underline">
+                        {p.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </section>
+        )}
       </main>
 
-      {/* Footer */}
-      <Footer showAboutTeaser={false} outerBg="bg-[#FAF9F5]" />
+      <div className="pb-12">
+        <ListingRow title="Yeni takas ilanları" listings={latest.items.map(toSummary)} moreHref="/ilanlar" />
+      </div>
+      <Footer />
     </div>
   );
 }

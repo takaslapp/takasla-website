@@ -61,7 +61,7 @@ export default function InfiniteListings({ initial, initialNext, filters = {}, f
 
   return (
     <>
-      <ul className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
         {items.map((l, i) => (
           <li key={l.listingNo} className="flex">
             <ListingCard listing={l} priority={i < 5} />

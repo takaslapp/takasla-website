@@ -18,6 +18,28 @@ export function AppStoreBadge({ height = 40 }: { height?: number }) {
   );
 }
 
+/** Google'ın resmi "Google Play'den alın" rozeti. Android sürümü yayında olmadığı için bağlantı vermez. */
+const GOOGLE_PLAY_BADGE = "https://play.google.com/intl/en_us/badges/static/images/badges/tr_badge_web_generic.png";
+
+export function GooglePlayBadgeSoon({ height = 40 }: { height?: number }) {
+  // Resmi rozet görselinde kenar boşluğu var; App Store rozetiyle aynı boyda görünmesi için büyütülüp kırpılır.
+  const imgH = Math.round(height * 1.45);
+  return (
+    <span className="inline-flex shrink-0 items-center gap-2" aria-label="Google Play sürümü yakında">
+      <span className="inline-block overflow-hidden rounded-[7px] opacity-60" style={{ height, width: Math.round(height * 3.37) }}>
+        <img
+          src={GOOGLE_PLAY_BADGE}
+          alt="Google Play'den alın"
+          height={imgH}
+          width={Math.round(imgH * 3.87)}
+          style={{ height: imgH, width: "auto", maxWidth: "none", margin: `${-(imgH - height) / 2}px 0 0 ${-Math.round(height * 0.2)}px` }}
+        />
+      </span>
+      <span className="rounded-full bg-surface px-2 py-0.5 text-xs font-medium text-muted">Yakında</span>
+    </span>
+  );
+}
+
 export function InstagramIcon({ size = 20 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">

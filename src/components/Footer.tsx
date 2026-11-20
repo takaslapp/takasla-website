@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { CATEGORY_LIST } from "@/lib/taxonomy";
-import { AppStoreBadge, InstagramIcon, XIcon } from "@/components/market/StoreBadges";
+import { AppStoreBadge, GooglePlayBadgeSoon, InstagramIcon, XIcon } from "@/components/market/StoreBadges";
 
 interface FooterProps {
   className?: string;
@@ -60,8 +60,9 @@ export default function Footer({ className = "" }: FooterProps = {}) {
           <p className="mt-3 max-w-xs text-muted">
             Eşya takası ilan platformu. Kullanmadığını ver, ihtiyacın olanı al.
           </p>
-          <div className="mt-5">
+          <div className="mt-5 flex flex-col items-start gap-2.5">
             <AppStoreBadge height={40} />
+            <GooglePlayBadgeSoon height={40} />
           </div>
           <div className="mt-5 flex items-center gap-4 text-muted">
             <a href="https://instagram.com/takaslapp" target="_blank" rel="noopener noreferrer" aria-label="Takasla Instagram" className="hover:text-ink">
@@ -105,7 +106,7 @@ export default function Footer({ className = "" }: FooterProps = {}) {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-muted lg:flex-row lg:justify-between">
           <div className="space-y-1">
-            <p>© {new Date().getFullYear()} Takasla. Eşya takası platformu.</p>
+            <p>© {new Date().getFullYear()} Takasla. Parayla Değil, Takasla.</p>
             <p>Takas teklifleri, mesajlaşma ve takas işlemleri resmi Takasla uygulaması üzerinden yapılır.</p>
           </div>
           <ul className="flex flex-wrap gap-x-4 gap-y-1.5 lg:max-w-xl lg:justify-end">

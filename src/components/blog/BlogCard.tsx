@@ -1,75 +1,64 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { BlogPost } from "@/data/blog-posts";
+import { formatDateTR } from "@/lib/site";
 
 interface BlogCardProps {
   post: BlogPost;
+  /** Liste başındaki öne çıkan yazı: yatay ve büyük */
+  featured?: boolean;
+  priority?: boolean;
 }
 
-export default function BlogCard({ post }: BlogCardProps) {
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("tr-TR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+export default function BlogCard({ post, featured = false, priority = false }: BlogCardProps) {
+  const date = formatDateTR(post.publishedAt);
 
-  return (
-    <article className="h-full">
-      <Link
-        href={`/blog/${post.slug}`}
-        className="group bg-white border border-gray-200/90 hover:border-gray-300 rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between h-full block"
-      >
-        <div>
-          {/* Top: Large, Eye-Catching Cover Image */}
-          <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gray-100 mb-5 border border-gray-100">
+  if (featured) {
+    return (
+      <article>
+        <Link href={`/blog/${post.slug}`} className="group grid items-center gap-5 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-surface">
             <Image
               src={post.coverImage}
               alt={post.title}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
-              className="object-cover group-hover:scale-104 transition-transform duration-500"
+              priority={priority}
+              sizes="(min-width: 1024px) 640px, 100vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
           </div>
-
-          {/* Underneath: Category & Read Time */}
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="inline-block px-2.5 py-1 rounded-md bg-[#00A859] text-white text-[11px] font-bold uppercase tracking-wider">
-              {post.category}
-            </span>
-            <span className="text-gray-300">•</span>
-            <span className="text-xs text-gray-500 font-medium">
-              {post.readTime}
-            </span>
+          <div>
+            <p className="text-sm text-link">{post.category}</p>
+            <h2 className="mt-2 text-2xl font-semibold leading-tight group-hover:underline sm:text-3xl">{post.title}</h2>
+            <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-muted sm:text-base">{post.excerpt}</p>
+            <p className="mt-4 text-sm text-muted">
+              <time dateTime={post.publishedAt}>{date}</time> · {post.readTime}
+            </p>
           </div>
+        </Link>
+      </article>
+    );
+  }
 
-          {/* Title - Full Width & Clean */}
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-2.5">
-            {post.title}
-          </h2>
-
-          {/* Excerpt */}
-          <p className="text-sm text-gray-600 leading-relaxed font-normal line-clamp-2 mb-4">
-            {post.excerpt}
-          </p>
+  return (
+    <article className="h-full">
+      <Link href={`/blog/${post.slug}`} className="group flex h-full flex-col">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-surface">
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            priority={priority}
+            sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          />
         </div>
-
-        {/* Bottom Row: Date & Circular Action Button */}
-        <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
-          <time dateTime={post.publishedAt} className="text-xs text-gray-400 font-medium">
-            {formattedDate}
-          </time>
-
-          {/* Circular Button with Arrow (As requested) */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black text-white flex items-center justify-center shrink-0 group-hover:bg-[#00A859] group-hover:scale-105 transition-all shadow-xs">
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 fill-none stroke-current"
-              viewBox="0 0 24 24"
-              strokeWidth="2.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </div>
+        <p className="mt-4 text-sm text-link">{post.category}</p>
+        <h3 className="mt-1.5 text-lg font-semibold leading-snug group-hover:underline">{post.title}</h3>
+        <p className="mt-2 line-clamp-2 text-[15px] leading-relaxed text-muted">{post.excerpt}</p>
+        <p className="mt-auto pt-3 text-sm text-muted">
+          <time dateTime={post.publishedAt}>{date}</time> · {post.readTime}
+        </p>
       </Link>
     </article>
   );
