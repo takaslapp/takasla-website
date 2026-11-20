@@ -23,11 +23,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://takaslapp.com"),
   title: {
-    default: "Takasla - Eşya takası ilanları",
+    default: "Eşya Takası Sitesi ve Takas Uygulaması | Takasla",
     template: "%s - Takasla",
   },
   description:
-    "Takasla'da kullanmadığın eşyayı ilana koy, ihtiyacın olan ürünle takas et. Türkiye genelinde eşya takası ilanları.",
+    "Kullanmadığın eşyayı ücretsiz ilan ver, ihtiyacın olan ürünle para ödemeden takas et. Türkiye genelinde eşya takası ilanları Takasla'da.",
   authors: [{ name: "Takasla", url: "https://takaslapp.com" }],
   creator: "Takasla",
   publisher: "Takasla",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://takaslapp.com",
     siteName: "Takasla",
-    title: "Takasla - Eşya takası ilanları",
+    title: "Eşya Takası Sitesi ve Takas Uygulaması | Takasla",
     description:
       "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
     images: [
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Takasla - Eşya takası ilanları",
+    title: "Eşya Takası Sitesi ve Takas Uygulaması | Takasla",
     description:
       "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
     site: "@takaslapp",

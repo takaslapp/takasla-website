@@ -129,3 +129,13 @@ body {
   .article { font-size: 16px; }
   .article h2 { font-size: 1.3rem; }
 }
+
+/* Arama kutusundaki dönen öneriler: aşağıdan yukarı kayarak gelir */
+@keyframes search-hint-in {
+  from { transform: translateY(70%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.search-hint-in { animation: search-hint-in 0.35s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .search-hint-in { animation: none; }
+}

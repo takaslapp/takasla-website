@@ -4,6 +4,7 @@ import { APP_STORE_URL } from "@/lib/site";
 import { getFacets } from "@/lib/listings";
 import { CITY_LIST } from "@/lib/taxonomy";
 import LocationPicker from "./LocationPicker";
+import SearchField from "./SearchField";
 
 interface SiteHeaderProps {
   /** Arama kutusundaki mevcut sorgu */
@@ -52,14 +53,7 @@ export default async function SiteHeader({ query }: SiteHeaderProps) {
             <label htmlFor="site-search" className="sr-only">
               İlanlarda ara
             </label>
-            <input
-              id="site-search"
-              name="q"
-              type="search"
-              defaultValue={query}
-              placeholder="Ne takaslamak istiyorsun?"
-              className="h-10 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-surface px-3 text-base outline-none placeholder:text-muted focus:border-ink focus:bg-white focus-visible:outline-none sm:text-sm"
-            />
+            <SearchField defaultValue={query} />
             <button
               type="submit"
               aria-label="Ara"

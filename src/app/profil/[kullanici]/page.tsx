@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/market/Breadcrumbs";
 import ListingGrid from "@/components/market/ListingGrid";
 import { AppStoreBadge } from "@/components/market/StoreBadges";
 import Footer from "@/components/Footer";
-import { getProfileByUsername, isIndexable } from "@/lib/listings";
+import { getProfileByUsername } from "@/lib/listings";
 import { profilePath } from "@/lib/taxonomy";
 import { absoluteUrl } from "@/lib/site";
 
@@ -33,7 +33,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title: `@${u} takas ilanları`,
     description,
     alternates: { canonical: profilePath(u) },
-    robots: listings.some(isIndexable) ? undefined : { index: false, follow: true },
+    // Kullanıcı profilleri ince içerik sayılır; dizine eklenmez ama ilan bağlantıları takip edilir.
+    robots: { index: false, follow: true },
     openGraph: {
       type: "profile",
       url: absoluteUrl(profilePath(u)),

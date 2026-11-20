@@ -19,7 +19,7 @@ export interface CardListing {
 
 export default function ListingCard({ listing, priority = false }: { listing: CardListing; priority?: boolean }) {
   const { city, district } = parseLocation(listing.location);
-  const place = district || city;
+  const place = city || district;
 
   return (
     <Link
