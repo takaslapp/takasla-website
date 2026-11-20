@@ -225,10 +225,17 @@ export interface Facet {
 }
 
 /** Aktif ilanlardan kategori ve şehir sayıları (iç linkleme ve indeks kararı için). */
-export const getFacets = cache(async (): Promise<{ categories: Facet[]; cities: Facet[]; total: number }> => {
+export interface DistrictFacet extends Facet {
+  city: string;
+  citySlug: string;
+}
+
+export const getFacets = cache(
+  async (): Promise<{ categories: Facet[]; cities: Facet[]; districts: DistrictFacet[]; total: number }> => {
   const all = await getAllListings();
   const cat = new Map<string, Facet>();
   const city = new Map<string, Facet>();
+  const dist = new Map<string, DistrictFacet>();
   for (const l of all) {
     if (l.category) {
       const s = slugify(l.category);
@@ -236,17 +243,25 @@ export const getFacets = cache(async (): Promise<{ categories: Facet[]; cities: 
       f.count++;
       cat.set(s, f);
     }
-    const c = parseLocation(l.location).city;
+    const { city: c, district: d } = parseLocation(l.location);
     if (c) {
       const s = slugify(c);
       const f = city.get(s) ?? { name: c, slug: s, count: 0 };
       f.count++;
       city.set(s, f);
+      if (d) {
+        const ds = slugify(d);
+        const key = `${s}/${ds}`;
+        const df = dist.get(key) ?? { name: d, slug: ds, city: c, citySlug: s, count: 0 };
+        df.count++;
+        dist.set(key, df);
+      }
     }
   }
-  const sort = (m: Map<string, Facet>) => [...m.values()].sort((a, b) => b.count - a.count);
-  return { categories: sort(cat), cities: sort(city), total: all.length };
-});
+  const sort = <T extends Facet>(m: Map<string, T>) => [...m.values()].sort((a, b) => b.count - a.count);
+  return { categories: sort(cat), cities: sort(city), districts: sort(dist), total: all.length };
+  }
+);
 
 /** Takasçının yayındaki diğer ilanları (tüm aktif ilanlar arasından süzülür). */
 export async function getListingsBySeller(sellerId: string, excludeNo?: number, limit = 8): Promise<Listing[]> {

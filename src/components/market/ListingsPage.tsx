@@ -8,6 +8,11 @@ import type { Facet, Listing, ListingCursor } from "@/lib/listings";
 import { absoluteUrl } from "@/lib/site";
 import { listingPath } from "@/lib/taxonomy";
 
+interface RelatedGroup {
+  title: string;
+  links: (Facet & { href: string })[];
+}
+
 interface ListingsPageProps {
   title: string;
   intro?: string;
@@ -19,7 +24,7 @@ interface ListingsPageProps {
   activeCategory?: string;
   query?: string;
   /** Yan bağlantılar: ör. bu kategorideki şehirler */
-  related?: { title: string; links: (Facet & { href: string })[] };
+  related?: RelatedGroup | RelatedGroup[];
   emptyText?: string;
 }
 
@@ -51,21 +56,23 @@ export default function ListingsPage(p: ListingsPageProps) {
           {p.intro && <p className="mt-1 max-w-3xl text-sm text-muted">{p.intro}</p>}
         </div>
 
-        {p.related && p.related.links.length > 0 && (
-          <div className="mb-5">
-            <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">{p.related.title}</p>
-            <ul className="flex flex-wrap gap-2 text-sm">
-              {p.related.links.map((r) => (
-                <li key={r.href}>
-                  <Link href={r.href} className="inline-block rounded-md border border-line px-2.5 py-1 hover:border-ink">
-                    {r.name}
-                    {r.count > 0 && <span className="text-muted"> ({r.count})</span>}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {(Array.isArray(p.related) ? p.related : p.related ? [p.related] : [])
+          .filter((g) => g.links.length > 0)
+          .map((g) => (
+            <div key={g.title} className="mb-5">
+              <p className="mb-2 text-sm text-muted">{g.title}</p>
+              <ul className="flex flex-wrap gap-2 text-sm">
+                {g.links.map((r) => (
+                  <li key={r.href}>
+                    <Link href={r.href} className="inline-block rounded-md border border-line px-2.5 py-1 hover:border-ink">
+                      {r.name}
+                      {r.count > 0 && <span className="text-muted"> ({r.count})</span>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
         <ListingGrid
           listings={p.listings}

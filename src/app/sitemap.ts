@@ -120,6 +120,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily" as const,
       priority: 0.7,
     })),
+    ...facets.districts.map((d) => ({
+      url: `${baseUrl}/sehir/${d.citySlug}/${d.slug}`,
+      lastModified: newest,
+      changeFrequency: "daily" as const,
+      priority: 0.6,
+    })),
   ];
 
   // Kategori + şehir kombinasyonları (yalnızca ilan olanlar)

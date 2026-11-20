@@ -28,3 +28,45 @@ body {
   outline: 2px solid var(--color-link);
   outline-offset: 2px;
 }
+
+/* Yasal ve kurumsal metinler: tek sütun, okunaklı satır uzunluğu */
+.doc {
+  max-width: 46rem;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #2a2e2b;
+  overflow-wrap: anywhere;
+}
+.doc p, .doc ul, .doc ol, .doc table, .doc .doc-box { margin: 0 0 0.9em; }
+.doc h2 {
+  margin: 2.2em 0 0.5em;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-ink);
+  scroll-margin-top: 6rem;
+}
+.doc > h2:first-child, .doc > :first-child > h2:first-child { margin-top: 0; }
+.doc h3 {
+  margin: 1.5em 0 0.4em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.doc ul, .doc ol { padding-left: 1.25rem; }
+.doc ul { list-style: disc; }
+.doc ol { list-style: decimal; }
+.doc li + li { margin-top: 0.3em; }
+.doc li::marker { color: var(--color-muted); }
+.doc strong { font-weight: 600; color: var(--color-ink); }
+.doc a { color: var(--color-link); text-decoration: underline; text-underline-offset: 2px; }
+.doc a:hover { color: var(--color-ink); }
+.doc .doc-box {
+  border-left: 3px solid var(--color-line);
+  padding: 0.1rem 0 0.1rem 1rem;
+}
+.doc .doc-box p, .doc .doc-box ul { margin-bottom: 0.35em; }
+.doc .doc-box :last-child { margin-bottom: 0; }
+@media (min-width: 640px) {
+  .doc { font-size: 16px; }
+}

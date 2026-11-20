@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
-import LegalHeader from "@/components/LegalHeader";
-import CorporateSidebar from "@/components/CorporateSidebar";
+import InfoLayout from "@/components/info/InfoLayout";
+import FaqSearch from "@/components/info/FaqSearch";
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sıkça Sorulan Sorular",
@@ -274,101 +274,95 @@ const FAQ_DATA: FaqCategory[] = [
   },
 ];
 
+const TR_MAP: Record<string, string> = { ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u", â: "a", î: "i", û: "u" };
+function anchor(s: string) {
+  return s
+    .toLocaleLowerCase("tr-TR")
+    .replace(/[çğıöşüâîû]/g, (c) => TR_MAP[c] || c)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export default function SssPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: absoluteUrl("/sss"),
+    mainEntity: FAQ_DATA.flatMap((c) =>
+      c.items.map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: i.a } })),
+    ),
+  };
+
   return (
-    <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
-      {/* Top Header with Centered Logo */}
-      <LegalHeader />
+    <InfoLayout
+      path="/sss"
+      title="Sıkça sorulan sorular"
+      lead="Üyelik, ilanlar, takas teklifleri, TakasPara ve güvenlik hakkında en çok sorulan sorular. Cevabını bulamazsan bize yazabilirsin."
+    >
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Breadcrumb Navigation */}
-      <div className="border-b border-gray-200/80 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center gap-2 text-xs text-gray-500">
-          <Link
-            href="/"
-            aria-label="Ana Sayfa"
-            className="hover:text-black transition-colors flex items-center gap-1"
-          >
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-          </Link>
-          <span className="text-gray-300">&gt;</span>
-          <span>Kurumsal</span>
-          <span className="text-gray-300">&gt;</span>
-          <span className="text-gray-900 font-semibold">Sıkça Sorulan Sorular</span>
-        </div>
-      </div>
+      <FaqSearch targetId="sss-listesi" />
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-6 py-10 sm:py-14 w-full flex-grow">
-        <div className="flex flex-col md:flex-row gap-10">
-          {/* Left Corporate Sidebar */}
-          <CorporateSidebar activeTab="sss" />
+      <nav aria-label="Soru başlıkları" className="mt-5 max-w-3xl">
+        <ul className="flex flex-wrap gap-2">
+          {FAQ_DATA.map((c) => (
+            <li key={c.category}>
+              <a
+                href={`#${anchor(c.category)}`}
+                className="inline-flex h-8 items-center rounded-full border border-line px-3 text-sm text-muted hover:border-ink hover:text-ink"
+              >
+                {c.category}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-          {/* Right Main Content */}
-          <div className="flex-1 space-y-10">
-            {/* Title with Green Vertical Bar */}
-            <div className="border-l-4 border-[#00A859] pl-4 py-0.5">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-                Sıkça Sorulan Sorular
-              </h1>
-              <p className="text-gray-500 text-sm sm:text-base mt-2">
-                Takasla kullanımı, TakasPara, teklif mekanizmaları ve güvenlik süreçlerine dair tüm detaylar.
-              </p>
-            </div>
-
-            {/* Categorized FAQ Accordion List */}
-            <div className="space-y-10">
-              {FAQ_DATA.map((cat, idx) => (
-                <section key={idx} className="space-y-4">
-                  {/* Category Title with Dot Indicator */}
-                  <div className="flex items-center gap-2.5 pb-2 border-b border-gray-200">
-                    <span className="w-2 h-2 rounded-full bg-[#00A859]" />
-                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">
-                      {cat.category}
-                    </h2>
-                  </div>
-
-                  {/* Accordion Items */}
-                  <div className="space-y-3">
-                    {cat.items.map((item, qIdx) => (
-                      <details
-                        key={qIdx}
-                        className="group bg-white rounded-2xl border border-gray-200/90 shadow-2xs overflow-hidden transition-all hover:border-[#00A859]/50"
-                      >
-                        <summary className="flex items-center justify-between gap-4 p-4 sm:p-5 cursor-pointer list-none font-semibold text-gray-900 select-none text-sm sm:text-base">
-                          <span className="group-open:text-[#00A859] transition-colors">
-                            {item.q}
-                          </span>
-                          <span className="w-7 h-7 rounded-full bg-gray-100 group-open:bg-[#00A859]/10 group-open:text-[#00A859] flex items-center justify-center flex-shrink-0 transition-transform group-open:rotate-180">
-                            <svg
-                              className="w-4 h-4 fill-none stroke-current"
-                              viewBox="0 0 24 24"
-                              strokeWidth="2"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19 9l-7 7-7-7"
-                              />
-                            </svg>
-                          </span>
-                        </summary>
-                        <div className="px-4 sm:px-5 pb-5 pt-1 text-gray-600 text-xs sm:text-sm leading-relaxed border-t border-gray-100">
-                          {item.a}
-                        </div>
-                      </details>
-                    ))}
-                  </div>
-                </section>
+      <div id="sss-listesi" className="mt-10 max-w-3xl space-y-12">
+        {FAQ_DATA.map((cat) => (
+          <section key={cat.category} data-faq-group aria-labelledby={anchor(cat.category)}>
+            <h2 id={anchor(cat.category)} className="scroll-mt-24 text-lg font-semibold">
+              {cat.category}
+            </h2>
+            <div className="mt-3 border-t border-line">
+              {cat.items.map((item) => (
+                <details key={item.q} data-faq className="group border-b border-line">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-4 text-[15px] font-medium sm:text-base [&::-webkit-details-marker]:hidden">
+                    <h3 className="font-medium">{item.q}</h3>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                      className="mt-0.5 shrink-0 text-muted transition-transform group-open:rotate-45"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </summary>
+                  <p className="pb-5 pr-8 text-[15px] leading-relaxed text-muted">{item.a}</p>
+                </details>
               ))}
             </div>
-          </div>
-        </div>
-      </main>
+          </section>
+        ))}
+      </div>
 
-      {/* Footer */}
-      <Footer outerBg="bg-[#FAF9F5]" />
-    </div>
+      <div className="mt-12 max-w-3xl border-t border-line pt-6 text-[15px]">
+        <p className="font-medium">Sorunun cevabını bulamadın mı?</p>
+        <p className="mt-1 text-muted">
+          <Link href="/iletisim" className="text-link underline">
+            İletişim sayfasından
+          </Link>{" "}
+          bize yaz ya da adım adım anlatım için{" "}
+          <Link href="/nasil-calisir" className="text-link underline">
+            Nasıl çalışır
+          </Link>{" "}
+          sayfasına göz at.
+        </p>
+      </div>
+    </InfoLayout>
   );
 }

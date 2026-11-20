@@ -1,138 +1,161 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
-import LegalHeader from "@/components/LegalHeader";
-import CorporateSidebar from "@/components/CorporateSidebar";
+import Link from "next/link";
+import InfoLayout from "@/components/info/InfoLayout";
+import { AppStoreBadge } from "@/components/market/StoreBadges";
+import { absoluteUrl, CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
   description:
-    "Takasla nedir? Takasla; kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı, para harcamadan güvenle takas yapılabildiği yeni nesil dijital takas ekosistemidir.",
-  keywords: [
-    "takasla nedir",
-    "takasla hakkında",
-    "takas platformu",
-    "döngüsel tüketim",
-    "eşya takası",
-    "parayla değil takasla",
-  ],
-  alternates: {
-    canonical: "/hakkimizda",
-  },
+    "Takasla, kullanmadığın eşyayı para ödemeden başka bir eşyayla takas etmeni sağlayan ilan platformudur. Nasıl çalıştığımızı, ilkelerimizi ve ekibimizi tanı.",
+  alternates: { canonical: "/hakkimizda" },
   openGraph: {
-    title: "Hakkımızda - Takasla",
-    description:
-      "Takasla, kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı yeni nesil dijital takas platformudur.",
-    url: "https://takaslapp.com/hakkimizda",
+    title: "Takasla hakkında",
+    description: "Para yerine eşya: Takasla'nın neden kurulduğu ve nasıl çalıştığı.",
+    url: absoluteUrl("/hakkimizda"),
     type: "website",
     locale: "tr_TR",
     siteName: "Takasla",
-    images: [{ url: "/images/takasla-icon.jpg", width: 1024, height: 1024, alt: "Takasla" }],
   },
 };
 
+const FACTS: [string, string][] = [
+  ["Para el değiştirmez", "Ürün karşılığında ürün verilir. Takasla satış, ödeme aracılığı veya kargo hizmeti sunmaz."],
+  ["İlan vermek ücretsiz", "Fotoğrafını çek, açıklamanı yaz, karşılığında ne aradığını belirt. İlanlar yayından önce kurallara uygunluk açısından kontrol edilir."],
+  ["İlk başarılı teklif ücretsiz", "Sonraki tekliflerde iki taraftan 10'ar TakasPara işlem bedeli alınır. Reddedilen veya süresi dolan teklifte bedel iade edilir."],
+  ["Teslimatı taraflar belirler", "Teklif kabul edilince uygulama içinden yazışırsın; buluşma yerini ve zamanını karşı tarafla birlikte seçersin."],
+];
+
+const PRINCIPLES = [
+  {
+    title: "Sade kurallar",
+    text: "Teklif ve iade koşullarını tek cümleyle anlatabileceğimiz kadar basit tutuyoruz. Kuralların tamamı Kullanım Koşulları'nda ve Sıkça Sorulan Sorular'da açıkça yazılı.",
+  },
+  {
+    title: "Kontrollü ilanlar",
+    text: "Her ilan yayına girmeden önce Topluluk Kuralları'na göre incelenir. Yasaklı ürünler, yanıltıcı ilanlar ve sahte hesaplar yayından kaldırılır.",
+  },
+  {
+    title: "Karşılıklı güven",
+    text: "Tamamlanan her takastan sonra taraflar birbirini değerlendirir. Profilde görünen takas sayısı ve puan, bir sonraki kullanıcının karar vermesine yardımcı olur.",
+  },
+  {
+    title: "Gerekli kadar veri",
+    text: "Hizmeti sunmak için gereken bilgiyi işler, kişisel verileri KVKK kapsamında korur ve hesabını sildiğinde verilerini mevzuatın izin verdiği ölçüde sileriz.",
+  },
+];
+
 export default function HakkimizdaPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "Takasla hakkında",
+    url: absoluteUrl("/hakkimizda"),
+    about: { "@type": "Organization", name: "Takasla", url: absoluteUrl("/"), email: CONTACT_EMAIL },
+  };
+
   return (
-    <div className="min-h-screen bg-[#FAF9F5] text-gray-800 flex flex-col justify-between font-sans">
-      {/* Top Header with Centered Logo */}
-      <LegalHeader />
+    <InfoLayout
+      path="/hakkimizda"
+      title="Hakkımızda"
+      lead="Takasla, kullanmadığın eşyayı başka bir kullanıcının eşyasıyla takas etmen için kurulmuş bir ilan platformu. Para el değiştirmez; ürün karşılığında ürün verilir."
+    >
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Breadcrumb Navigation */}
-      <div className="border-b border-gray-200/80 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center gap-2 text-xs text-gray-500">
-          <Link
-            href="/"
-            aria-label="Ana Sayfa"
-            className="hover:text-black transition-colors flex items-center gap-1"
-          >
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-          </Link>
-          <span className="text-gray-300">&gt;</span>
-          <span>Kurumsal</span>
-          <span className="text-gray-300">&gt;</span>
-          <span className="text-gray-900 font-semibold">Hakkımızda</span>
+      <section className="grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_220px] md:gap-12">
+        <div className="doc">
+          <h2 id="neden">Neden takas?</h2>
+          <p>
+            Hemen her evde bir dolap dolusu “bir gün lazım olur” eşyası var: bir kez giyilip kenara kaldırılan mont,
+            çocuk büyüdüğü için kullanılmayan bebek arabası, yenisi alınınca çekmeceye giren telefon. Bunları satmak
+            uğraştırıyor; atmak ise hem israf hem de vicdani bir yük.
+          </p>
+          <p>
+            Takas bu iki seçeneğin arasında kalan boşluğu dolduruyor. Senin işine yaramayan eşya başkasının ihtiyacı
+            olabilir, onun elindeki de senin. Takasla bu iki kişiyi aynı ekranda buluşturmak için var.
+          </p>
+          <p>
+            Pazarlık, fiyat etiketi veya ödeme yok. İlanını verirken karşılığında ne aradığını yazıyorsun; teklifler
+            buna göre geliyor. Uygun bir teklif gördüğünde kabul ediyor, karşı tarafla yazışıp takası
+            tamamlıyorsun.
+          </p>
         </div>
+        <img
+          src="/images/app/takasla-app-kesfet.webp"
+          alt="Takasla uygulamasında ilanları keşfet ekranı"
+          width={220}
+          height={476}
+          loading="lazy"
+          className="mx-auto hidden w-[200px] rounded-2xl border border-line md:block"
+        />
+      </section>
+
+      <section className="mt-12" aria-labelledby="temel-bilgiler">
+        <h2 id="temel-bilgiler" className="text-lg font-semibold">
+          Kısaca Takasla
+        </h2>
+        <dl className="mt-4 grid border-t border-line sm:grid-cols-2">
+          {FACTS.map(([t, d], i) => (
+            <div
+              key={t}
+              className={`border-b border-line py-5 sm:pr-8 ${i % 2 === 1 ? "sm:border-l sm:pl-8 sm:pr-0" : ""}`}
+            >
+              <dt className="font-medium">{t}</dt>
+              <dd className="mt-1.5 text-[15px] leading-relaxed text-muted">{d}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="mt-12" aria-labelledby="ilkeler">
+        <h2 id="ilkeler" className="text-lg font-semibold">
+          Nasıl çalışıyoruz
+        </h2>
+        <ol className="mt-4 space-y-6">
+          {PRINCIPLES.map((p, i) => (
+            <li key={p.title} className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 sm:max-w-3xl">
+              <span className="pt-0.5 text-sm tabular-nums text-muted">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 className="font-medium">{p.title}</h3>
+                <p className="mt-1 text-[15px] leading-relaxed text-muted">{p.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="doc mt-12">
+        <h2 id="bugun">Bugün neredeyiz?</h2>
+        <p>
+          Takasla Konya&apos;da geliştirilen bağımsız bir girişim. iOS uygulamamız App Store&apos;da yayında, Android
+          sürümü test aşamasında. Bu sitede uygulamada yayınlanan ilanları herkes görüntüleyebilir; teklif göndermek
+          ve mesajlaşmak için uygulamayı kullanman gerekir.
+        </p>
+        <p>
+          Ürünü geliştirirken en çok kullanıcılarımızdan gelen geri bildirimlerden yararlanıyoruz. Bir öneri,
+          şikâyet veya iş birliği teklifin varsa <Link href="/iletisim">iletişim sayfasından</Link> bize ulaşabilirsin.
+        </p>
+      </section>
+
+      <div className="mt-10 flex max-w-3xl flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-sm">
+          <p className="font-medium">Takasla&apos;yı uygulamada dene</p>
+          <p className="mt-0.5 text-muted">
+            <Link href="/nasil-calisir" className="underline">
+              Nasıl çalışır
+            </Link>{" "}
+            ·{" "}
+            <Link href="/sss" className="underline">
+              Sıkça sorulan sorular
+            </Link>{" "}
+            ·{" "}
+            <Link href="/kariyer" className="underline">
+              Kariyer
+            </Link>
+          </p>
+        </div>
+        <AppStoreBadge height={42} />
       </div>
-
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-6 py-10 sm:py-14 w-full flex-grow">
-        <div className="flex flex-col md:flex-row gap-10">
-          {/* Left Corporate Sidebar */}
-          <CorporateSidebar activeTab="hakkimizda" />
-
-          {/* Right Main Content */}
-          <div className="flex-1 space-y-8">
-            {/* Title with Green Vertical Bar */}
-            <div className="border-l-4 border-[#00A859] pl-4 py-0.5">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-                Hakkımızda
-              </h1>
-            </div>
-
-            {/* Main Narrative Text */}
-            <div className="text-gray-700 text-sm sm:text-base leading-relaxed space-y-4">
-              <p>
-                <strong className="text-gray-900 font-semibold">Takasla</strong>, kullanılmayan eşyaların yeniden değerlendirilebildiği, kullanıcıların ihtiyaç duydukları ürünlere takas yoluyla güvenle ulaşabildiği yeni nesil bir dijital platformdur.
-              </p>
-              <p>
-                Amacımız, insanların sahip oldukları ancak artık kullanmadıkları ürünleri kolayca değerlendirebilmelerini sağlarken, geleneksel tüketime ve yeni harcamalara alternatif, daha sürdürülebilir, ekonomik ve erişilebilir bir paylaşım modeli sunmaktır.
-              </p>
-              <p>
-                Takasla&apos;da kullanıcılar kendi ürünlerini saniyeler içinde ilan olarak paylaşabilir, binlerce farklı kategorideki ürünleri keşfedebilir ve kendi ürünleriyle doğrudan takas teklifinde bulunabilir. Şeffaf teklif mekanizmaları, güvenli uygulama içi mesajlaşma ve takas yönetimi sayesinde süreç tek bir platform üzerinden kolayca takip edilebilir.
-              </p>
-              <p>
-                Bizim için Takasla yalnızca ürünlerin el değiştirdiği bir uygulama değil; kullanılmayan eşyaların yeniden değer kazandığı, gereksiz tüketimin yerini bilinçli dayanışmaya bıraktığı ve kullanıcılar arasında karşılıklı faydaya dayalı yeni bir alışveriş alışkanlığının geliştiği yaşayan bir ekosistemdir.
-              </p>
-              <p>
-                Teknolojiyi, sade ve akıcı kullanıcı deneyimini ve güven odaklı platform yapısını bir araya getirerek takası dönemsel bir tercih değil, günlük hayatın doğal, tasarruflu ve pratik bir parçası hâline getirmeyi hedefliyoruz.
-              </p>
-              <p className="pt-2 text-base sm:text-lg font-bold text-gray-900">
-                Parayla Değil, <span className="text-[#00A859]">Takasla</span>.
-              </p>
-            </div>
-
-            {/* Mission & Vision Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-              {/* Misyonumuz Card */}
-              <div className="bg-[#0B251C] text-white rounded-2xl p-7 border border-[#00E676]/20 shadow-lg relative overflow-hidden group hover:border-[#00E676]/40 transition-colors">
-                <div className="w-11 h-11 rounded-xl bg-[#00E676]/15 flex items-center justify-center text-[#00E676] mb-5">
-                  <svg className="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
-                    <line x1="4" y1="22" x2="4" y2="15" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 tracking-tight">
-                  Misyonumuz
-                </h3>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-light">
-                  Kullanıcılarımızın ihtiyaç fazlası ürünlerini paraya ihtiyaç duymadan, güvenli ve kolay bir ortamda takas edebilmelerini sağlamak; sürdürülebilir tüketim bilincini herkes için erişilebilir bir yaşam biçimine dönüştürmektir.
-                </p>
-              </div>
-
-              {/* Vizyonumuz Card */}
-              <div className="bg-[#0B251C] text-white rounded-2xl p-7 border border-[#00E676]/20 shadow-lg relative overflow-hidden group hover:border-[#00E676]/40 transition-colors">
-                <div className="w-11 h-11 rounded-xl bg-[#00E676]/15 flex items-center justify-center text-[#00E676] mb-5">
-                  <svg className="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 tracking-tight">
-                  Vizyonumuz
-                </h3>
-                <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-light">
-                  Türkiye&apos;de ve dünyada takas denildiğinde akla gelen ilk dijital platform olmak; döngüsel ekonomiye liderlik ederek milyonlarca eşyayı yeniden ekonomiye kazandırmak ve sektörün öncüsü olmaktır.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <Footer outerBg="bg-[#FAF9F5]" showAboutTeaser={false} />
-    </div>
+    </InfoLayout>
   );
 }

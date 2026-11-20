@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ListingsPage from "@/components/market/ListingsPage";
-import { getAllListings, getListings, parseCursor } from "@/lib/listings";
+import { getAllListings, getFacets, getListings, parseCursor } from "@/lib/listings";
 import { cityBySlug, parseLocation, slugify } from "@/lib/taxonomy";
 
 export const revalidate = 60;
@@ -29,10 +29,14 @@ export default async function SehirPage({ params, searchParams }: { params: Para
   if (!city) notFound();
   const sp = await searchParams;
 
-  const [{ items, nextCursor }, all] = await Promise.all([
+  const [{ items, nextCursor }, all, facets] = await Promise.all([
     getListings({ city: city.name, cursor: parseCursor(sp.sonraki), limit: 24 }),
     getAllListings(),
+    getFacets(),
   ]);
+  const districts = facets.districts
+    .filter((d) => d.citySlug === city.slug)
+    .map((d) => ({ name: d.name, slug: d.slug, count: d.count, href: `/sehir/${city.slug}/${d.slug}` }));
 
   const counts = new Map<string, { name: string; slug: string; count: number }>();
   for (const l of all) {
@@ -55,10 +59,10 @@ export default async function SehirPage({ params, searchParams }: { params: Para
       listings={items}
       nextCursor={nextCursor}
       basePath={`/sehir/${city.slug}`}
-      related={{
-        title: "Kategoriye göre",
-        links: cats.map((c) => ({ ...c, href: `/kategori/${c.slug}/${city.slug}` })),
-      }}
+      related={[
+        { title: "İlçeye göre", links: districts },
+        { title: "Kategoriye göre", links: cats.map((c) => ({ ...c, href: `/kategori/${c.slug}/${city.slug}` })) },
+      ]}
       emptyText={`${city.name} için şu an yayında ilan yok.`}
     />
   );

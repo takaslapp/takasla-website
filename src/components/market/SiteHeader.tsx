@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { APP_STORE_URL } from "@/lib/site";
+import { getFacets } from "@/lib/listings";
+import { CITY_LIST } from "@/lib/taxonomy";
+import LocationPicker from "./LocationPicker";
 
 interface SiteHeaderProps {
   /** Arama kutusundaki mevcut sorgu */
@@ -13,7 +16,21 @@ const NAV = [
   { href: "/sss", label: "Yardım" },
 ];
 
-export default function SiteHeader({ query }: SiteHeaderProps) {
+async function locationData() {
+  try {
+    const f = await getFacets();
+    const counts = new Map(f.cities.map((c) => [c.slug, c.count]));
+    const cities = CITY_LIST.map((c) => ({ ...c, count: counts.get(c.slug) ?? 0 })).sort(
+      (a, b) => b.count - a.count || a.name.localeCompare(b.name, "tr")
+    );
+    return { cities, districts: f.districts };
+  } catch {
+    return { cities: CITY_LIST.map((c) => ({ ...c, count: 0 })), districts: [] };
+  }
+}
+
+export default async function SiteHeader({ query }: SiteHeaderProps) {
+  const loc = await locationData();
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3 sm:flex-nowrap sm:gap-6">
@@ -27,25 +44,33 @@ export default function SiteHeader({ query }: SiteHeaderProps) {
           />
         </Link>
 
-        <form action="/ilanlar" method="get" role="search" className="order-last flex w-full min-w-0 sm:order-none sm:w-auto sm:flex-1">
-          <label htmlFor="site-search" className="sr-only">
-            İlanlarda ara
-          </label>
-          <input
-            id="site-search"
-            name="q"
-            type="search"
-            defaultValue={query}
-            placeholder="Ne takaslamak istiyorsun?"
-            className="h-10 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-surface px-3 text-sm outline-none placeholder:text-muted focus:border-ink focus:bg-white"
-          />
-          <button
-            type="submit"
-            className="h-10 shrink-0 rounded-r-lg bg-ink px-4 text-sm font-medium text-white hover:bg-black"
-          >
-            Ara
-          </button>
-        </form>
+        <div className="order-last flex w-full min-w-0 gap-2 sm:order-none sm:w-auto sm:flex-1">
+          <LocationPicker cities={loc.cities} districts={loc.districts} />
+          <form action="/ilanlar" method="get" role="search" className="flex min-w-0 flex-1">
+            <label htmlFor="site-search" className="sr-only">
+              İlanlarda ara
+            </label>
+            <input
+              id="site-search"
+              name="q"
+              type="search"
+              defaultValue={query}
+              placeholder="Ne takaslamak istiyorsun?"
+              className="h-10 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-surface px-3 text-base sm:text-sm outline-none placeholder:text-muted focus:border-ink focus:bg-white"
+            />
+            <button
+              type="submit"
+              aria-label="Ara"
+              className="flex h-10 shrink-0 items-center rounded-r-lg bg-ink px-3 text-sm font-medium text-white hover:bg-black sm:px-4"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true" className="sm:hidden">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.5-3.5" />
+              </svg>
+              <span className="hidden sm:inline">Ara</span>
+            </button>
+          </form>
+        </div>
 
         <nav aria-label="Ana menü" className="hidden items-center gap-5 text-sm text-muted lg:flex">
           {NAV.map((n) => (
