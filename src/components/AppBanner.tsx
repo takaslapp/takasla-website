@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { ANDROID_PACKAGE, APP_STORE_URL, PLAY_STORE_URL, SITE_URL } from "@/lib/site";
+import { ANDROID_PACKAGE, ANDROID_RELEASED, APP_STORE_URL, PLAY_STORE_URL, SITE_URL } from "@/lib/site";
 
 const DISMISS_KEY = "takasla_uygulama_banner";
 const DISMISS_DAYS = 14;
@@ -14,7 +14,7 @@ type Platform = "ios-other" | "android" | "none";
  * - iOS Safari: Apple'ın kendi Smart App Banner'ı (layout'taki apple-itunes-app meta etiketi) gösterilir;
  *   uygulama yüklüyse "Aç", değilse "Al" der. Bu yüzden burada gösterilmez.
  * - iOS'ta diğer tarayıcılar / uygulama içi tarayıcılar (Chrome, Instagram vb.): bu bant App Store'a yönlendirir.
- * - Android: Play Store'da yayınlandığında (NEXT_PUBLIC_ANDROID_PACKAGE tanımlanınca) intent bağlantısıyla
+ * - Android: Play Store'da yayınlandığında (ANDROID_RELEASED açılınca) intent bağlantısıyla
  *   uygulama yüklüyse doğrudan açılır, değilse Play Store'a gider.
  */
 function detect(): Platform {
@@ -24,7 +24,7 @@ function detect(): Platform {
     const nativeSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA|Instagram|FBAN|FBAV|Line\/|Twitter|LinkedInApp/.test(ua);
     return nativeSafari ? "none" : "ios-other";
   }
-  if (/Android/.test(ua)) return ANDROID_PACKAGE ? "android" : "none";
+  if (/Android/.test(ua)) return ANDROID_RELEASED ? "android" : "none";
   return "none";
 }
 
