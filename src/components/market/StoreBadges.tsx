@@ -1,0 +1,37 @@
+import { APP_STORE_URL } from "@/lib/site";
+
+/** Apple'ın resmi "App Store'dan İndirin" rozeti (Apple Marketing Tools üzerinden). */
+const APP_STORE_BADGE =
+  "https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/tr-tr?releaseDate=1758844800";
+
+export function AppStoreBadge({ height = 40 }: { height?: number }) {
+  return (
+    <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="inline-block shrink-0">
+      <img
+        src={APP_STORE_BADGE}
+        alt="App Store'dan İndirin"
+        height={height}
+        width={Math.round(height * 3)}
+        style={{ height, width: "auto" }}
+      />
+    </a>
+  );
+}
+
+export function InstagramIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+      <circle cx="12" cy="12" r="4.25" />
+      <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function XIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+    </svg>
+  );
+}

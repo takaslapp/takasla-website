@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-sans: var(--font-rubik), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Takasla pazar yeri paleti: sade, tek vurgu rengi */
   --color-ink: #141614;          /* ana metin, koyu butonlar */

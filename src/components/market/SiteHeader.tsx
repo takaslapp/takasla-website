@@ -36,7 +36,7 @@ export default function SiteHeader({ query }: SiteHeaderProps) {
             name="q"
             type="search"
             defaultValue={query}
-            placeholder="Ne arıyorsun? Örn. iPhone, bisiklet, mont"
+            placeholder="Ne takaslamak istiyorsun?"
             className="h-10 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-surface px-3 text-sm outline-none placeholder:text-muted focus:border-ink focus:bg-white"
           />
           <button

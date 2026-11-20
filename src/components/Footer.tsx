@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { APP_STORE_URL, CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_EMAIL } from "@/lib/site";
 import { CATEGORY_LIST } from "@/lib/taxonomy";
+import { AppStoreBadge, InstagramIcon, XIcon } from "@/components/market/StoreBadges";
 
 interface FooterProps {
   className?: string;
@@ -11,11 +12,19 @@ interface FooterProps {
 
 const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
+    title: "Keşfet",
+    links: [
+      { href: "/ilanlar", label: "Tüm ilanlar" },
+      { href: "/sehir/istanbul", label: "İstanbul ilanları" },
+      { href: "/sehir/konya", label: "Konya ilanları" },
+      { href: "/blog", label: "Takas rehberleri" },
+    ],
+  },
+  {
     title: "Takasla",
     links: [
       { href: "/hakkimizda", label: "Hakkımızda" },
       { href: "/nasil-calisir", label: "Nasıl çalışır?" },
-      { href: "/blog", label: "Blog" },
       { href: "/kariyer", label: "Kariyer" },
       { href: "/iletisim", label: "İletişim" },
     ],
@@ -26,46 +35,64 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: "/sss", label: "Sıkça sorulan sorular" },
       { href: "/topluluk-kurallari", label: "Topluluk kuralları" },
       { href: "/hesap-ve-veri-silme", label: "Hesap ve veri silme" },
-      { href: "/iletisim-ve-ticari-bilgiler", label: "Ticari bilgiler" },
-    ],
-  },
-  {
-    title: "Yasal",
-    links: [
-      { href: "/kullanim-kosullari", label: "Kullanım koşulları" },
-      { href: "/gizlilik-politikasi", label: "Gizlilik politikası" },
-      { href: "/kvkk-aydinlatma-metni", label: "KVKK aydınlatma metni" },
-      { href: "/cerez-politikasi", label: "Çerez politikası" },
-      { href: "/mesafeli-hizmet-sozlesmesi", label: "Mesafeli hizmet sözleşmesi" },
-      { href: "/on-bilgilendirme-formu", label: "Ön bilgilendirme formu" },
-      { href: "/iptal-ve-iade-kosullari", label: "İptal ve iade koşulları" },
+      { href: `mailto:${CONTACT_EMAIL}`, label: "Destek" },
     ],
   },
 ];
 
+const LEGAL = [
+  { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
+  { href: "/gizlilik-politikasi", label: "Gizlilik Politikası" },
+  { href: "/kvkk-aydinlatma-metni", label: "KVKK Aydınlatma Metni" },
+  { href: "/cerez-politikasi", label: "Çerez Politikası" },
+  { href: "/mesafeli-hizmet-sozlesmesi", label: "Mesafeli Hizmet Sözleşmesi" },
+  { href: "/on-bilgilendirme-formu", label: "Ön Bilgilendirme Formu" },
+  { href: "/iptal-ve-iade-kosullari", label: "İptal ve İade" },
+  { href: "/iletisim-ve-ticari-bilgiler", label: "Ticari Bilgiler" },
+];
+
 export default function Footer({ className = "" }: FooterProps = {}) {
   return (
-    <footer className={`border-t border-line bg-surface text-sm ${className}`}>
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-5">
+    <footer className={`border-t border-line bg-white text-sm ${className}`}>
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
         <div>
-          <p className="mb-3 font-semibold">Kategoriler</p>
-          <ul className="space-y-2 text-muted">
+          <img src="/images/takasla-yesil-logo.webp" alt="Takasla" width={120} height={32} className="h-7 w-auto" />
+          <p className="mt-3 max-w-xs text-muted">
+            Eşya takası ilan platformu. Kullanmadığını ver, ihtiyacın olanı al.
+          </p>
+          <div className="mt-5">
+            <AppStoreBadge height={40} />
+          </div>
+          <div className="mt-5 flex items-center gap-4 text-muted">
+            <a href="https://instagram.com/takaslapp" target="_blank" rel="noopener noreferrer" aria-label="Takasla Instagram" className="hover:text-ink">
+              <InstagramIcon />
+            </a>
+            <a href="https://x.com/takaslapp" target="_blank" rel="noopener noreferrer" aria-label="Takasla X" className="hover:text-ink">
+              <XIcon />
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-4 text-xs font-medium uppercase tracking-wider text-muted">Kategoriler</p>
+          <ul className="space-y-2.5">
             {CATEGORY_LIST.map((c) => (
               <li key={c.slug}>
-                <Link href={`/kategori/${c.slug}`} className="hover:text-ink hover:underline">
+                <Link href={`/kategori/${c.slug}`} className="hover:underline">
                   {c.name}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
+
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <p className="mb-3 font-semibold">{col.title}</p>
-            <ul className="space-y-2 text-muted">
+            <p className="mb-4 text-xs font-medium uppercase tracking-wider text-muted">{col.title}</p>
+            <ul className="space-y-2.5">
               {col.links.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="hover:text-ink hover:underline">
+                  <Link href={l.href} className="hover:underline">
                     {l.label}
                   </Link>
                 </li>
@@ -73,38 +100,24 @@ export default function Footer({ className = "" }: FooterProps = {}) {
             </ul>
           </div>
         ))}
-        <div>
-          <p className="mb-3 font-semibold">İletişim</p>
-          <address className="space-y-1 not-italic text-muted">
-            <p>Recep Aydoğan</p>
-            <p>Esenler Mh. Horasan Sk. Görgülü Center 4/4</p>
-            <p>Selçuklu / Konya</p>
-            <p>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-ink hover:underline">
-                {CONTACT_EMAIL}
-              </a>
-            </p>
-          </address>
-          <div className="mt-4 flex gap-4 text-muted">
-            <a href="https://instagram.com/takaslapp" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-              Instagram
-            </a>
-            <a href="https://x.com/takaslapp" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-              X
-            </a>
-          </div>
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex h-9 items-center rounded-lg bg-ink px-3 text-xs font-medium text-white hover:bg-black"
-          >
-            App Store&apos;dan indir
-          </a>
-        </div>
       </div>
+
       <div className="border-t border-line">
-        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-muted">© {new Date().getFullYear()} Takasla</p>
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-muted lg:flex-row lg:justify-between">
+          <div className="space-y-1">
+            <p>© {new Date().getFullYear()} Takasla. Eşya takası platformu.</p>
+            <p>Takas teklifleri, mesajlaşma ve takas işlemleri resmi Takasla uygulaması üzerinden yapılır.</p>
+          </div>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1.5 lg:max-w-xl lg:justify-end">
+            {LEGAL.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="hover:text-ink hover:underline">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </footer>
   );

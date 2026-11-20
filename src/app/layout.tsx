@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
+import { Rubik } from "next/font/google";
 import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
+// latin-ext: Türkçe karakterler (ğ, ş, ı, İ) aynı fontla çizilsin
+const rubik = Rubik({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-rubik",
   display: "swap",
   preload: true,
   adjustFontFallback: true,
@@ -137,7 +138,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="tr" className={outfit.variable}>
+    <html lang="tr" className={rubik.variable}>
       <head>
         <script
           type="application/ld+json"

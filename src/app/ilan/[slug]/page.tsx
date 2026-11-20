@@ -3,14 +3,21 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import SiteHeader from "@/components/market/SiteHeader";
 import Breadcrumbs from "@/components/market/Breadcrumbs";
-import ListingCard from "@/components/market/ListingCard";
-import AppCta from "@/components/market/AppCta";
+import ListingRow from "@/components/market/ListingRow";
+import { AppStoreBadge } from "@/components/market/StoreBadges";
 import ListingSlider from "@/components/listing/ListingSlider";
 import ListingShareActions from "@/components/listing/ListingShareActions";
 import Footer from "@/components/Footer";
-import { getListingByNo, getListings, isIndexable, type Listing } from "@/lib/listings";
+import {
+  getListingByNo,
+  getListings,
+  getListingsBySeller,
+  isIndexable,
+  toSummary,
+  type Listing,
+} from "@/lib/listings";
 import { categorySlug, cityBySlug, listingNoFromSlug, listingPath, parseLocation, slugify } from "@/lib/taxonomy";
-import { absoluteUrl, formatDateTR } from "@/lib/site";
+import { absoluteUrl, formatDateTR, relativeDateTR } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -57,6 +64,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
+function memberSince(iso: string | null): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("tr-TR", { month: "long", year: "numeric" });
+}
+
 export default async function IlanPage({ params }: { params: Params }) {
   const { slug } = await params;
   const l = await load(slug);
@@ -70,19 +84,24 @@ export default async function IlanPage({ params }: { params: Params }) {
   const cityInfo = city ? cityBySlug(slugify(city)) : undefined;
   const catSlug = l.category ? categorySlug(l.category) : null;
   const expired = isExpired(l);
+  const seller = l.seller;
 
-  const similar = l.category
-    ? (await getListings({ category: l.category, limit: 9 })).items.filter((x) => x.listingNo !== l.listingNo).slice(0, 8)
-    : [];
+  const [sellerOthers, similarPage] = await Promise.all([
+    seller?.id ? getListingsBySeller(seller.id, l.listingNo, 10) : Promise.resolve([]),
+    l.category ? getListings({ category: l.category, limit: 14 }) : Promise.resolve({ items: [], nextCursor: null }),
+  ]);
+  const shown = new Set([l.listingNo, ...sellerOthers.map((x) => x.listingNo)]);
+  const similar = similarPage.items.filter((x) => !shown.has(x.listingNo)).slice(0, 10);
 
   const details: [string, string][] = [
     ["İlan no", String(l.listingNo)],
-    ...(l.conditionName ? ([["Durum", l.conditionName]] as [string, string][]) : []),
+    ...(l.conditionName ? ([["Durumu", l.conditionName]] as [string, string][]) : []),
     ...(l.category ? ([["Kategori", l.category]] as [string, string][]) : []),
     ...(l.location ? ([["Konum", [district, city].filter(Boolean).join(", ")]] as [string, string][]) : []),
     ...Object.entries(l.specs),
   ];
   const published = formatDateTR(l.publishedAt || l.createdAt);
+  const ago = relativeDateTR(l.publishedAt || l.createdAt);
 
   const crumbs = [
     { name: "İlanlar", href: "/ilanlar" },
@@ -94,106 +113,125 @@ export default async function IlanPage({ params }: { params: Params }) {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-12 pt-4">
         <Breadcrumbs items={crumbs} />
 
         {expired && (
-          <p className="mt-4 rounded-lg border border-line bg-surface p-3 text-sm">
+          <p className="mt-4 rounded-lg bg-surface p-3 text-sm">
             Bu ilanın yayın süresi doldu. Benzer ilanlara aşağıdan göz atabilirsin.
           </p>
         )}
 
-        <div className="mt-4 grid gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+        <div className="mt-4 grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+          {/* Mobil sıra: galeri → başlık/takas paneli → bilgiler. Masaüstünde panel sağda sabit. */}
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
             <ListingSlider images={l.images} title={l.title} />
           </div>
 
-          <div className="space-y-5 lg:col-span-5">
-            <div>
-              <h1 className="text-xl font-semibold leading-snug sm:text-2xl">{l.title}</h1>
-              {published && <p className="mt-1 text-xs text-muted">Yayın tarihi: {published}</p>}
-            </div>
+          <aside className="lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
+            <h1 className="text-xl font-semibold leading-snug sm:text-2xl">{l.title}</h1>
+            <p className="mt-2 text-sm text-muted">
+              {[district && city ? `${district}, ${city}` : city, ago].filter(Boolean).join(" · ")}
+            </p>
 
             {l.wantedItem && (
-              <div className="rounded-lg border border-line p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted">Karşılığında aradığı</p>
-                <p className="mt-1 font-medium">{l.wantedItem}</p>
+              <div className="mt-5 border-t border-line pt-4">
+                <p className="text-sm text-muted">Karşılığında aradığı</p>
+                <p className="mt-1 text-base font-medium">{l.wantedItem}</p>
               </div>
             )}
 
-            <AppCta />
+            <div className="mt-5 rounded-xl border border-line p-4">
+              <p className="font-medium">Bu ilana takas teklif et</p>
+              <p className="mt-1 text-sm text-muted">
+                Teklif göndermek ve takasçıyla yazışmak için ilanı Takasla uygulamasında aç.
+              </p>
+              <div className="mt-3">
+                <AppStoreBadge height={44} />
+              </div>
+            </div>
 
-            <dl className="divide-y divide-line rounded-lg border border-line text-sm">
-              {details.map(([k, v]) => (
-                <div key={k} className="flex justify-between gap-4 px-4 py-2.5">
-                  <dt className="text-muted">{k}</dt>
-                  <dd className="text-right font-medium">{v}</dd>
-                </div>
-              ))}
-            </dl>
-
-            {l.seller?.username && (
-              <div className="flex items-center gap-3 rounded-lg border border-line p-4">
-                {l.seller.avatarUrl ? (
-                  <img src={l.seller.avatarUrl} alt="" width={40} height={40} className="h-10 w-10 rounded-full object-cover" />
-                ) : (
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-sm font-semibold">
-                    {l.seller.username.slice(0, 1).toUpperCase()}
-                  </div>
-                )}
+            {seller?.username && (
+              <div className="mt-5 flex items-center gap-3 border-t border-line pt-5">
+                <img
+                  src={seller.avatarUrl || "/images/takasla-icon.jpg"}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 shrink-0 rounded-full border border-line object-cover"
+                />
                 <div className="min-w-0 text-sm">
-                  <p className="font-medium">
-                    @{l.seller.username}
-                    {l.seller.isVerified && <span className="ml-1.5 text-xs text-link">Doğrulanmış</span>}
+                  <p className="flex items-center gap-1.5 font-medium">
+                    @{seller.username}
+                    {seller.isVerified && (
+                      <svg width="16" height="16" viewBox="0 0 24 24" aria-label="Doğrulanmış hesap" role="img">
+                        <circle cx="12" cy="12" r="10" fill="#2f6b12" />
+                        <path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
                   </p>
-                  <p className="text-xs text-muted">
-                    {l.seller.swapCount > 0 ? `${l.seller.swapCount} tamamlanmış takas` : "Henüz tamamlanmış takası yok"}
-                    {l.seller.rating ? ` · ${l.seller.rating.toFixed(1)} puan` : ""}
+                  <p className="text-muted">
+                    {[
+                      memberSince(seller.memberSince) ? `${memberSince(seller.memberSince)}'den beri üye` : null,
+                      seller.swapCount > 0 ? `${seller.swapCount} takas` : null,
+                      seller.rating ? `${seller.rating.toFixed(1)} puan` : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ") || "Takasla üyesi"}
                   </p>
                 </div>
               </div>
             )}
 
-            <ListingShareActions listingNo={l.listingNo} title={l.title} />
+            <div className="mt-5 border-t border-line pt-4">
+              <ListingShareActions listingNo={l.listingNo} title={l.title} />
+              {published && <p className="mt-2 text-xs text-muted">Yayın tarihi: {published}</p>}
+            </div>
+
+            <p className="mt-5 text-xs leading-relaxed text-muted">
+              Ürünü yüz yüze, kalabalık bir yerde kontrol ederek takas et. Takasla ödeme almaz ve kargo yapmaz; kapora
+              veya ön ödeme isteyenlere itibar etme.{" "}
+              <Link href="/topluluk-kurallari" className="underline">
+                Güvenli takas
+              </Link>
+            </p>
+          </aside>
+
+          <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+            <section className="lg:mt-2">
+              <h2 className="mb-3 text-base font-semibold">İlan bilgileri</h2>
+              <dl className="grid border-t border-line text-sm sm:grid-cols-2 sm:gap-x-8">
+                {details.map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-4 border-b border-line py-2.5">
+                    <dt className="text-muted">{k}</dt>
+                    <dd className="text-right">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+
+            {l.description && (
+              <section className="mt-8">
+                <h2 className="mb-3 text-base font-semibold">Açıklama</h2>
+                <p className="whitespace-pre-line text-[15px] leading-relaxed">{l.description}</p>
+              </section>
+            )}
           </div>
         </div>
-
-        {l.description && (
-          <section className="mt-8 max-w-3xl">
-            <h2 className="mb-2 text-lg font-semibold">Açıklama</h2>
-            <p className="whitespace-pre-line text-sm leading-relaxed">{l.description}</p>
-          </section>
-        )}
-
-        <section className="mt-8 max-w-3xl rounded-lg border border-line p-4 text-sm text-muted">
-          <h2 className="mb-1 font-semibold text-ink">Güvenli takas için</h2>
-          Ürünü teslim almadan önce yüz yüze, kalabalık bir yerde kontrol et. Takasla teslimat yapmaz ve ödeme almaz;
-          ilan sahibinden kapora veya ön ödeme isteyen kişilere itibar etme.{" "}
-          <Link href="/topluluk-kurallari" className="text-link underline">
-            Topluluk kuralları
-          </Link>
-        </section>
-
-        {similar.length > 0 && (
-          <section className="mt-10">
-            <div className="mb-4 flex items-end justify-between">
-              <h2 className="text-lg font-semibold">Benzer ilanlar</h2>
-              {catSlug && (
-                <Link href={`/kategori/${catSlug}`} className="text-sm text-link underline">
-                  Tümünü gör
-                </Link>
-              )}
-            </div>
-            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-              {similar.map((s) => (
-                <li key={s.listingNo} className="flex">
-                  <ListingCard listing={s} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
       </main>
+
+      <div className="pb-12">
+        <ListingRow
+          title={seller?.username ? `@${seller.username} kullanıcısının diğer ilanları` : "Takasçının diğer ilanları"}
+          listings={sellerOthers.map(toSummary)}
+        />
+        <ListingRow
+          title="Benzer ilanlar"
+          listings={similar.map(toSummary)}
+          moreHref={catSlug ? `/kategori/${catSlug}` : "/ilanlar"}
+        />
+      </div>
+
       <Footer />
     </div>
   );

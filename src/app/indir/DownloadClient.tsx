@@ -76,7 +76,7 @@ export default function DownloadClient() {
           App Store&apos;da Yayında
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-1.5 font-[family-name:var(--font-outfit)]">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-1.5">
           Takasla
         </h1>
         <p className="text-sm sm:text-base text-gray-300 font-medium mb-5">

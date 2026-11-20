@@ -1,37 +1,43 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import Script from "next/script";
 
 const KEY = "takasla_cookie_consent";
 type Consent = "all" | "necessary" | null;
 
+let memoryConsent: Consent = null;
+const listeners = new Set<() => void>();
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  return () => listeners.delete(cb);
+}
+function readConsent(): Consent | "none" {
+  try {
+    const v = localStorage.getItem(KEY);
+    if (v === "all" || v === "necessary") return v;
+  } catch {}
+  return memoryConsent ?? "none";
+}
+
 /**
  * Çerez onayı. Google Analytics yalnızca kullanıcı "Kabul et" dediğinde yüklenir
  * (KVKK / ePrivacy: analiz çerezleri açık rıza gerektirir).
  */
 export default function CookieBanner({ gaId }: { gaId?: string }) {
-  const [consent, setConsent] = useState<Consent>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    try {
-      const v = localStorage.getItem(KEY);
-      setConsent(v === "all" || v === "necessary" ? v : null);
-    } catch {
-      setConsent(null);
-    }
-    setReady(true);
-  }, []);
+  // localStorage'dan okunur; sunucuda "bilinmiyor" sayılır, böylece banner hidrasyonda yanıp sönmez.
+  const stored = useSyncExternalStore(subscribe, readConsent, () => "unknown" as const);
+  const consent: Consent = stored === "unknown" || stored === "none" ? null : stored;
+  const ready = stored !== "unknown";
 
   const choose = (v: Exclude<Consent, null>) => {
     try {
       localStorage.setItem(KEY, v);
     } catch {
-      // depolama kapalıysa yalnızca bu oturum için geçerli olur
+      memoryConsent = v; // depolama kapalıysa yalnızca bu oturum için geçerli olur
     }
-    setConsent(v);
+    listeners.forEach((l) => l());
   };
 
   return (

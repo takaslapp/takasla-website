@@ -81,13 +81,20 @@ async function rpc<T>(fn: string, body: Record<string, unknown>, revalidate: num
 const str = (v: unknown): string => (typeof v === "string" ? v.trim() : v == null ? "" : String(v).trim());
 const strOrNull = (v: unknown): string | null => str(v) || null;
 
+/** Uygulamanın varsayılan (stok) profil fotoğrafları gerçek fotoğraf sayılmaz. */
+function realAvatar(v: unknown): string | null {
+  const url = strOrNull(v);
+  if (!url || /images\.unsplash\.com|pravatar|placeholder|default/i.test(url)) return null;
+  return url;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeSeller(p: any): ListingSeller | null {
   if (!p || typeof p !== "object") return null;
   return {
     id: strOrNull(p.id),
     username: strOrNull(p.username),
-    avatarUrl: strOrNull(p.avatar_url),
+    avatarUrl: realAvatar(p.avatar_url),
     city: strOrNull(p.city),
     rating: typeof p.rating === "number" ? p.rating : null,
     swapCount: typeof p.swap_count === "number" ? p.swap_count : 0,
@@ -240,3 +247,87 @@ export const getFacets = cache(async (): Promise<{ categories: Facet[]; cities: 
   const sort = (m: Map<string, Facet>) => [...m.values()].sort((a, b) => b.count - a.count);
   return { categories: sort(cat), cities: sort(city), total: all.length };
 });
+
+/** Takasçının yayındaki diğer ilanları (tüm aktif ilanlar arasından süzülür). */
+export async function getListingsBySeller(sellerId: string, excludeNo?: number, limit = 8): Promise<Listing[]> {
+  const all = await getAllListings();
+  return all.filter((l) => l.seller?.id === sellerId && l.listingNo !== excludeNo).slice(0, limit);
+}
+
+/** En çok görüntülenen aktif ilanlar. */
+export async function getMostViewed(limit = 12): Promise<Listing[]> {
+  const all = await getAllListings();
+  return [...all].sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0)).slice(0, limit);
+}
+
+export interface Banner {
+  id: string;
+  title: string;
+  imageUrl: string;
+  href: string;
+  external: boolean;
+}
+
+/**
+ * Admin panelinden yönetilen bannerlar (mobil uygulamayla aynı kayıtlar).
+ * Uygulama içi hedefler web karşılıklarına çevrilir.
+ */
+export const getBanners = cache(async (): Promise<Banner[]> => {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return [];
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/banners?select=id,title,image_url,target_type,target_value,display_order&is_active=eq.true&order=display_order.asc`,
+      {
+        headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+        next: { revalidate: 300, tags: ["banners"] },
+      }
+    );
+    if (!res.ok) return [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rows: any[] = await res.json();
+    return rows
+      .filter((r) => typeof r?.image_url === "string" && r.image_url)
+      .map((r) => {
+        const target = mapBannerTarget(str(r.target_type), str(r.target_value));
+        return { id: str(r.id), title: str(r.title), imageUrl: str(r.image_url), ...target };
+      });
+  } catch {
+    return [];
+  }
+});
+
+function mapBannerTarget(type: string, value: string): { href: string; external: boolean } {
+  switch (type) {
+    case "create_listing":
+      return { href: "/indir", external: false };
+    case "category":
+      return { href: value ? `/kategori/${slugify(value)}` : "/ilanlar", external: false };
+    case "listing":
+      return /^\d{8}$/.test(value) ? { href: `/i/${value}`, external: false } : { href: "/ilanlar", external: false };
+    case "url":
+    case "link":
+      return /^https?:\/\//.test(value) ? { href: value, external: !value.includes("takaslapp.com") } : { href: "/ilanlar", external: false };
+    default:
+      return { href: "/ilanlar", external: false };
+  }
+}
+
+/** API ve istemci bileşenleri için hafif ilan özeti. */
+export type ListingSummary = Pick<
+  Listing,
+  "listingNo" | "title" | "imageUrl" | "location" | "conditionName" | "wantedItem" | "publishedAt" | "createdAt"
+> & { images: string[] };
+
+export function toSummary(l: Listing): ListingSummary {
+  return {
+    listingNo: l.listingNo,
+    title: l.title,
+    imageUrl: l.imageUrl,
+    images: l.imageUrl ? [l.imageUrl] : [],
+    location: l.location,
+    conditionName: l.conditionName,
+    wantedItem: l.wantedItem,
+    publishedAt: l.publishedAt,
+    createdAt: l.createdAt,
+  };
+}
