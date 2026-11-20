@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     // Gerçek uygulama yerine site kısayolu yüklenmesin diye bilerek böyle bırakıldı.
     display: "browser",
     prefer_related_applications: true,
-    related_applications: [{ platform: "play", id: "com.takaslapp.app" }, { platform: "itunes", url: "https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534" }],
+    related_applications: [{ platform: "play", url: "https://play.google.com/store/apps/details?id=com.takaslapp.app", id: "com.takaslapp.app" }, { platform: "itunes", url: "https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534" }],
     background_color: "#FAF9F5",
     theme_color: "#151716",
     icons: [
