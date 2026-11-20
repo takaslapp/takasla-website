@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPostsAsync } from "@/data/blog-posts";
+import { BLOG_REDIRECTS } from "@/data/blog-redirects";
 import { AUTHORS, authorPath } from "@/data/authors";
 import { getAllListings, getFacets, isIndexable } from "@/lib/listings";
 import { listingPath, parseLocation, slugify } from "@/lib/taxonomy";
@@ -14,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticLastModified = new Date("2026-11-20");
   const [blogPosts, listings, facets] = await Promise.all([getAllPostsAsync(), getAllListings(), getFacets()]);
 
-  const blogPostEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+  const blogPostEntries: MetadataRoute.Sitemap = blogPosts.filter((p) => !BLOG_REDIRECTS[p.slug]).map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt || post.publishedAt),
     changeFrequency: "monthly",
@@ -29,12 +30,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: newestHome,
       changeFrequency: "daily",
       priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/indir`,
-      lastModified: staticLastModified,
-      changeFrequency: "weekly",
-      priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,

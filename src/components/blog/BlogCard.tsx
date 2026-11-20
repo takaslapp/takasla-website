@@ -50,8 +50,7 @@ export default function BlogCard({ post, featured = false, priority = false }: B
               src={post.coverImage}
               alt={post.title}
               fill
-              loading={priority ? "eager" : "lazy"}
-              fetchPriority={priority ? "high" : "auto"}
+              priority={priority}
               sizes="(min-width: 1024px) 620px, 100vw"
               className="object-cover"
             />
@@ -92,7 +91,7 @@ export default function BlogCard({ post, featured = false, priority = false }: B
             src={post.coverImage}
             alt={post.title}
             fill
-            loading={priority ? "eager" : "lazy"}
+            priority={priority}
             sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />

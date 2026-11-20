@@ -268,7 +268,7 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
           </header>
 
           <div className="relative mx-auto mt-8 aspect-[16/9] max-w-4xl overflow-hidden rounded-2xl bg-surface">
-            <Image src={post.coverImage} alt={post.title} fill preload sizes="(min-width: 1024px) 896px, 100vw" className="object-cover" />
+            <Image src={post.coverImage} alt={post.title} fill priority sizes="(min-width: 1024px) 896px, 100vw" className="object-cover" />
           </div>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-14">

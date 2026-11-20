@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { APP_STORE_URL } from "@/lib/site";
 
 /** Apple'ın resmi "App Store'dan İndirin" rozeti (Apple Marketing Tools üzerinden). */
@@ -28,12 +27,11 @@ export function GooglePlayBadgeSoon({ height = 40 }: { height?: number }) {
   return (
     <span className="inline-flex shrink-0 items-center gap-2" aria-label="Google Play sürümü yakında">
       <span className="inline-block overflow-hidden rounded-[7px]" style={{ height, width: Math.round(height * 3.37) }}>
-        <Image
+        <img
           src={GOOGLE_PLAY_BADGE}
           alt="Google Play'den alın"
           height={imgH}
-          width={Math.round(imgH * 2.584)}
-          sizes={`${Math.round(imgH * 2.584)}px`}
+          width={Math.round(imgH * 3.87)}
           style={{ height: imgH, width: "auto", maxWidth: "none", margin: `${-(imgH - height) / 2}px 0 0 ${-Math.round(height * 0.2)}px` }}
         />
       </span>

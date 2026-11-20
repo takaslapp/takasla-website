@@ -1,4 +1,5 @@
 import { DEFAULT_AUTHOR, type Author } from "./authors";
+import { BLOG_REDIRECTS } from "./blog-redirects";
 import { client, urlForImage } from "@/sanity/client";
 
 export interface BlogSection {
@@ -204,7 +205,7 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
         `*[_type == "post"] | order(publishedAt desc)`
       );
       if (Array.isArray(sanityPosts)) {
-        return sanityPosts.map(transformSanityPost);
+        return sanityPosts.map(transformSanityPost).filter((p) => !BLOG_REDIRECTS[p.slug]);
       }
     } catch (e) {
       console.warn("Failed to fetch posts from Sanity:", e);

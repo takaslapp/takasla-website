@@ -42,7 +42,7 @@ export default async function SiteHeader({ query }: SiteHeaderProps) {
             alt="Takasla"
             width={97}
             height={28}
-            loading="eager"
+            priority
             className="h-7 w-auto"
           />
         </Link>

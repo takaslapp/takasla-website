@@ -173,9 +173,9 @@ export default function LocationPicker({ cities, districts }: { cities: PickerCi
       >
         <div className="flex h-full max-h-[inherit] flex-col">
           <div className="flex items-center justify-between border-b border-line px-4 py-3 sm:px-5">
-            <h2 id="konum-baslik" className="text-lg font-semibold">
+            <p id="konum-baslik" className="text-lg font-semibold">
               Konum seç
-            </h2>
+            </p>
             <button
               type="button"
               onClick={close}
@@ -262,9 +262,9 @@ export default function LocationPicker({ cities, districts }: { cities: PickerCi
 
                 {recent.length > 0 && (
                   <section className="mt-4" aria-labelledby="konum-son">
-                    <h3 id="konum-son" className="px-3 pb-1 text-sm text-muted">
+                    <p id="konum-son" className="px-3 pb-1 text-sm text-muted">
                       Son seçtiklerin
-                    </h3>
+                    </p>
                     <ul>
                       {recent.map((r) => (
                         <li key={r.href}>
@@ -285,9 +285,9 @@ export default function LocationPicker({ cities, districts }: { cities: PickerCi
 
                 {popular.length > 0 && (
                   <section className="mt-4 px-3" aria-labelledby="konum-populer">
-                    <h3 id="konum-populer" className="pb-2 text-sm text-muted">
+                    <p id="konum-populer" className="pb-2 text-sm text-muted">
                       İlan olan şehirler
-                    </h3>
+                    </p>
                     <ul className="flex flex-wrap gap-2">
                       {popular.map((c) => (
                         <li key={c.slug}>

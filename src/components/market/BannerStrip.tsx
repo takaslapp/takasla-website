@@ -21,8 +21,7 @@ export default function BannerStrip({ banners }: { banners: Banner[] }) {
               alt={b.title || "Takasla kampanya"}
               fill
               sizes={single ? "(min-width: 1152px) 1120px, 100vw" : "(min-width: 1024px) 560px, 92vw"}
-              fetchPriority={i === 0 ? "high" : "auto"}
-              loading={i < 2 ? "eager" : "lazy"}
+              priority={i < 2}
               className="object-cover"
             />
           );
