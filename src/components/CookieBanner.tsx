@@ -38,6 +38,7 @@ export default function CookieBanner({ gaId }: { gaId?: string }) {
       memoryConsent = v; // depolama kapalıysa yalnızca bu oturum için geçerli olur
     }
     listeners.forEach((l) => l());
+    window.dispatchEvent(new Event("takasla-consent"));
   };
 
   return (

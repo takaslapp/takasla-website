@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { APP_STORE_URL } from "@/lib/site";
 import { getFacets } from "@/lib/listings";
 import { CITY_LIST } from "@/lib/taxonomy";
@@ -35,11 +36,12 @@ export default async function SiteHeader({ query }: SiteHeaderProps) {
     <header className="sticky top-0 z-40 border-b border-line bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3 sm:flex-nowrap sm:gap-6">
         <Link href="/" className="mr-auto shrink-0 sm:mr-0" aria-label="Takasla ana sayfa">
-          <img
-            src="/images/takasla-yesil-logo.webp"
+          <Image
+            src="/images/takasla-koyu-logo.webp"
             alt="Takasla"
-            width={120}
-            height={32}
+            width={97}
+            height={28}
+            priority
             className="h-7 w-auto"
           />
         </Link>

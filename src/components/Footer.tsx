@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { CATEGORY_LIST } from "@/lib/taxonomy";
 import { AppStoreBadge, GooglePlayBadgeSoon, InstagramIcon, XIcon } from "@/components/market/StoreBadges";
@@ -56,7 +57,7 @@ export default function Footer({ className = "" }: FooterProps = {}) {
     <footer className={`border-t border-line bg-white text-sm ${className}`}>
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
         <div>
-          <img src="/images/takasla-yesil-logo.webp" alt="Takasla" width={120} height={32} className="h-7 w-auto" />
+          <Image src="/images/takasla-koyu-logo.webp" alt="Takasla" width={97} height={28} className="h-7 w-auto" />
           <p className="mt-3 max-w-xs text-muted">
             Eşya takası ilan platformu. Kullanmadığını ver, ihtiyacın olanı al.
           </p>

@@ -86,7 +86,7 @@ export default function ListingSlider({ images, title }: ListingSliderProps) {
       </div>
 
       {total > 1 && (
-        <ul className="mt-2 flex gap-2 overflow-x-auto pb-1">
+        <ul className="relative mt-2 flex gap-2 overflow-x-auto pb-1">
           {list.map((src, i) => (
             <li key={src} className="shrink-0">
               <button

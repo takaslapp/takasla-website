@@ -1,5 +1,10 @@
 export const SITE_URL = "https://takaslapp.com";
 export const APP_STORE_URL = "https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534?l=tr";
+export const IOS_APP_ID = "6812309534";
+/** Android paket adı ve Play Store bağlantısı. Uygulama Play Store'da yayınlanınca ortam değişkenlerine eklenir. */
+export const ANDROID_PACKAGE = process.env.NEXT_PUBLIC_ANDROID_PACKAGE || "";
+export const PLAY_STORE_URL =
+  process.env.NEXT_PUBLIC_PLAY_STORE_URL || (ANDROID_PACKAGE ? `https://play.google.com/store/apps/details?id=${ANDROID_PACKAGE}` : "");
 export const CONTACT_EMAIL = "takaslappcom@gmail.com";
 
 export function absoluteUrl(path: string): string {

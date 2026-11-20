@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Rubik } from "next/font/google";
 import CookieBanner from "@/components/CookieBanner";
+import AppBanner from "@/components/AppBanner";
 import "./globals.css";
 
 // latin-ext: Türkçe karakterler (ğ, ş, ı, İ) aynı fontla çizilsin
@@ -32,9 +33,6 @@ export const metadata: Metadata = {
   publisher: "Takasla",
   category: "Shopping & Lifestyle",
   applicationName: "Takasla",
-  alternates: {
-    canonical: "/",
-  },
   icons: {
     icon: "/images/takasla-icon.jpg",
     apple: "/images/takasla-icon.jpg",
@@ -148,6 +146,7 @@ export default function RootLayout({
       <body className="bg-white text-ink antialiased overflow-x-hidden font-sans">
         {children}
         <CookieBanner gaId={GA_MEASUREMENT_ID} />
+        <AppBanner />
       </body>
     </html>
   );

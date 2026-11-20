@@ -131,7 +131,7 @@ export default function NearbyListings() {
       )}
       {state.kind === "done" &&
         (state.items.length > 0 ? (
-          <ul className="flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:thin]">
+          <ul className="relative flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:thin]">
             {state.items.map((l) => (
               <li key={l.listingNo} className="flex w-[44%] shrink-0 snap-start sm:w-[30%] lg:w-[18.5%]">
                 <ListingCard listing={l} />

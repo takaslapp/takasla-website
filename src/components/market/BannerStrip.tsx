@@ -12,7 +12,7 @@ export default function BannerStrip({ banners }: { banners: Banner[] }) {
 
   return (
     <section aria-label="Kampanyalar" className="mx-auto max-w-6xl px-4 pt-5">
-      <ul className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <ul className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {banners.map((b, i) => {
           const img = (
             <Image

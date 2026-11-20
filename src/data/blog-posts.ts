@@ -1,3 +1,4 @@
+import { DEFAULT_AUTHOR, type Author } from "./authors";
 import { client, urlForImage } from "@/sanity/client";
 
 export interface BlogSection {
@@ -22,11 +23,8 @@ export interface BlogPost {
   excerpt: string;
   coverImage: string;
   category: string;
-  author: {
-    name: string;
-    role: string;
-    avatar?: string;
-  };
+  author: Author;
+
   publishedAt: string; // ISO date "YYYY-MM-DD"
   updatedAt?: string;
   readTime: string;
@@ -186,11 +184,7 @@ export function transformSanityPost(sp: any): BlogPost {
     excerpt: sp.excerpt || "",
     coverImage: imageUrl,
     category: sp.category || "Rehber",
-    author: {
-      name: "Recep Aydoğan",
-      role: "Takasla Kurucusu",
-      avatar: "/images/takasla-icon.jpg",
-    },
+    author: DEFAULT_AUTHOR,
     publishedAt: sp.publishedAt || new Date().toISOString().split("T")[0],
     updatedAt: typeof sp._updatedAt === "string" ? sp._updatedAt.split("T")[0] : undefined,
     readTime: sp.readTime || "4 dk okuma",

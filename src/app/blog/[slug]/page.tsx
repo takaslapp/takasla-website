@@ -9,6 +9,12 @@ import { getListings, toSummary } from "@/lib/listings";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogShareBar from "@/components/blog/BlogShareBar";
+import BlogToc, { type TocEntry } from "@/components/blog/BlogToc";
+import ReadingProgress from "@/components/blog/ReadingProgress";
+import CopyLinkButton from "@/components/blog/CopyLinkButton";
+import AiSummaryLinks from "@/components/blog/AiSummaryLinks";
+import { authorPath } from "@/data/authors";
+import { absoluteUrl, formatDateTR } from "@/lib/site";
 import { getAllPostsAsync, getPostBySlugAsync } from "@/data/blog-posts";
 
 export const revalidate = 60;
@@ -63,7 +69,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.excerpt,
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt || post.publishedAt,
-      authors: [post.author.name],
+      authors: [absoluteUrl(authorPath(post.author))],
       tags: post.tags,
       images: [
         {
@@ -86,67 +92,52 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function BlogPostDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const post = await getPostBySlugAsync(slug);
-
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   const [allPosts, latest] = await Promise.all([getAllPostsAsync(), getListings({ limit: 10 })]);
   const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
-  // Önce aynı kategorideki yazılar, sonra en yeniler: güçlü iç bağlantı için 4 kart
+  // Önce aynı kategorideki yazılar, sonra en yeniler
   const relatedPosts = [
     ...otherPosts.filter((p) => p.category === post.category),
     ...otherPosts.filter((p) => p.category !== post.category),
   ].slice(0, 3);
-  const moreLinks = otherPosts.filter((p) => !relatedPosts.includes(p));
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("tr-TR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-  const canonicalUrl = `https://takaslapp.com/blog/${post.slug}`;
+  const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
+  const updated = formatDateTR(post.updatedAt || post.publishedAt);
+  const published = formatDateTR(post.publishedAt);
+  const authorUrl = authorPath(post.author);
 
-  // Extract all headings for Table of Contents (İçindekiler)
-  const headings = post.sections.filter(
-    (s): s is typeof s & { text: string } => s.type === "heading" && Boolean(s.text)
-  );
+  const toc: TocEntry[] = post.sections
+    .filter((s) => s.type === "heading" && s.text && s.level !== 3)
+    .map((s) => ({ id: slugifyHeading(s.text!), text: s.text!.replace(/^\d+\.\s*/, "") }));
 
-  // Schema.org BlogPosting Structured Data
+  const imageUrl = post.coverImage.startsWith("http") ? post.coverImage : absoluteUrl(post.coverImage);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
-    image: post.coverImage
-      ? post.coverImage.startsWith("http://") || post.coverImage.startsWith("https://")
-        ? post.coverImage
-        : `https://takaslapp.com${post.coverImage.startsWith("/") ? "" : "/"}${post.coverImage}`
-      : "https://takaslapp.com/images/takasla-icon.jpg",
+    image: imageUrl,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
     author: {
       "@type": "Person",
       name: post.author.name,
       jobTitle: post.author.role,
-      url: "https://takaslapp.com/hakkimizda",
-      worksFor: { "@id": "https://takaslapp.com/#organization" },
+      url: absoluteUrl(authorUrl),
+      worksFor: { "@id": absoluteUrl("/#organization") },
     },
     publisher: {
       "@type": "Organization",
+      "@id": absoluteUrl("/#organization"),
       name: "Takasla",
-      url: "https://takaslapp.com",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://takaslapp.com/images/takasla-icon.jpg",
-      },
+      url: absoluteUrl("/"),
+      logo: { "@type": "ImageObject", url: absoluteUrl("/images/takasla-icon.jpg") },
     },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalUrl,
-    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    articleSection: post.category,
     keywords: post.tags.join(", "),
+    inLanguage: "tr-TR",
   };
-
 
   const renderSection = (section: (typeof post.sections)[number], idx: number) => {
     if (section.type === "paragraph") return <p key={idx}>{section.content}</p>;
@@ -224,11 +215,9 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     return null;
   };
 
-  const toc = headings.filter((h) => h.level !== 3);
-  const cleanHeading = (t: string) => t.replace(/^\d+\.\s*/, "");
-
   return (
     <div className="flex min-h-screen flex-col">
+      <ReadingProgress targetId="yazi-govdesi" />
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
@@ -241,41 +230,75 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
         />
 
         <article className="mt-6">
-          <header className="mx-auto max-w-3xl">
-            <p className="text-sm text-link">{post.category}</p>
-            <h1 className="mt-2 text-[28px] font-semibold leading-[1.2] sm:text-4xl">{post.title}</h1>
+          <header className="mx-auto max-w-4xl">
+            <div className="flex items-center justify-between gap-3">
+              <span className="inline-flex rounded-md bg-[#eef6e4] px-2 py-0.5 text-xs font-medium text-link">
+                {post.category}
+              </span>
+              <CopyLinkButton url={canonicalUrl} />
+            </div>
+            <h1 className="mt-4 text-[28px] font-semibold leading-[1.2] sm:text-[40px]">{post.title}</h1>
             <p className="mt-4 text-lg leading-relaxed text-muted">{post.excerpt}</p>
-            <div className="mt-6 flex items-center gap-3 border-t border-line pt-5 text-sm">
-              <Image
-                src={post.author.avatar || "/images/takasla-icon.jpg"}
-                alt=""
-                width={40}
-                height={40}
-                className="h-10 w-10 shrink-0 rounded-full border border-line object-cover"
-              />
-              <div className="min-w-0">
-                <p className="font-medium">{post.author.name}</p>
-                <p className="text-muted">
-                  <time dateTime={post.publishedAt}>{formattedDate}</time> · {post.readTime}
-                </p>
-              </div>
+
+            <div className="mt-6 flex flex-col gap-3 border-y border-line py-4 sm:flex-row sm:items-center sm:justify-between">
+              <Link href={authorUrl} className="group flex items-center gap-3" rel="author">
+                <Image
+                  src={post.author.avatar || "/images/takasla-icon.jpg"}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 shrink-0 rounded-full border border-line object-cover"
+                />
+                <span className="text-sm">
+                  <span className="block font-medium group-hover:underline">{post.author.name}</span>
+                  <span className="block text-muted">{post.author.role}</span>
+                </span>
+              </Link>
+              <p className="text-sm text-muted">
+                {post.updatedAt && post.updatedAt !== post.publishedAt ? (
+                  <>
+                    Son güncelleme: <time dateTime={post.updatedAt}>{updated}</time>
+                  </>
+                ) : (
+                  <time dateTime={post.publishedAt}>{published}</time>
+                )}{" "}
+                · {post.readTime}
+              </p>
             </div>
           </header>
 
-          <div className="relative mx-auto mt-8 aspect-[16/9] max-w-4xl overflow-hidden rounded-xl bg-surface">
+          <div className="relative mx-auto mt-8 aspect-[16/9] max-w-4xl overflow-hidden rounded-2xl bg-surface">
             <Image src={post.coverImage} alt={post.title} fill priority sizes="(min-width: 1024px) 896px, 100vw" className="object-cover" />
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
-            <div className="min-w-0">
-              {toc.length > 2 && (
-                <details className="mb-8 rounded-lg bg-surface lg:hidden">
-                  <summary className="cursor-pointer px-4 py-3 text-sm font-medium">Bu yazıda</summary>
-                  <ol className="space-y-1.5 px-4 pb-4 text-sm">
-                    {toc.map((h, i) => (
-                      <li key={i}>
-                        <a href={`#${slugifyHeading(h.text)}`} className="text-muted hover:text-ink hover:underline">
-                          {cleanHeading(h.text)}
+          <div className="mt-10 grid gap-10 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-14">
+            <aside className="hidden lg:block">
+              <div className="sticky top-24 max-h-[calc(100vh-7rem)] space-y-6 overflow-y-auto pb-4">
+                {toc.length > 1 && <BlogToc items={toc} />}
+                <div className="rounded-xl bg-surface p-4 text-sm">
+                  <p className="font-medium">Takasa açık ilanlar</p>
+                  <p className="mt-1 text-muted">Kullanmadığın eşyayı ihtiyacın olan bir ürünle takas et.</p>
+                  <Link
+                    href="/ilanlar"
+                    className="mt-3 inline-flex h-9 items-center rounded-lg bg-ink px-3 font-medium text-white hover:bg-black"
+                  >
+                    İlanlara göz at
+                  </Link>
+                </div>
+              </div>
+            </aside>
+
+            <div className="min-w-0 max-w-[720px]" id="yazi-govdesi">
+              <AiSummaryLinks url={canonicalUrl} title={post.title} />
+
+              {toc.length > 1 && (
+                <details className="mt-6 rounded-xl border border-line lg:hidden">
+                  <summary className="cursor-pointer px-4 py-3 text-sm font-medium">İçindekiler</summary>
+                  <ol className="space-y-2 border-t border-line px-4 py-3 text-sm">
+                    {toc.map((h) => (
+                      <li key={h.id}>
+                        <a href={`#${h.id}`} className="text-muted hover:text-ink hover:underline">
+                          {h.text}
                         </a>
                       </li>
                     ))}
@@ -283,66 +306,49 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
                 </details>
               )}
 
-              <div className="article">{post.sections.map(renderSection)}</div>
+              <div className="article mt-8">{post.sections.map(renderSection)}</div>
 
               <BlogShareBar title={post.title} url={canonicalUrl} />
-            </div>
 
-            <aside className="hidden lg:block">
-              <div className="sticky top-24 max-h-[calc(100vh-7rem)] space-y-8 overflow-y-auto pb-4">
-                {toc.length > 2 && (
-                  <nav aria-label="Bu yazıda">
-                    <p className="text-sm font-medium">Bu yazıda</p>
-                    <ol className="mt-3 space-y-2 border-l border-line text-sm">
-                      {toc.map((h, i) => (
-                        <li key={i}>
-                          <a
-                            href={`#${slugifyHeading(h.text)}`}
-                            className="-ml-px block border-l border-transparent pl-3 leading-snug text-muted hover:border-ink hover:text-ink"
-                          >
-                            {cleanHeading(h.text)}
-                          </a>
-                        </li>
-                      ))}
-                    </ol>
-                  </nav>
-                )}
-                <div className="rounded-xl border border-line p-4 text-sm">
-                  <p className="font-medium">Takasa açık ilanlar</p>
-                  <p className="mt-1 text-muted">Kullanmadığın eşyayı ihtiyacın olan bir ürünle takas et.</p>
-                  <Link href="/ilanlar" className="mt-3 inline-block font-medium text-link underline">
-                    İlanlara göz at
+              <section aria-label="Yazar hakkında" className="mt-10 flex gap-4 rounded-2xl bg-surface p-5">
+                <Image
+                  src={post.author.avatar || "/images/takasla-icon.jpg"}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-14 w-14 shrink-0 rounded-full border border-line object-cover"
+                />
+                <div className="min-w-0 text-sm">
+                  <p className="text-muted">Yazar</p>
+                  <Link href={authorUrl} className="text-base font-semibold hover:underline" rel="author">
+                    {post.author.name}
+                  </Link>
+                  <p className="text-muted">{post.author.role}</p>
+                  <p className="mt-2 leading-relaxed">{post.author.bio}</p>
+                  <Link href={authorUrl} className="mt-2 inline-block font-medium text-link underline">
+                    Tüm yazıları
                   </Link>
                 </div>
-              </div>
-            </aside>
+              </section>
+            </div>
           </div>
         </article>
 
         {relatedPosts.length > 0 && (
-          <section className="mx-auto mt-16 max-w-5xl border-t border-line pt-10" aria-labelledby="ilgili">
-            <h2 id="ilgili" className="mb-6 text-lg font-semibold">
-              İlgili rehberler
-            </h2>
-            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="mt-16 border-t border-line pt-10" aria-labelledby="ilgili">
+            <div className="mb-6 flex items-end justify-between gap-4">
+              <h2 id="ilgili" className="text-xl font-semibold">
+                İlgili yazılar
+              </h2>
+              <Link href="/blog" className="text-sm text-link underline">
+                Tüm yazılar
+              </Link>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {relatedPosts.map((r) => (
                 <BlogCard key={r.slug} post={r} />
               ))}
             </div>
-            {moreLinks.length > 0 && (
-              <nav aria-label="Diğer rehberler" className="mt-10">
-                <p className="text-sm font-medium">Diğer yazılar</p>
-                <ul className="mt-3 space-y-2 text-[15px]">
-                  {moreLinks.map((p) => (
-                    <li key={p.slug}>
-                      <Link href={`/blog/${p.slug}`} className="text-muted hover:text-ink hover:underline">
-                        {p.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
           </section>
         )}
       </main>

@@ -19,6 +19,12 @@ body {
   max-width: 100%;
 }
 
+/* Konumlanmış öğeler (ör. sr-only metinler) gövdenin dışına taşıp mobilde
+   sayfayı genişletmesin: body hem konum kapsayıcısı hem kırpma alanı olsun. */
+body {
+  position: relative;
+}
+
 body {
   background: #ffffff;
   color: var(--color-ink);

@@ -19,7 +19,7 @@ import {
   type Listing,
 } from "@/lib/listings";
 import { categorySlug, cityBySlug, listingNoFromSlug, listingPath, parseLocation, profilePath, slugify } from "@/lib/taxonomy";
-import { absoluteUrl, formatDateTR, relativeDateTR } from "@/lib/site";
+import { absoluteUrl, formatDateTR, IOS_APP_ID, relativeDateTR } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -63,6 +63,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       images: l.imageUrl ? [{ url: l.imageUrl, alt: l.title }] : undefined,
     },
     twitter: { card: "summary_large_image", title: l.title, description, images: l.imageUrl ? [l.imageUrl] : undefined },
+    // iOS Smart App Banner: uygulama yüklüyse "Aç" ile bu ilanın kısa bağlantısı uygulamaya iletilir.
+    itunes: { appId: IOS_APP_ID, appArgument: absoluteUrl(`/i/${l.listingNo}`) },
   };
 }
 

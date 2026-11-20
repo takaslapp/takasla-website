@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { listingPath, parseLocation } from "@/lib/taxonomy";
-import { relativeDateTR } from "@/lib/site";
 
 export interface CardListing {
   listingNo: number;
@@ -21,13 +20,11 @@ export interface CardListing {
 export default function ListingCard({ listing, priority = false }: { listing: CardListing; priority?: boolean }) {
   const { city, district } = parseLocation(listing.location);
   const place = district || city;
-  const date = relativeDateTR(listing.publishedAt || listing.createdAt);
-  const photos = listing.imageCount ?? listing.images?.length ?? 0;
 
   return (
     <Link
       href={listingPath(listing)}
-      className="group flex h-full w-full flex-col overflow-hidden rounded-xl border border-line bg-white transition-shadow hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+      className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-line bg-white transition-shadow hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
     >
       <div className="relative aspect-square overflow-hidden bg-surface">
         {listing.imageUrl ? (
@@ -47,16 +44,6 @@ export default function ListingCard({ listing, priority = false }: { listing: Ca
             {listing.conditionName}
           </span>
         )}
-        {photos > 1 && (
-          <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-md bg-black/60 px-1.5 py-0.5 text-[11px] text-white">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <path d="M4 7h3l2-2h6l2 2h3v12H4z" />
-              <circle cx="12" cy="13" r="3.5" />
-            </svg>
-            {photos}
-            <span className="sr-only">fotoğraf</span>
-          </span>
-        )}
       </div>
 
       <div className="flex flex-1 flex-col p-2.5 sm:p-3">
@@ -72,7 +59,7 @@ export default function ListingCard({ listing, priority = false }: { listing: Ca
             </span>
           </p>
         )}
-        <div className="mt-auto flex items-center justify-between gap-2 pt-2.5 text-[12px] text-muted">
+        <div className="mt-auto flex items-center gap-2 pt-2.5 text-[12px] text-muted">
           {place && (
             <span className="flex min-w-0 items-center gap-1">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="shrink-0">
@@ -82,7 +69,6 @@ export default function ListingCard({ listing, priority = false }: { listing: Ca
               <span className="truncate">{place}</span>
             </span>
           )}
-          {date && <span className="shrink-0">{date}</span>}
         </div>
       </div>
     </Link>

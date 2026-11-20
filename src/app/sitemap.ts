@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPostsAsync } from "@/data/blog-posts";
+import { AUTHORS, authorPath } from "@/data/authors";
 import { getAllListings, getFacets, isIndexable } from "@/lib/listings";
 import { listingPath, parseLocation, profilePath, slugify } from "@/lib/taxonomy";
 
@@ -165,5 +166,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.4,
   }));
 
-  return [...staticEntries, ...marketEntries, ...comboEntries, ...listingEntries, ...profileEntries, ...blogPostEntries];
+  const authorEntries: MetadataRoute.Sitemap = AUTHORS.map((a) => ({
+    url: `${baseUrl}${authorPath(a)}`,
+    lastModified: blogPosts[0]?.publishedAt ? new Date(blogPosts[0].publishedAt) : staticLastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.4,
+  }));
+
+  return [...staticEntries, ...marketEntries, ...comboEntries, ...listingEntries, ...profileEntries, ...blogPostEntries, ...authorEntries];
 }
