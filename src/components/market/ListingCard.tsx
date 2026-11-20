@@ -33,7 +33,7 @@ export default function ListingCard({ listing, priority = false }: { listing: Ca
             alt={listing.title}
             fill
             sizes="(min-width: 1024px) 230px, (min-width: 640px) 30vw, 46vw"
-            priority={priority}
+            loading={priority ? "eager" : "lazy"}
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : (

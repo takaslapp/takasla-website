@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import ListingsPage from "@/components/market/ListingsPage";
 import { getListings, parseCursor } from "@/lib/listings";
 import { categoryBySlug, cityBySlug } from "@/lib/taxonomy";
+import { CATEGORY_SEO } from "@/lib/category-seo";
 
 export const revalidate = 60;
 
@@ -17,7 +18,7 @@ export async function generateMetadata({ params, searchParams }: { params: Param
   const sp = await searchParams;
   const { items } = await getListings({ category: cat.name, city: city.name, limit: 1 });
   return {
-    title: `${city.name} ${cat.name} takas ilanları`,
+    title: `${city.name} ${(CATEGORY_SEO[cat.slug]?.h1 ?? `${cat.name} takas ilanları`).replace(/^./, (c) => c.toLocaleLowerCase("tr"))}`,
     description: `${city.name} ilindeki ${cat.name} takas ilanları. Takasla ile ${city.name}'da kullanmadığın eşyayı takas et.`,
     alternates: { canonical: `/kategori/${cat.slug}/${city.slug}` },
     // İlan olmayan kombinasyonlar dizine eklenmez (ince içerik oluşmasın).

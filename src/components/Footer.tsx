@@ -110,10 +110,10 @@ export default function Footer({ className = "" }: FooterProps = {}) {
             <p>© {new Date().getFullYear()} Takasla. Parayla Değil, Takasla.</p>
             <p>Takas teklifleri, mesajlaşma ve takas işlemleri resmi Takasla uygulaması üzerinden yapılır.</p>
           </div>
-          <ul className="flex flex-wrap gap-x-4 gap-y-1.5 lg:max-w-xl lg:justify-end">
+          <ul className="flex flex-wrap gap-x-4 gap-y-0 lg:max-w-xl lg:justify-end">
             {LEGAL.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="hover:text-ink hover:underline">
+                <Link href={l.href} className="inline-block py-1.5 hover:text-ink hover:underline">
                   {l.label}
                 </Link>
               </li>

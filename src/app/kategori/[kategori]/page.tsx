@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ListingsPage from "@/components/market/ListingsPage";
 import { getAllListings, getListings, parseCursor } from "@/lib/listings";
+import { CATEGORY_SEO } from "@/lib/category-seo";
 import { CATEGORY_LIST, categoryBySlug, parseLocation, slugify } from "@/lib/taxonomy";
 
 export const revalidate = 60;
@@ -19,9 +20,11 @@ export async function generateMetadata({ params, searchParams }: { params: Param
   if (!cat) return {};
   const sp = await searchParams;
   const { items } = await getListings({ category: cat.name, limit: 1 });
+  const seo = CATEGORY_SEO[cat.slug];
   return {
-    title: `${cat.name} takas ilanları`,
-    description: `${cat.name} kategorisindeki takas ilanları. Kullanmadığın eşyayı ver, ${cat.name.toLocaleLowerCase("tr")} ürünlerini takasla edin.`,
+    title: seo?.title ?? `${cat.name} takas ilanları`,
+    description:
+      seo?.description ?? `${cat.name} kategorisindeki takas ilanları. Kullanmadığın eşyayı para ödemeden takas et.`,
     alternates: { canonical: `/kategori/${cat.slug}` },
     robots: items.length === 0 || sp.sonraki ? { index: false, follow: true } : undefined,
   };
@@ -51,10 +54,15 @@ export default async function KategoriPage({ params, searchParams }: { params: P
   }
   const cities = [...counts.values()].sort((a, b) => b.count - a.count);
 
+  const seo = CATEGORY_SEO[cat.slug];
   return (
     <ListingsPage
-      title={`${cat.name} takas ilanları`}
-      intro={`${cat.name} kategorisinde takasa açık ürünler. İlanı aç, beğendiysen uygulamadan kendi ürününle teklif gönder.`}
+      title={seo?.h1 ?? `${cat.name} takas ilanları`}
+      intro={
+        seo?.intro ??
+        `${cat.name} kategorisinde takasa açık ürünler. İlanı aç, beğendiysen uygulamadan kendi ürününle teklif gönder.`
+      }
+      seoSections={sp.sonraki ? undefined : seo?.sections}
       crumbs={[
         { name: "İlanlar", href: "/ilanlar" },
         { name: cat.name, href: `/kategori/${cat.slug}` },

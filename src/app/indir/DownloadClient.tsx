@@ -47,7 +47,7 @@ export default function DownloadClient() {
             alt="Takasla"
             width={140}
             height={42}
-            priority
+            loading="eager"
             className="h-9 w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,168,107,0.3)]"
           />
         </Link>
@@ -64,7 +64,7 @@ export default function DownloadClient() {
               alt="Takasla Uygulama İkonu"
               fill
               sizes="128px"
-              priority
+              loading="eager"
               className="object-cover"
             />
           </div>

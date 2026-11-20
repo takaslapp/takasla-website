@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Takasla",
     locale: "tr_TR",
+    images: [{ url: "/images/takasla-icon.jpg", width: 1024, height: 1024, alt: "Takasla" }],
   },
   alternates: { canonical: "/" },
 };

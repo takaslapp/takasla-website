@@ -53,7 +53,8 @@ export default function ListingSlider({ images, title }: ListingSliderProps) {
           alt={`${title} - fotoğraf ${index + 1}`}
           fill
           sizes="(min-width: 1024px) 660px, 100vw"
-          priority={index === 0}
+          loading="eager"
+          fetchPriority={index === 0 ? "high" : "auto"}
           className="object-contain"
         />
         {total > 1 && (

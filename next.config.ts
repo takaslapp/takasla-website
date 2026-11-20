@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   output: "standalone",
   compress: true,
   poweredByHeader: false,
+  experimental: {
+    // Tailwind CSS küçük olduğu için sayfaya gömülür: render'ı engelleyen CSS isteği ortadan kalkar.
+    inlineCss: true,
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
@@ -19,9 +23,23 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.takaslapp.com",
       },
+      {
+        protocol: "https",
+        hostname: "play.google.com",
+        pathname: "/intl/**",
+      },
     ],
   },
   allowedDevOrigins: ["192.168.1.218", "localhost:3000", "0.0.0.0:3000"],
+  async headers() {
+    return [
+      {
+        // public/images altındaki statik görseller nadiren değişir: 30 gün önbellek
+        source: "/images/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }],
+      },
+    ];
+  },
   async redirects() {
     return [
       // WWW -> non-WWW permanent redirect (HTTP 308)

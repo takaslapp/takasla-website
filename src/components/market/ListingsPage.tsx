@@ -26,6 +26,8 @@ interface ListingsPageProps {
   /** Yan bağlantılar: ör. bu kategorideki şehirler */
   related?: RelatedGroup | RelatedGroup[];
   emptyText?: string;
+  /** Liste altındaki bilgilendirici SEO metni (yalnızca ilk sayfada) */
+  seoSections?: { heading: string; text: string }[];
 }
 
 /** Tüm liste sayfalarının (ilanlar, kategori, şehir) ortak iskeleti. */
@@ -81,6 +83,16 @@ export default function ListingsPage(p: ListingsPageProps) {
           params={p.params}
           emptyText={p.emptyText}
         />
+        {p.seoSections && p.seoSections.length > 0 && (
+          <section className="mt-14 grid gap-8 border-t border-line pt-8 text-[14px] leading-relaxed text-muted md:grid-cols-2">
+            {p.seoSections.map((sec) => (
+              <div key={sec.heading}>
+                <h2 className="font-semibold text-ink">{sec.heading}</h2>
+                <p className="mt-2">{sec.text}</p>
+              </div>
+            ))}
+          </section>
+        )}
       </main>
       <Footer />
     </div>
