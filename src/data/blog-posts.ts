@@ -2,8 +2,22 @@ import { DEFAULT_AUTHOR, type Author } from "./authors";
 import { BLOG_REDIRECTS } from "./blog-redirects";
 import { client, urlForImage } from "@/sanity/client";
 
+/** Satır içi metin parçası: kalın, italik ve bağlantı bilgisini korur. */
+export interface InlineSpan {
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  code?: boolean;
+  href?: string;
+}
+
 export interface BlogSection {
   type: "paragraph" | "heading" | "callout" | "quote" | "list" | "table";
+  /** Paragraf, başlık ve alıntılarda biçimli metin */
+  spans?: InlineSpan[];
+  /** Listelerde her madde için biçimli metin */
+  richItems?: InlineSpan[][];
+  ordered?: boolean;
   level?: 2 | 3;
   text?: string;
   content?: string;
@@ -91,6 +105,26 @@ function parseMarkdownTable(text: string, defaultCols: number = 3): { rows: { ce
   return { rows };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toSpans(block: any): InlineSpan[] {
+  if (!Array.isArray(block.children)) return [];
+  const defs = new Map<string, string>();
+  for (const d of Array.isArray(block.markDefs) ? block.markDefs : []) {
+    if (d?._key && typeof d.href === "string") defs.set(d._key, d.href.trim());
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return block.children.map((c: any) => {
+    const marks: string[] = Array.isArray(c.marks) ? c.marks : [];
+    const span: InlineSpan = { text: c.text || "" };
+    if (marks.includes("strong")) span.bold = true;
+    if (marks.includes("em")) span.italic = true;
+    if (marks.includes("code")) span.code = true;
+    const link = marks.map((m) => defs.get(m)).find(Boolean);
+    if (link) span.href = link;
+    return span;
+  });
+}
+
 // Transform raw Sanity post into BlogPost interface
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transformSanityPost(sp: any): BlogPost {
@@ -128,16 +162,25 @@ export function transformSanityPost(sp: any): BlogPost {
         // If we were accumulating table lines and now reached non-table text:
         flushTable();
 
+        const spans = toSpans(block);
         if (block.style === "h2") {
           sections.push({ type: "heading", level: 2, text });
-        } else if (block.style === "h3") {
+        } else if (block.style === "h3" || block.style === "h4") {
           sections.push({ type: "heading", level: 3, text });
         } else if (block.style === "blockquote") {
-          sections.push({ type: "quote", text });
+          sections.push({ type: "quote", text, spans });
         } else if (block.listItem) {
-          sections.push({ type: "list", items: [text] });
+          // Ardışık liste maddelerini tek listede topla (numaralı / madde işaretli)
+          const ordered = block.listItem === "number";
+          const prev = sections[sections.length - 1];
+          if (prev && prev.type === "list" && prev.ordered === ordered && prev.richItems) {
+            prev.items!.push(text);
+            prev.richItems.push(spans);
+          } else {
+            sections.push({ type: "list", ordered, items: [text], richItems: [spans] });
+          }
         } else {
-          sections.push({ type: "paragraph", content: text });
+          sections.push({ type: "paragraph", content: text, spans });
         }
       } else {
         flushTable();

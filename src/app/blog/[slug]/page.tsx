@@ -9,6 +9,7 @@ import { getListings, toSummary } from "@/lib/listings";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogShareBar from "@/components/blog/BlogShareBar";
+import RichText from "@/components/blog/RichText";
 import BlogToc, { type TocEntry } from "@/components/blog/BlogToc";
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import CopyLinkButton from "@/components/blog/CopyLinkButton";
@@ -140,7 +141,12 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
   };
 
   const renderSection = (section: (typeof post.sections)[number], idx: number) => {
-    if (section.type === "paragraph") return <p key={idx}>{section.content}</p>;
+    if (section.type === "paragraph")
+      return (
+        <p key={idx}>
+          <RichText spans={section.spans} fallback={section.content} />
+        </p>
+      );
 
     if (section.type === "heading") {
       const id = section.text ? slugifyHeading(section.text) : undefined;
@@ -156,12 +162,15 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     }
 
     if (section.type === "list" && section.items) {
+      const List = section.ordered ? "ol" : "ul";
       return (
-        <ul key={idx}>
+        <List key={idx}>
           {section.items.map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>
+              <RichText spans={section.richItems?.[i]} fallback={item} />
+            </li>
           ))}
-        </ul>
+        </List>
       );
     }
 
@@ -177,7 +186,9 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     if (section.type === "quote") {
       return (
         <blockquote key={idx}>
-          <p>{section.text}</p>
+          <p>
+            <RichText spans={section.spans} fallback={section.text} />
+          </p>
           {section.author && <cite>{section.author}</cite>}
         </blockquote>
       );
