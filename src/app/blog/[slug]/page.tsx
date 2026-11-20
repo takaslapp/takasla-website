@@ -59,6 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: post.title,
       description: post.excerpt,
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt || post.publishedAt,
       authors: [post.author.name],
       tags: post.tags,
       images: [
@@ -88,7 +89,13 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
   }
 
   const allPosts = await getAllPostsAsync();
-  const relatedPosts = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
+  // Önce aynı kategorideki yazılar, sonra en yeniler: güçlü iç bağlantı için 4 kart
+  const relatedPosts = [
+    ...otherPosts.filter((p) => p.category === post.category),
+    ...otherPosts.filter((p) => p.category !== post.category),
+  ].slice(0, 4);
+  const moreLinks = otherPosts.filter((p) => !relatedPosts.includes(p));
   const formattedDate = new Date(post.publishedAt).toLocaleDateString("tr-TR", {
     day: "numeric",
     month: "long",
@@ -118,6 +125,8 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
       "@type": "Person",
       name: post.author.name,
       jobTitle: post.author.role,
+      url: "https://takaslapp.com/hakkimizda",
+      worksFor: { "@id": "https://takaslapp.com/#organization" },
     },
     publisher: {
       "@type": "Organization",
@@ -463,6 +472,25 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
                 ))}
               </div>
             </div>
+          )}
+
+          {/* Tüm diğer rehberlere metin bağlantıları (iç linkleme) */}
+          {moreLinks.length > 0 && (
+            <nav aria-label="Diğer rehberler" className="mt-10 border-t border-gray-200 pt-8">
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Diğer Takas Rehberleri</h3>
+              <ul className="space-y-2">
+                {moreLinks.map((p) => (
+                  <li key={p.slug}>
+                    <Link href={`/blog/${p.slug}`} className="text-gray-700 hover:text-[#00A859] underline-offset-4 hover:underline">
+                      {p.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/blog" className="inline-block mt-5 font-semibold text-[#00A859] hover:underline">
+                Tüm blog yazıları →
+              </Link>
+            </nav>
           )}
         </article>
       </main>

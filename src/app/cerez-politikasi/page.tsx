@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/cerez-politikasi",
   },
+  // Yasal metin: sitede erişilebilir kalır, ancak arama sonuçlarında listelenmez (ince içerik oranını düşürür)
+  robots: { index: false, follow: true },
   keywords: ["takasla çerez politikası", "cookie policy", "çerez yönetimi"],
 };
 

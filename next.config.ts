@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.sanity.io",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.takaslapp.com",
+      },
     ],
   },
   allowedDevOrigins: ["192.168.1.218", "localhost:3000", "0.0.0.0:3000"],

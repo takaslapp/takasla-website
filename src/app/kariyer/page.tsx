@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     description:
       "Takasla ekibine katılın! Türkiye'nin yeni nesil takas platformunu birlikte inşa edelim.",
     url: "https://takaslapp.com/kariyer",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Takasla",
+    images: [{ url: "/images/takasla-icon.jpg", width: 1024, height: 1024, alt: "Takasla" }],
   },
 };
 

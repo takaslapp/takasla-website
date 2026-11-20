@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Outfit } from "next/font/google";
 import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
@@ -22,26 +21,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://takaslapp.com"),
   title: {
-    default: "Takasla - Türkiye'nin Yeni Nesil Eşya Takası Platformu | Parayla Değil Takasla",
+    default: "Takasla - Eşya takası ilanları",
     template: "%s - Takasla",
   },
   description:
-    "Takasla; kullanmadığın eşyaları ilana ekleyip, aradığın ürünleri para harcamadan güvenle takas edebileceğin yeni nesil dijital takas platformudur. Parayla değil, Takasla!",
-  keywords: [
-    "takas",
-    "takasla",
-    "takasla nedir",
-    "parayla değil takasla",
-    "ikinci el takas",
-    "takas platformu",
-    "ürün takası",
-    "eşya takası",
-    "takas uygulaması",
-    "güvenli takas",
-    "takas pazarı",
-    "döngüsel ekonomi",
-    "ücretsiz takas",
-  ],
+    "Takasla'da kullanmadığın eşyayı ilana koy, ihtiyacın olan ürünle takas et. Türkiye genelinde eşya takası ilanları.",
   authors: [{ name: "Takasla", url: "https://takaslapp.com" }],
   creator: "Takasla",
   publisher: "Takasla",
@@ -59,21 +43,21 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://takaslapp.com",
     siteName: "Takasla",
-    title: "Takasla - Türkiye'nin Yeni Nesil Eşya Takası Platformu",
+    title: "Takasla - Eşya takası ilanları",
     description:
       "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
     images: [
       {
         url: "/images/takasla-icon.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Takasla - Yeni Nesil Takas Platformu",
+        width: 1024,
+        height: 1024,
+        alt: "Takasla",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Takasla - Türkiye'nin Yeni Nesil Eşya Takası Platformu",
+    title: "Takasla - Eşya takası ilanları",
     description:
       "Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey satın almadan güvenle takas yap.",
     site: "@takaslapp",
@@ -131,7 +115,7 @@ export default function RootLayout({
         "@id": "https://takaslapp.com/#website",
         url: "https://takaslapp.com",
         name: "Takasla",
-        description: "Parayla değil, Takasla. Yeni nesil takas platformu.",
+        description: "Eşya takası ilanları. Parayla değil, Takasla.",
         publisher: {
           "@id": "https://takaslapp.com/#organization",
         },
@@ -155,43 +139,14 @@ export default function RootLayout({
   return (
     <html lang="tr" className={outfit.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="preload"
-          as="image"
-          href="/images/takasla-yesil-logo.webp"
-          type="image/webp"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/images/takasla-hero.webp"
-          type="image/webp"
-          fetchPriority="high"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-white text-gray-800 antialiased overflow-x-hidden font-sans">
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
+      <body className="bg-white text-ink antialiased overflow-x-hidden font-sans">
         {children}
-        <CookieBanner />
+        <CookieBanner gaId={GA_MEASUREMENT_ID} />
       </body>
     </html>
   );

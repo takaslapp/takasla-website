@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/mesafeli-hizmet-sozlesmesi",
   },
+  // Yasal metin: sitede erişilebilir kalır, ancak arama sonuçlarında listelenmez (ince içerik oranını düşürür)
+  robots: { index: false, follow: true },
   keywords: ["mesafeli hizmet sözleşmesi", "takasla sözleşme", "dijital hizmet satın alma"],
 };
 

@@ -24,6 +24,10 @@ export const metadata: Metadata = {
     description:
       "Takasla, kullanılmayan eşyaların döngüsel ekonomiye kazandırıldığı yeni nesil dijital takas platformudur.",
     url: "https://takaslapp.com/hakkimizda",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Takasla",
+    images: [{ url: "/images/takasla-icon.jpg", width: 1024, height: 1024, alt: "Takasla" }],
   },
 };
 

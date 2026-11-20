@@ -36,30 +36,6 @@ export interface BlogPost {
 }
 
 // Static fallback posts (empty now that Sanity CMS is active)
-export const BLOG_POSTS: BlogPost[] = [];
-
-// Helper functions for retrieval and SEO
-export function getAllPosts(): BlogPost[] {
-  return [...BLOG_POSTS];
-}
-
-export function getFeaturedPost(): BlogPost | undefined {
-  return BLOG_POSTS[0];
-}
-
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((p) => p.slug === slug);
-}
-
-export function getCategories(): string[] {
-  const categories = new Set(BLOG_POSTS.map((p) => p.category));
-  return ["Tümü", ...Array.from(categories)];
-}
-
-export function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPost[] {
-  return BLOG_POSTS.filter((p) => p.slug !== currentSlug).slice(0, limit);
-}
-
 function isMarkdownTable(text: string): boolean {
   const lines = text.trim().split("\n").map((l) => l.trim()).filter(Boolean);
   return lines.length >= 2 && lines[0].includes("|") && (lines[1].includes("---") || lines[1].includes("|"));
@@ -211,11 +187,12 @@ export function transformSanityPost(sp: any): BlogPost {
     coverImage: imageUrl,
     category: sp.category || "Rehber",
     author: {
-      name: "Takasla Ekibi",
-      role: "İçerik & Topluluk",
+      name: "Recep Aydoğan",
+      role: "Takasla Kurucusu",
       avatar: "/images/takasla-icon.jpg",
     },
     publishedAt: sp.publishedAt || new Date().toISOString().split("T")[0],
+    updatedAt: typeof sp._updatedAt === "string" ? sp._updatedAt.split("T")[0] : undefined,
     readTime: sp.readTime || "4 dk okuma",
     tags: [sp.category || "Rehber"],
     featured: Boolean(sp.featured),

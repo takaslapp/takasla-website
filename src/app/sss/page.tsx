@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     description:
       "Takasla platformu, TakasPara sistemi, takas teklifleri ve güvenlik hakkında merak ettiğiniz tüm soruların cevapları.",
     url: "https://takaslapp.com/sss",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Takasla",
+    images: [{ url: "/images/takasla-icon.jpg", width: 1024, height: 1024, alt: "Takasla" }],
   },
 };
 

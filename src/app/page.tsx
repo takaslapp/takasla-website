@@ -1,106 +1,142 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+import SiteHeader from "@/components/market/SiteHeader";
+import CategoryBar from "@/components/market/CategoryBar";
+import ListingGrid from "@/components/market/ListingGrid";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import StatementSection from "@/components/StatementSection";
-import AppShowcase from "@/components/AppShowcase";
-import HomeBlogSection from "@/components/HomeBlogSection";
+import { getFacets, getListings } from "@/lib/listings";
+import { getAllPostsAsync } from "@/data/blog-posts";
+import { APP_STORE_URL } from "@/lib/site";
 
-const FaqSection = dynamic(() => import("@/components/FaqSection"));
+export const revalidate = 60;
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: { absolute: "Takasla - Eşya takası ilanları | Parayla değil, Takasla" },
+  description:
+    "Kullanmadığın eşyayı ilana koy, ihtiyacın olan ürünle takas et. Elektronik, giyim, ev eşyası ve daha fazlasında Türkiye genelinde takas ilanları.",
+  alternates: { canonical: "/" },
+};
+
+const STEPS = [
+  ["İlan ver", "Kullanmadığın ürünün fotoğrafını çek, durumunu ve karşılığında ne aradığını yaz."],
+  ["Teklif gönder", "Beğendiğin ilana kendi ürünlerinden bir veya birkaçını seçerek takas teklif et."],
+  ["Buluş ve takasla", "Teklif kabul edilince uygulama içinden yazışın, teslimatı birlikte planlayın."],
+];
+
+export default async function Home() {
+  const [{ items }, facets, posts] = await Promise.all([
+    getListings({ limit: 16 }),
+    getFacets(),
+    getAllPostsAsync(),
+  ]);
+
   return (
-    <>
-      {/* BEGIN: Hero Section (Full Viewport Height on PC) */}
-      <section
-        className="relative bg-cover bg-center bg-no-repeat text-white min-h-screen lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between pt-5"
-        style={{ backgroundImage: "url('/images/takasla-hero.webp')" }}
-        data-purpose="hero-section"
-      >
-        {/* Balanced overlay preserving image vibrance and text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/20 to-black/40 pointer-events-none z-0"></div>
-        <div className="hero-glow"></div>
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <CategoryBar />
 
-        {/* BEGIN: Navigation (With Hamburger Menu for Mobile) */}
-        <Navbar />
-        {/* END: Navigation */}
+      <main className="flex-1">
+        <section className="border-b border-line bg-surface">
+          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold sm:text-3xl">Eşya takası ilanları</h1>
+              <p className="mt-1 max-w-xl text-sm text-muted">
+                Kullanmadığın eşyayı ver, ihtiyacın olanı al. Para ödemeden, ilan sahibiyle doğrudan takas.
+              </p>
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <Link
+                href="/ilanlar"
+                className="inline-flex h-10 items-center whitespace-nowrap rounded-lg border border-line bg-white px-4 text-sm font-medium hover:border-ink"
+              >
+                İlanlara göz at
+              </Link>
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 items-center whitespace-nowrap rounded-lg bg-brand px-4 text-sm font-semibold text-brand-ink hover:brightness-95"
+              >
+                Ücretsiz ilan ver
+              </a>
+            </div>
+          </div>
+        </section>
 
-        {/* BEGIN: Hero Content */}
-        <main
-          className="container mx-auto px-6 relative z-10 flex-grow flex flex-col items-center text-center justify-center pt-20 sm:pt-28 lg:pt-36 pb-20 sm:pb-28"
-          data-purpose="hero-content"
-        >
-          {/* Main Slogan & Semantic H1 for SEO */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[58px] font-bold leading-tight mb-4 max-w-4xl tracking-tight text-white drop-shadow-md flex flex-wrap items-center justify-center gap-x-2.5 sm:gap-x-3.5 md:gap-x-4 gap-y-2">
-            <span>Parayla değil,</span>
-            <img
-              src="/images/takasla-yesil-logo.webp"
-              alt="Takasla - Yeni Nesil Eşya Takası Platformu"
-              width={193}
-              height={52}
-              fetchPriority="high"
-              className="h-8 sm:h-10 md:h-12 lg:h-[52px] w-auto object-contain inline-block drop-shadow-[0_4px_20px_rgba(190,243,73,0.35)]"
-            />
-            <span className="sr-only">Takasla - Türkiye&apos;nin Yeni Nesil Eşya Takası ve İkinci El Takas Platformu</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-gray-200 text-xs md:text-sm lg:text-base max-w-2xl mb-6 leading-relaxed font-light drop-shadow-sm">
-            Kullanmadığın eşyaları ilana koy, aradığın ürünleri keşfet ve yeni bir şey
-            satın almadan takas yap.
-          </p>
-
-          {/* Apple App Store Corporate Button Centered */}
-          <div className="flex items-center justify-center mb-6">
-            <Link
-              href="https://apps.apple.com/tr/app/takasla-yeni-nesil-takas/id6812309534?l=tr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-black hover:bg-[#111111] text-white px-5 py-2.5 rounded-xl border border-white/20 hover:border-white/40 transition-all shadow-xl hover:scale-105 active:scale-95 group"
-            >
-              <img
-                src="/images/apple-logo.webp"
-                alt="Apple App Store"
-                width={24}
-                height={24}
-                className="w-6 h-6 object-contain brightness-0 invert"
-              />
-              <div className="flex flex-col text-left leading-none">
-                <span className="text-[10px] text-gray-300 font-normal tracking-wide">
-                  App Store&apos;dan
-                </span>
-                <span className="text-base font-semibold text-white tracking-tight mt-0.5">
-                  İndirin
-                </span>
-              </div>
+        <section className="mx-auto max-w-6xl px-4 py-8">
+          <div className="mb-4 flex items-end justify-between">
+            <h2 className="text-lg font-semibold">Yeni ilanlar</h2>
+            <Link href="/ilanlar" className="text-sm text-link underline">
+              Tümünü gör ({facets.total})
             </Link>
           </div>
+          <ListingGrid listings={items} emptyText="Şu an yayında ilan yok." />
+        </section>
 
-        </main>
-        {/* END: Hero Content */}
-      </section>
-      {/* END: Hero Section */}
+        {facets.cities.length > 0 && (
+          <section className="mx-auto max-w-6xl px-4 pb-8">
+            <h2 className="mb-3 text-lg font-semibold">Şehirlere göre ilanlar</h2>
+            <ul className="flex flex-wrap gap-2 text-sm">
+              {facets.cities.map((c) => (
+                <li key={c.slug}>
+                  <Link href={`/sehir/${c.slug}`} className="inline-block rounded-md border border-line px-2.5 py-1 hover:border-ink">
+                    {c.name} <span className="text-muted">({c.count})</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
+        <section className="border-y border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-4 py-8">
+            <div className="mb-4 flex items-end justify-between">
+              <h2 className="text-lg font-semibold">Takasla nasıl çalışır?</h2>
+              <Link href="/nasil-calisir" className="text-sm text-link underline">
+                Detaylar
+              </Link>
+            </div>
+            <ol className="grid gap-4 sm:grid-cols-3">
+              {STEPS.map(([t, d], i) => (
+                <li key={t} className="rounded-lg border border-line bg-white p-4">
+                  <p className="text-xs font-medium text-muted">Adım {i + 1}</p>
+                  <p className="mt-1 font-semibold">{t}</p>
+                  <p className="mt-1 text-sm text-muted">{d}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
 
-      {/* BEGIN: Statement Section with Inline Emojis & Pills */}
-      <StatementSection />
-      {/* END: Statement Section */}
+        {posts.length > 0 && (
+          <section className="mx-auto max-w-6xl px-4 py-8">
+            <div className="mb-4 flex items-end justify-between">
+              <h2 className="text-lg font-semibold">Takas rehberleri</h2>
+              <Link href="/blog" className="text-sm text-link underline">
+                Blog
+              </Link>
+            </div>
+            <ul className="grid gap-4 sm:grid-cols-3">
+              {posts.slice(0, 3).map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/blog/${p.slug}`} className="group block">
+                    <img
+                      src={p.coverImage}
+                      alt=""
+                      loading="lazy"
+                      className="aspect-[16/9] w-full rounded-lg border border-line object-cover"
+                    />
+                    <p className="mt-2 font-medium leading-snug group-hover:underline">{p.title}</p>
+                    <p className="mt-1 line-clamp-2 text-sm text-muted">{p.excerpt}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </main>
 
-      {/* BEGIN: App Showcase Section (5 Mobile Screens) */}
-      <AppShowcase />
-      {/* END: App Showcase Section */}
-
-      {/* BEGIN: Latest Blog & Guides Section for Internal Linking & SEO */}
-      <HomeBlogSection />
-      {/* END: Latest Blog & Guides Section */}
-
-      {/* BEGIN: FAQ Section */}
-      <FaqSection />
-      {/* END: FAQ Section */}
-
-      {/* BEGIN: Footer Section */}
-      <Footer showAboutTeaser={true} outerBg="bg-white" />
-      {/* END: Footer Section */}
-    </>
+      <Footer />
+    </div>
   );
 }

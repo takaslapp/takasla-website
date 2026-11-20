@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     description:
       "Takasla iletişim bilgileri, merkez adresi ve harita konumu. Bizimle iletişime geçin.",
     url: "https://takaslapp.com/iletisim",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Takasla",
+    images: [{ url: "/images/takasla-icon.jpg", width: 1024, height: 1024, alt: "Takasla" }],
   },
 };
 

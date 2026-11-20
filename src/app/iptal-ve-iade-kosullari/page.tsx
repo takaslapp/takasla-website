@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/iptal-ve-iade-kosullari",
   },
+  // Yasal metin: sitede erişilebilir kalır, ancak arama sonuçlarında listelenmez (ince içerik oranını düşürür)
+  robots: { index: false, follow: true },
   keywords: ["takasla iade", "takasla cayma hakkı", "iptal koşulları", "takaspara iade"],
 };
 
